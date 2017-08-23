@@ -1,0 +1,320 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+	font-family:Verdana, Geneva, sans-serif;
+}
+body::after {
+	content: "";
+	/*background: url('pozadi.jpg') center no-repeat;*/
+	background-attachment: fixed;
+	opacity: 0.2;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position:fixed;
+	z-index: -1;  
+	padding:20px;
+	background-color: rgba(255, 250, 189, 0);
+}
+#body{
+	margin:auto;
+	max-width:1900px;
+}
+
+.oznameni{
+	margin:auto;
+	margin-top:47vh;
+	border:2px red solid;
+	min-width:400px;
+	width:23vw;
+	padding:10px;
+	text-align:center;
+}
+#over_prihlasit{
+	max-width:20vw;
+	min-width:350px;
+	position:relative;
+    margin:auto;
+}
+#pri_but{
+	position:absolute;
+    top:10px;
+    right:10px;
+    color:violet;
+    cursor:pointer;
+}
+#prihlasit{
+	max-width:20vw;
+	min-width:350px;
+	position:relative;
+    margin:auto;
+	margin-top:30vh;
+	border:grey 4px solid;
+	background-color:#FF9;
+	padding: 5vh 0 5vh 0;
+}
+#prihlasit table input{
+    max-width:150px;
+    padding: 1px 5px 1px 5px;
+    margin-bottom: 6px;
+}
+#prihlasit > table{
+	margin:auto;
+}
+#admin{
+	position:absolute;
+	bottom:2px;
+	right:2px;
+	color:red;
+}
+
+
+
+
+.right{
+	float:right;
+	margin-right:2vw;
+	display:inline;
+}
+#items{
+	width:90vw;
+	margin:auto;
+	margin-top:15vh;
+}
+#add_form{
+	width:70vw;
+	margin:auto;
+	margin-top:15vh;
+}
+#add_form input[type=number]{
+	max-width:70px;
+}
+.item{
+	margin:1.7%;
+	border-radius:7%;
+	border:solid 2px #0033FF;
+	padding:5px;
+	background-color:#FFC;
+}
+.item_old{
+	margin:1.7%;
+	border-radius:7%;
+	border:solid 2px #0033FF;
+	padding:5px;
+	background-color:#FBB;
+}
+.item > p, .item_old > p{
+	text-align:center;
+	font-size:12px;
+	margin-top:2vh;
+}
+#popis{
+	margin-right:3vw;
+	margin-left:1vw;
+}
+h1{
+	margin-left:30vw;
+}
+.red{
+	color:red;
+}
+.violet{
+	color:violet;
+}
+#items td{
+	width:15vw;
+	max-width:20vw;
+}
+.cena{
+	padding-right:5vw;
+	text-align:right;
+}
+.typ{
+	text-align:center;
+}
+#count{
+	margin-top:40px;
+}
+#prostred{
+	text-align:center;
+	padding-bottom:180px;
+	margin:30px 0 10px 0;
+}
+#prostred button{
+	border:none;
+    font-weight:bold;
+	cursor:pointer;
+}
+.smazat_prispevek{
+	float:right;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	margin: 13px 10px 0 0;
+	padding:1px;
+	color:#F09;
+}
+.aktualizovat_prispevek{
+	float:right;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	margin: 13px 10px 0 0;
+	padding:1px;
+	color:green;
+}
+.smazat_prispevek:hover, .aktualizovat_prispevek:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+button.menu{
+	margin-top:5px;
+}
+button.menu:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+button.odhlasit{
+	font-size:11px;
+}
+button.odhlasit:hover{
+	color:red;
+	text-decoration:none;
+}
+.moje_utrata{
+	background-color:#3FC;
+}
+div{order:solid black 1px;}
+.check{ display:inline; margin:0 20px 0 20px; }
+.check_H, .check_K{ cursor:pointer; min-height: 10px;}
+
+#send_to_mother{
+	position:fixed;
+    top:10vh;
+    left:40vw;
+    padding:20px;
+    border:solid black 3px;
+    background-color:#000012;
+}
+#send_to_mother p{
+	color:white;
+}
+#really_send{
+	position:absolute;
+    bottom:18px;
+    right:5px;
+}
+
+#right{
+	position:fixed;
+	right:0;
+	top:30;
+}
+
+#hereTable > img{
+	margin-left:50%;
+	transform:translate( -50%, 0);
+}
+
+#clear{
+	cursor:pointer;
+	font-size:120%;
+	margin-left:1rem;
+}
+
+#napoveda{
+	padding: 0;
+    margin-top: -15px;
+    font-family:geneva, verdana, sans-serif;
+    color:blue;
+	font-size:10px;
+	text-transform:uppercase;
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#allTransactions{
+	width:70vw;
+	margin:auto;
+	margin-top:15vh;
+}
+#allTransactions table{
+	border:solid black 3px;
+	text-align:center;
+	margin-top:5vh;
+}
+#allTransactions td, #allTransactions th{
+	padding: 20px;
+}
+#allTransactions th{
+	background-color:#aaa;
+	color:#309;
+}
+#allTransactions .licha{
+	background-color:#ddd;
+}
+#allTransactions tr:hover{
+	background-color:#6CF;
+	color:yellow;
+	cursor:none;
+}
+#allTransactions #cena{
+	width:50px;
+}
+#allTransactions .pozn{
+	font-size:10px;
+	line-height:2;
+}
+#allTransactions .smazat_prispevek{
+	float:right;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	margin: 13px 10px 0 0;
+	padding:1px;
+	color:#F09;
+}
+#allTransactions .smazat_prispevek:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+
+#scrollUpImg{
+	float:right;
+	margin-top:10px;
+	border:solid #0CF 1px;
+	cursor:pointer;
+}
+#scrollUpImg:hover{
+	border-color:black;
+	cursor:pointer;
+}
+
+
+
+
+div#otherCurrencyDiv{
+	display:inline-table;
+	clear:none;
+	margin-top:3px;
+}
+div#otherCurrencyDiv > * {
+	margin-left: 10px;
+}

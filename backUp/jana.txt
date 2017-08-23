@@ -1,0 +1,205 @@
+CREATE TABLE IF NOT EXISTS `utrata_jana` (
+  `ID` bigint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+  `popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `cena` float NOT NULL,
+  `datum` datetime NOT NULL,
+  `pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `platnost` int(11) NOT NULL DEFAULT '1',
+  `typ` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL DEFAULT 'karta'
+);
+
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '1', 'Lidl', 'Nakup', '115', '2016-03-01 17:30:16', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '2', 'Lekarna', 'Mast Canesten', '129', '2016-03-01 20:57:21', 'leky', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '4', 'Tesco', 'Jidlo (vcetne fixu na tabuli)', '121.88', '2016-03-01 20:58:34', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '5', 'Obed', '', '51', '2016-03-01 21:15:01', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '6', 'Kava', '', '29', '2016-03-02 18:39:21', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '7', 'Masticka', '', '50', '2016-03-04 19:13:38', 'leky', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '8', 'Albert ', 'Jidlo', '160.9', '2016-03-04 19:13:59', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '9', 'FNKV lekarna', 'Masticka', '50', '2016-03-04 19:15:08', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '10', 'Lidl', 'Jidlo', '81.77', '2016-03-05 15:46:04', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '11', 'Albert', 'Jidlo nakup', '43.5', '2016-03-06 22:22:39', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '12', 'Jidelna', 'Obed - bez slevy', '94', '2016-03-08 18:55:32', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '13', 'Listky do Divadla', 'Zkroceni zle zeny', '80', '2016-03-08 18:55:55', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '14', 'Jidlo', 'Kafe', '29', '2016-03-08 18:56:07', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '15', 'Tesco', '', '21', '2016-03-08 22:39:08', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '16', 'Kava', 'Kava - uceni ', '60', '2016-03-09 14:18:21', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '17', 'Albert', 'Knedlik', '11.9', '2016-03-09 14:18:48', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '18', 'Tesco', 'Nakup', '30', '2016-03-09 21:52:39', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '19', 'Albert', 'Jidlo', '89.5', '2016-03-10 21:29:15', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '20', 'CD', 'Jizdenka do Zlina', '179', '2016-03-10 21:58:28', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '21', 'CD', 'Jizdenka do Prahy', '176', '2016-03-12 17:26:45', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '22', 'Hospoda', 'Posezeni s holkama', '95', '2016-03-14 16:27:16', 'ostatni', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '23', 'Jidelna', 'Dobiti kreditu', '300', '2016-03-14 16:27:35', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '24', 'Jidelna', 'Kafe', '29', '2016-03-14 16:27:47', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '25', 'Najem', 'Najem duben', '2617', '2016-03-14 16:28:31', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '26', 'Lidl', 'Jidlo + lekarske kalhoty', '315.68', '2016-03-15 16:40:26', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '27', 'Jidelna', 'Obed', '57', '2016-03-15 16:40:47', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '28', 'Jidelna', 'Kava', '29', '2016-03-15 16:40:59', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '29', 'Lidl', 'Jidlo', '165.4', '2016-03-16 20:12:00', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '30', 'Tesco', 'Houska', '9', '2016-03-17 21:48:30', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '31', 'Divadlo', 'Listky do divadla pro Vojtu', '40', '2016-03-17 22:06:57', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '32', 'Jidelna', 'Obed', '51', '2016-03-21 18:58:27', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '33', 'Jidelna', 'Kava', '29', '2016-03-21 18:58:43', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '34', 'Billa', 'Jidlo - 18.3', '78.02', '2016-03-22 21:25:18', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '35', 'Albert', 'Jidlo - 20.3', '18.9', '2016-03-22 21:25:46', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '36', 'Tesco', 'Lepidlo, do kone cvakacky', '27.7', '2016-03-22 21:26:19', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '37', 'Kava', '2x', '30', '2016-03-22 21:26:52', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '38', 'Vajicka', 'Vajicka velikonocni', '66', '2016-03-22 21:27:10', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '39', 'Jizdenka', 'Praha - Zlin ', '176', '2016-03-29 20:26:45', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '40', 'Jizdenka', 'Zlin - Praha', '176', '2016-03-29 20:26:59', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '41', 'Jizdenka', 'Praha - listek ', '40', '2016-03-29 20:27:19', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '42', 'Kava', 'Cesta do Prahy', '22', '2016-03-29 20:27:41', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '43', 'Jidlo', 'Houska - po 28.3', '9', '2016-03-30 20:05:42', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '44', 'Tesco', 'Jidlo ', '37', '2016-03-30 20:06:47', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '45', 'Jidelna', 'Kava', '29', '2016-03-30 20:07:01', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '46', 'Jidelna', 'Dobiti kreditu', '200', '2016-03-30 20:07:16', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '47', 'Albert', 'Jidlo', '15.7', '2016-03-31 21:40:35', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '48', 'Teta', 'Odlicovac, kondicioner', '227.7', '2016-03-31 21:41:03', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '49', 'Kava', 'Se spoluzaky', '50', '2016-03-31 21:41:35', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '50', 'Jidelna', 'Kava', '22', '2016-04-04 21:09:27', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '51', 'Albert', 'Jidlo ', '31.7', '2016-04-04 21:10:53', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '52', 'Jidelna', 'Kava', '29', '2016-04-05 20:30:01', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '53', 'Platba', 'Vraceni penez Mana', '792.1', '2016-04-05 20:41:08', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '54', 'Albert', 'Jidlo', '157.3', '2016-04-10 19:59:21', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '55', 'Vojta - vyrovnani', '', '578', '2016-04-10 21:28:58', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '56', 'Tesco', 'Jidlo', '23.03', '2016-04-10 21:30:13', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '57', 'Albert', 'Jidlo - slehacka - 1.4', '12.9', '2016-04-10 21:31:12', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '58', 'Jidelna', 'Dobiti kreditu - 1.4.', '400', '2016-04-10 21:32:11', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '59', 'Albert', 'Jidlo - 6.4', '119.6', '2016-04-10 21:32:53', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '60', 'Tesco', 'Jidlo - 4.4', '8.7', '2016-04-10 21:33:39', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '61', 'Jizdenka', 'Pro Manu ', '32', '2016-04-10 21:34:47', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '62', 'Jizdenka', 'dobiti Student Agency', '103', '2016-04-10 21:35:35', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '63', 'Rossmann', 'Rasenka - 6.4', '139', '2016-04-10 21:36:52', 'leky', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '64', 'Jidelna', 'Kava - 11.4 + susenky', '42', '2016-04-12 10:11:32', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '65', 'Student Agency', 'Jizdenka Mamka', '100', '2016-04-18 16:04:21', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '66', 'Najem', '', '2947', '2016-04-18 20:05:28', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '67', 'Tesco', 'Jidlo', '74.55', '2016-04-18 20:05:59', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '68', 'Lidl', 'Jidlo', '174', '2016-04-25 20:06:25', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '69', 'Jidelna', 'Kava', '29', '2016-04-26 21:44:45', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '70', 'Jidelna', 'Dobiti kreditu', '500', '2016-04-26 21:45:11', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '71', 'Jizdenka', 'Student mamka', '90', '2016-04-27 11:20:16', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '72', 'Jidelna', 'jablko', '6', '2016-04-27 11:20:28', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '73', 'Tesco', 'Nakup - 2.5', '17', '2016-05-03 18:21:03', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '74', 'Albert', 'Jidlo', '138.3', '2016-05-03 19:12:50', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '75', 'Albert', 'Jidlo - 1.5', '277.8', '2016-05-03 19:13:13', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '76', 'Tesco', 'Jidlo - 28.4', '87.22', '2016-05-04 16:31:08', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '77', 'Billa', 'Jidlo - 21.4', '19.8', '2016-05-04 16:32:15', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '78', 'Tesco', 'Jidlo', '7.18', '2016-05-04 16:36:27', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '79', 'Albert', 'Jidlo', '65.4', '2016-05-04 21:16:25', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '80', 'Albert', 'Jidlo', '18.5', '2016-05-05 19:15:29', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '81', 'Levne Knihy', 'Memorix histologie', '660', '2016-05-05 19:15:48', 'jidlo', '0', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '82', 'Levne Knihy', 'Memorix Histologie', '660', '2016-05-05 19:16:13', 'ostatni', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '83', 'Albert', 'Jidlo', '121.6', '2016-05-06 20:11:57', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '84', 'Tesco', 'Jidlo + opalovaci krem + sampon', '408', '2016-05-07 20:22:42', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '85', 'Albert', 'Jidlo', '200.4', '2016-05-08 12:43:25', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '86', 'Tesco', 'Polomacene za ucebnici', '9', '2016-05-10 22:37:21', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '87', 'Albert', 'Jidlo', '147.4', '2016-05-10 22:37:37', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '88', 'Billa', 'Zmrzliny', '18.9', '2016-05-10 22:37:52', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '89', 'Najem', 'Najem Plskova', '2500', '2016-05-11 07:19:46', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '90', 'Albert', 'Jidlo 11.5', '28.8', '2016-05-12 19:24:44', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '91', 'Albert', 'Jidlo', '101.4', '2016-05-12 19:25:14', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '92', 'Tesco', 'Jidlo', '10.9', '2016-05-12 19:26:24', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '93', 'Jidelna', 'Kava', '30', '2016-05-18 21:42:25', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '94', 'Tesco', 'Jidlo', '35.5', '2016-05-18 21:43:58', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '95', 'Jidelna', 'Kava', '29', '2016-05-19 19:05:15', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '96', 'Jidelna', 'Dalsi + polevka - 16.5', '66', '2016-05-19 19:06:07', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '97', 'Jidelna', 'Polevka + Jidlo', '66', '2016-05-19 19:06:40', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '98', 'Tesco', 'Jidlo + boty', '264', '2016-05-19 19:08:42', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '99', 'Tesco', 'Jidlo + boty', '264.8', '2016-05-19 19:09:03', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '100', 'Albert + Tesco', 'Jidlo (16. + 17.5.)', '109.63', '2016-05-19 19:10:45', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '101', 'Acter', 'Kurz prvni pomoci', '2000', '2016-05-19 19:11:16', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '102', 'Jidelna', 'Jidlo', '57', '2016-06-08 18:50:49', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '103', 'Jidelna', 'Kava', '29', '2016-06-08 18:50:57', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '104', 'Vojta - vyrovnani', 'Duben', '412.95', '2016-06-08 18:51:16', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '105', 'Jizdenka', 'Praha - Olomouc', '144', '2016-06-09 21:19:16', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '106', 'Jizdenka', 'NA 4 jizdy', '46', '2016-07-07 21:29:20', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '107', 'Jizdenka', 'Olomouc - Zlin : ', '35', '2016-07-07 21:37:59', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '108', 'Jidlo', 'Billa', '179.34', '2016-07-07 21:40:12', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '109', 'Jidlo', 'Albert - 6.6.2016', '61.98', '2016-07-07 21:40:44', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '110', 'Jidlo', 'Albert - 4.6.2016', '117.8', '2016-07-07 21:41:10', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '111', 'Jizdenka', 'Brno - Zlin (22.4)', '90', '2016-07-07 21:42:54', 'leky', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '112', 'Jidlo', 'Albert - 2. - 6.6 (vse dohromady)', '343.8', '2016-07-07 21:46:17', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '113', 'Jidelna', 'dobiti - 13.6', '200', '2016-07-07 21:46:46', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '114', 'Tesco', 'Jidlo', '408', '2016-07-07 21:47:06', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '115', 'Jidlo', 'Albert', '200.4', '2016-07-07 21:47:28', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '116', 'Jidlo', 'Albet + Billa', '166.2', '2016-07-07 21:48:15', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '117', 'Najem', '', '2500', '2016-07-07 21:48:56', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '118', 'Jidlo', 'Albert (11.5)', '28.8', '2016-07-07 21:49:27', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '119', 'Jidlo', 'Tesco + Albert (12.6.)', '111.9', '2016-07-07 21:50:43', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '120', 'Jidlo', 'Tesco (16.5)', '10.53', '2016-07-07 21:51:46', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '121', 'Jidlo', 'Albert (17.6)', '99.1', '2016-07-07 21:52:16', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '122', 'Jidlo', 'Tesco (18.5.)', '35.5', '2016-07-07 21:53:02', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '123', 'Jidlo', 'Tesco (19.5)', '264.8', '2016-07-07 21:54:22', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '124', 'Jizdenka', 'Praha - Zlin', '183', '2016-07-07 21:54:56', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '125', 'Jizdenka', 'Zlin - Praha', '352', '2016-07-07 21:55:50', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '127', 'Jidlo', 'Albert (22.5)', '51.8', '2016-07-07 21:56:34', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '128', 'mimino', '', '3000', '2016-07-07 22:17:02', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '129', 'Jidlo', 'Tabor - cola', '33', '2016-07-18 14:44:51', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '130', 'Jidlo', 'Pecivo Majak', '59', '2016-07-18 14:45:33', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '131', 'Jizdenka', 'Jizdenka 20 min', '12', '2016-07-21 20:16:16', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '132', 'Lekarna', 'Ibalgin ', '69', '2016-07-21 20:16:49', 'leky', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '133', 'Rossmann', 'Rasenka', '139', '2016-07-21 20:17:29', 'kosmetika', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '134', 'Zdrava vyziva', 'Kapky na zub', '80', '2016-07-21 20:18:18', 'leky', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '135', 'Billa', 'Jidlo', '79.5', '2016-08-28 08:31:00', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '136', 'Gyros', '', '59', '2016-08-28 08:32:00', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '137', 'CCC', 'Boty + protiskluzove', '798', '2016-08-30 20:45:00', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '138', 'Jizdenka', '2x46 jizdy (jednu na vraceni)', '93', '2016-08-30 20:47:00', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '139', 'Jidlo', 'Majak obchod', '32', '2016-09-01 16:46:00', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '140', 'Jizdenka', 'Zlin - Vizovice', '23', '2016-09-05 15:28:00', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '141', 'Jizdenka', 'Vizovice - Ublo', '13', '2016-09-05 15:29:00', 'transport', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '142', 'Jizdenka', 'Horni Lidec - Valasske klobouky', '20', '2016-09-06 15:29:00', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '143', 'Jizdenka', 'Brumov - Bylnice - Slavicin', '23', '2016-09-06 15:30:00', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '144', 'Jizdenka', 'Luhacovice - Majak', '36', '2016-09-07 15:30:00', 'transport', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '145', 'Jidlo', 'Pizza + polevka Lidecko', '115', '2016-09-05 15:31:00', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '146', 'Jidlo', 'Polevka Horni lidec', '21', '2016-09-06 15:32:00', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '147', 'Jidlo', 'Slavicin nakup', '16', '2016-09-06 15:32:00', 'jidlo', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '148', 'Jidlo', 'Pekarna Luhacovice', '12', '2016-09-07 15:32:00', 'jidlo', '1', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '149', 'Vyber', 'vyber', '2000', '2016-09-07 15:33:00', 'ostatni', '1', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '150', 'nové', '', '300', '2016-09-20 18:20:00', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '151', 'staré', '', '100', '2016-09-18 14:30:00', 'jidlo', '0', 'hotovost' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '152', 'ahoj', '', '300', '2016-09-20 04:12:23', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '153', 'jop', '', '-1000', '2016-09-20 04:15:13', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '154', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '155', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '156', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '157', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '158', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '159', 'a', '', '13', '2016-09-20 14:15:21', 'jidlo', '0', 'karta' );
+INSERT INTO `utrata_jana` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '160', 'elkoma', '', '60', '2016-09-21 23:51:18', 'transport', '1', 'hotovost' );
+
+
+
+
+CREATE TABLE IF NOT EXISTS `utrata_akt_hodnota_jana` (
+  `ID` tinyint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `datum` datetime NOT NULL,
+  `hodnota` float NOT NULL,
+  `duvod` varchar(61) COLLATE utf8_czech_ci DEFAULT NULL,
+  `typ` varchar(255) COLLATE utf8_czech_ci NOT NULL DEFAULT 'karta'
+);
+
+INSERT INTO `utrata_akt_hodnota_jana` (`ID`, `datum`, `hodnota`, `duvod`, `typ`) VALUES ( '2', '2016-03-01 21:20:00', '8517.97', '', 'karta' );
+INSERT INTO `utrata_akt_hodnota_jana` (`ID`, `datum`, `hodnota`, `duvod`, `typ`) VALUES ( '3', '2016-03-01 21:27:51', '5308', '', 'hotovost' );
+
+
+
+
+CREATE TABLE IF NOT EXISTS `utrata_check_state_jana` (
+	`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`typ` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+	`checked` datetime NOT NULL,
+	`value` double NOT NULL
+)
+
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '1', 'karta', '2016-09-28 17:48:24', '13' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '2', 'karta', '2016-09-28 17:49:06', '13' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '3', 'hotovost', '2016-09-28 17:49:06', '13' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '4', 'karta', '2016-09-28 17:49:15', '13' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '5', 'hotovost', '2016-09-28 17:49:15', '13' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '6', 'karta', '2016-09-28 17:49:26', '-21071' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '7', 'hotovost', '2016-09-28 17:52:37', '882' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '8', 'karta', '2016-09-28 17:52:40', '-21071' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '9', 'hotovost', '2016-09-28 17:53:02', '882' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '10', 'hotovost', '2016-09-28 17:53:03', '882' );
+INSERT INTO `utrata_check_state_jana` (`id`, `typ`, `checked`, `value`) VALUES ( '11', 'hotovost', '2016-09-28 17:53:04', '882' );

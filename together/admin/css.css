@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background-color:#676767;
+}
+.ared{
+	color:#C6F;
+}
+.agreen{
+	color:#6FFF6F;
+}
+
+div.buttons{
+	margin: 1rem 0 0 1.3rem;
+}
+
+button, button *{
+	border:none;
+	background-color:#CBFF7D;
+	padding:3px;
+	cursor:pointer;
+	margin-right:4px;
+	border-radius:13%;
+	font-family:"Courier New", Courier, monospace;
+}
+button#getBack{
+	float:right;
+	margin-right:30px;
+}
+
+div#resultsHere{
+	margin-top:2rem;
+	margin-left:4vw;
+	width:90vw;
+	border:solid #F96C93 3px;
+	color:white;
+	padding:1vw;
+}
+div#resultsHere > * {
+	text-align:center;
+	margin:auto;
+}
+a{
+	text-decoration:none;
+	color:black;
+}
+
+table#printAllPeople{
+	border:3px #000 solid;
+	max-width:90vw;
+	font-size:80%;
+}
+table#printAllPeople *{	
+	padding:5px;
+}
+
+
+table#addUser {
+	text-align:left;
+	margin:1px;
+}
+
+.updateCellInput{
+	max-width:5rem;
+}

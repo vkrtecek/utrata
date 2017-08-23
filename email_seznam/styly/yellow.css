@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+p, h1, #menu input, #underFooter input{
+	color:black;
+}
+#bodyLogged{
+	background-color:#cc6;
+}
+#footer, #header, #menu, #content, #underFooter{	
+	background-color:#FFD;
+}
+#menu li:hover{
+	background-color:yellow;
+}
+#content tr.resultBoxRow{
+	background-color:yellow;
+	color:#06C;
+}
+#content .resultBoxRow:hover{
+	background-color:#FC6;
+}
+#content #concMail{
+	background-color:#FFa;
+}
+#content #writeMailForm{
+	background-color:#FFa;
+}
+#content #warningsWithSending *{
+	color:blue;
+}
+#content tr th{
+	background-color: #F96;
+	color:#000;
+}
+
+
+
+
+/* by word */
+.red{
+	color:#C0C;
+}
+
+
+
+
+
+/* mobile */
+div#underFooter{
+	background-color:#FC9;
+}
+#underFooter li *:hover{
+	background-color:#FF6;
+}
+
+
+
+
+/* borders */
+#content .resultBoxCell{
+	border-top:solid #909 1px;
+}
+#content #concMail, #content #writeMailForm{
+	border:solid 1px #F66;
+}

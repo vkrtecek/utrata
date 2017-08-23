@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* CSS Document */
+p#menuP{
+	font-weight:bold;
+	text-align:center;
+	cursor:pointer;
+}
+#header, #menu, #content, #footer{
+	position:static;
+	margin-bottom:0.3rem;
+}
+div#header{
+	height:3rem;
+}
+div#menu{
+	top:10.3vh;
+	left:0;
+	width:98.2vw;
+	height:1.4rem;
+}
+div#content{
+	top:14.9vh; /* 10.3 */
+	left:0vw;
+	width:98.2vw;
+	height:73.3vh;
+}
+div#footer{
+	top:90vh;
+	left:0vw;
+	width:98.2vw;
+	height:8.5vh;
+}
+/**/
+div#underFooter{
+	top:14.9vh;
+	top:5.8rem;
+	left:0vw;
+	width:98.2vw;
+	height:83.4vh;
+}
+#underFooter ul{
+	list-style-type:none;
+}
+#underFooter input{
+	margin-top:0.3rem;
+	margin-left:0.6rem;
+	line-height:1.6rem;
+	border:none;
+	background-color:transparent;
+	display:block;
+}
+#underFooter input:hover{
+	cursor:pointer;
+}
+#underFooter .inputNoActive{
+	font-weight:bold;
+}
+/**/
+#content #writeMailForm #input1Form{
+	width:95%;
+}
+#content #writeMailForm #input2Form{
+	width:95%;
+}
+#content #writeMailForm #textareaForm{
+	width:95%;
+	min-height:12em;
+}
+#concMail #viewMailTextArea{
+	width:95%;
+	min-height:12em;
+}

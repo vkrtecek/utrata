@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+
+#backButton{
+	position:absolute;
+	top:2px;
+	right:6px;
+}
+#formSignIn{
+	min-width:50em;
+}
+#formSignIn p{
+	padding:10px;
+}
+
+
+
+
+
+em.pozn{
+	font-size:60%;
+}
+.red{
+	color:red;
+	padding-left:5px;
+}

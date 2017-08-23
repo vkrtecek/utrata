@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+div.child{
+	border:solid black 0.3rem;
+	clear:both;
+	
+	margin: 10vh 10% 0 10%;
+	height:10vh;
+	background-color:#6C3;
+}
+.child > p{
+	text-transform:uppercase;
+	text-align:center;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:3vh;
+	display:block;
+	color:#FC3;
+}
+a{
+	text-decoration:none;
+	text-transform:none;
+}
+.child > p:hover{
+	color:red;
+	text-decoration:overline;
+}

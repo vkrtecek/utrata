@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS `utrata_krtek` (
+  `ID` bigint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+  `popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `cena` float NOT NULL,
+  `datum` datetime NOT NULL,
+  `pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `platnost` int(11) NOT NULL DEFAULT '1',
+  `typ` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL DEFAULT 'karta'
+);
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `utrata_akt_hodnota_krtek` (
+  `ID` int(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `datum` datetime NOT NULL,
+  `hodnota` float NOT NULL,
+  `duvod` varchar(61) COLLATE utf8_czech_ci DEFAULT NULL,
+  `typ` varchar(255) COLLATE utf8_czech_ci NOT NULL DEFAULT 'karta',
+  `idToDelete` bigint(18) NULL DEFAULT NULL
+);
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `utrata_check_state_krtek` (
+	`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`typ` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+	`checked` datetime NOT NULL,
+	`value` double NOT NULL
+)
+
+INSERT INTO `utrata_check_state_krtek` (`id`, `typ`, `checked`, `value`) VALUES ( '1', 'karta', '0000-00-00 00:00:00', '0' );
+INSERT INTO `utrata_check_state_krtek` (`id`, `typ`, `checked`, `value`) VALUES ( '2', 'hotovost', '0000-00-00 00:00:00', '0' );

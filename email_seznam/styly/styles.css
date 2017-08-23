@@ -1,0 +1,261 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:99%;
+}
+.red{
+	font-weight:bold;
+}
+
+
+/* sign in */
+#formSignIn{
+	margin:auto;
+	width:20vw;
+	min-width:350px;
+	margin-top:50vh;
+	transform:translate(0,-50%);
+}
+#tableSignIn{
+	margin:auto;
+	margin-top:40px;
+	margin-bottom:25px;
+}
+#tableSignIn input{
+	max-width:130px;
+}
+#tableSignIn td{
+	padding-bottom:15px;
+}
+#tableSignIn a{
+	text-decoration:none;
+	font-size:70%;
+	margin-left:1em;
+	line-height:1.8em;
+}
+#tableSignIn a:hover{
+	cursor:pointer;
+}
+/* --sign in-- */
+
+
+
+
+/* template */
+#footer, #header, #menu, #content, #underFooter{
+	position:absolute;
+	/*border:solid black 1px;*/
+	padding:0.6vh 0.6vw 0.6vh 0.6vw;
+}
+div#header{
+	top:0;
+	left:0;
+	width:98.2vw;
+	height:8.8vh;
+}
+div#menu{
+	top:10.3vh;
+	left:0;
+	width:13.8vw;
+	height:88.2vh;
+}
+div#content{
+	top:10.3vh;
+	left:15.3vw;
+	width:82.9vw;
+	height:77.9vh;
+}
+div#footer{
+	top:90vh;
+	left:15.3vw;
+	width:82.9vw;
+	height:8.5vh;
+}
+div#hereMails{
+	margin-top:30px;
+}
+div#underFooter{
+	width:0;
+	height:0;
+}
+/* template->header		1 */
+#header .welcome{
+	text-align:center;
+	margin-bottom:0.3rem;
+}
+/* -- template->header1 -- */
+/* template->menu		2 */
+#menu ul{
+	list-style-type:none;
+}
+#menu input{
+	margin-top:0.3rem;
+	margin-left:0.6rem;
+	line-height:1.6rem;
+	border:none;
+	background-color:transparent;
+	display:block;
+}
+#menu input:hover{
+	cursor:pointer;
+}
+#menu .inputNoActive{
+	font-weight:bold;
+}
+/* -- template->menu -- */
+/* template->content		3 */
+#content{
+	overflow:scroll;
+}
+#content td > *{
+	cursor:pointer;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+#content .notReatYet{
+	font-weight:bold;
+}
+#content td{
+	/*border:solid black 1px;*/
+}
+#content #resultBoxTable{
+	width:100%;
+}
+#content .resultBoxCell{
+	line-height:2em;
+	padding:0 3px 0 3px;
+}
+#content .mailCol0{
+	padding:0 0.3em 0 0.3em;
+	margin:0;
+	text-align:center;
+}
+#content .mailCol1{
+	text-align:left;
+	width:20%;
+}
+#content .mailCol2{
+	text-align:left;
+	width:20%;
+}
+#content .mailCol3{
+	text-align:left;
+	width:40%;
+}
+#content .mailCol4{
+	text-align:right;
+	padding-right:1rem;
+}
+#content th.mailCol4{
+	text-align:center;
+}
+#content td{
+	/*border-left:solid black 1px;*/
+}
+#content #concMail{
+	padding:7px;
+}
+#content #concMail p{
+	margin-bottom:3px;
+}
+#concMail #viewMailTextArea{
+	margin-top:0.6rem;
+	width:98.8%;
+	min-height:30em;
+	padding:0.6%;
+}
+#content #navigationCurMail, #content #stateBar{
+	margin-top:-1.6rem;
+	margin-bottom:0.6rem;
+}
+#content #navigationCurMail button, #content #stateBar button{
+	margin-left:0.6rem;
+	border:none;
+	background-color:transparent;
+	cursor:pointer;
+}
+#content #writeMailForm{
+	padding:0.6%;
+	padding-top:1rem;
+	width:98.5%;
+}
+#content #writeMailForm table{
+	width:100%;
+}
+#content #writeMailForm table td:last-child{
+	width:100%;
+}
+#content #writeMailForm table tr *{
+	margin-bottom:0.5rem;
+}
+#content #writeMailForm #input1Form{
+	width:98%;
+	padding:2px 0 2px 5px;
+	cursor:text;
+}
+#content #writeMailForm #input2Form{
+	width:98%;
+	padding:2px 0 2px 5px;
+	cursor:text;
+}
+#content #writeMailForm #textareaForm{
+	width:98%;
+	max-width:99%;
+	min-height:30em;
+	padding:4px 5px 2px 5px;
+	cursor:text;
+}
+#content #writeMailForm #submit{
+	margin-right:1%;
+	float:right;
+	font-family:Verdana, Geneva, sans-serif;
+}
+#content #warningsWithSending *{
+	font-family:Verdana, Geneva, sans-serif;
+	cursor:default;
+}
+/* -- template->content -- */
+/* template->footer		4 */
+
+/* -- template->footer -- */
+/* --template-- */
+
+
+/* settings */
+#setTable{
+}
+#setTable tr.colors div{
+	width:30px;
+	height:2rem;
+	cursor:pointer;
+	border:solid 2px transparent;
+}
+#setNick{
+}
+label #black{
+	background-color:black;
+}
+label #blue{
+	background-color:blue;
+}
+label #red{
+	background-color:red;
+}
+label #green{
+	background-color:green;
+}
+label #yellow{
+	background-color:yellow;
+}
+label #pink{
+	background-color:pink;
+}
+#setForm input[type="radio"]{
+	display:none;
+}
+#setSubmit{
+	cursor:pointer;
+}
+/* --settings-- */
