@@ -127,7 +127,17 @@ function downloadBackUp( name )
 	xmlhttp.onreadystatechange = function(){
 		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 )
 		{
-			if ( xmlhttp.responseText == 'true' ) window.open( 'backUp/'+name+'.txt' );
+			if ( xmlhttp.responseText == 'true' ) {
+				var file_path = 'backUp/'+name+'.txt';
+				var a = document.createElement('A');
+				a.href = file_path;
+				a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				
+				//window.open( 'backUp/'+name+'.txt' );
+			}
 			else alert( 'vyskytla se chyba: ' + xmlhttp.responseText );
 		}
 	};

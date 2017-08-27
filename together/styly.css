@@ -318,3 +318,24 @@ div#otherCurrencyDiv{
 div#otherCurrencyDiv > * {
 	margin-left: 10px;
 }
+
+
+div#settingsDiv {
+	margin:auto;
+	margin-top:5rem;
+	padding:13px;
+	width:700px;
+	border: solid black 1px;
+}
+div#settingsDiv td {
+	padding: 3px 0 3px 5px;
+}
+div#settingsDiv td {
+	text-align:left;
+}
+div#settingsDiv label {
+	color:#039;
+}
+div#settingsDiv strong {
+	margin-left: 5px;
+}

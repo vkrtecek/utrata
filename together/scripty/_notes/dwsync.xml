@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="dbConn.js" server="79175.w75.wedos.net" local="131483135004784717" remote="131483062800000000" Dst="2" />
+<file name="dbConn.js" server="79175.w75.wedos.net" local="131483434580001962" remote="131483364000000000" Dst="2" />
 <file name="showItems.php" server="79175.w75.wedos.net" local="131483113046079208" remote="131483044800000000" Dst="2" />
 <file name="updateState.php" server="79175.w75.wedos.net" local="131195522757862123" remote="131196354600000000" Dst="2" />
 <file name="showStatus.php" server="79175.w75.wedos.net" local="131479010657430356" remote="131478955200000000" Dst="2" />
@@ -9,8 +9,11 @@
 <file name="deleteItem.php" server="79175.w75.wedos.net" local="131196382509539968" remote="131196354600000000" Dst="2" />
 <file name="sendMailToMother.php" server="79175.w75.wedos.net" local="131188801393682989" remote="131196354600000000" Dst="2" />
 <file name="sendToMother.php" server="79175.w75.wedos.net" local="131479026806050830" remote="131478955200000000" Dst="2" />
-<file name="showMenu.php" server="79175.w75.wedos.net" local="131242071884289058" remote="131242035600000000" Dst="1" />
+<file name="showMenu.php" server="79175.w75.wedos.net" local="131483151718442518" remote="131483092800000000" Dst="2" />
 <file name="getCurseValue.php" server="79175.w75.wedos.net" local="131479768712579575" remote="131479830000000000" Dst="2" />
 <file name="nahratItem.php" server="79175.w75.wedos.net" local="131483115921484227" remote="131483044800000000" Dst="2" />
 <file name="showCurrencies.php" server="79175.w75.wedos.net" local="131479773292542065" remote="131479830000000000" Dst="2" />
+<file name="changeSettings.php" server="79175.w75.wedos.net" local="131483435363405085" remote="131483364000000000" Dst="2" />
+<file name="checkExistenceInCol.php" server="79175.w75.wedos.net" local="131483387568129078" remote="131483364000000000" Dst="2" />
+<file name="printSettingsForm.php" server="79175.w75.wedos.net" local="131483430526000825" remote="131483364000000000" Dst="2" />
 </dwsync>

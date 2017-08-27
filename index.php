@@ -130,6 +130,9 @@ if ( file_exists($promenne) && require($promenne) )
 					case 'stare_ucty':
 						$file .= 'stare_ucty.php';
 						break;
+					case 'settings':
+						$file .= 'settings.php';
+						break;
 					default:
 						$file .= 'uvod.php';
 						break;

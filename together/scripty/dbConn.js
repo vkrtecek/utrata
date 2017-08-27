@@ -318,3 +318,176 @@ function nahratItem( DIV, login, passwd, user ) {
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send( 'user=' + user + '&name=' + name + '&desc=' + desc + '&pozn=' + pozn + '&type=' + type + '&date=' + date + '&price=' + price + '&course=' + course + '&vyber=' + vyber + '&odepsat=' + odepsat );
 }
+
+
+function printSettingsForm( DIV, login ) {
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+			document.getElementById( DIV ).innerHTML = xmlhttp.responseText;
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/printSettingsForm.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "login="+login );
+}
+
+function makeLowercase( input ) {
+	input.value = input.value.toLowerCase();	
+}
+
+function checkMail( input, DIV ) {
+	document.getElementById( DIV ).style.fontFamily = 'monospace';
+	var was = input.getAttribute( 'goodValue' );
+	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	
+	if ( input.value == was ) {
+		document.getElementById( DIV ).innerHTML = '';
+	} else if ( re.test(input.value) ) {
+		document.getElementById( DIV ).innerHTML = 'OK';
+		document.getElementById( DIV ).style.color = 'green';
+	} else {
+		document.getElementById( DIV ).innerHTML = 'bad format';
+		document.getElementById( DIV ).style.color = 'red';
+	}
+}
+
+function checkExistenceInCol( input, COL, DIV ) {
+	var minChar = 2;
+	var puvodni = input.getAttribute( 'goodValue' );
+	document.getElementById( DIV ).style.fontFamily = 'monospace';
+	
+	if ( input.value.length < minChar ) {
+		document.getElementById( DIV ).innerHTML = 'příliš krátké (> '+minChar+' znaků)';
+		document.getElementById( DIV ).style.color = 'violet';
+	} else if ( input.value == puvodni ) {
+		document.getElementById( DIV ).innerHTML =  '';
+	} else {
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			var xmlhttp = new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+				if ( xmlhttp.responseText == 'success' ) {
+					document.getElementById( DIV ).innerHTML = 'OK';
+					document.getElementById( DIV ).style.color = 'green';
+				} else if ( xmlhttp.responseText == 'duplicity' ) {
+					document.getElementById( DIV ).innerHTML = 'Tato hodnota je již zabraná';
+					document.getElementById( DIV ).style.color = 'red';
+				} else {
+					document.getElementById( DIV ).innerHTML = 'some error';
+					document.getElementById( DIV ).style.color = 'red';
+				}
+			} else {
+				document.getElementById( DIV ).innerHTML = 'some error';
+				document.getElementById( DIV ).style.color = 'red';
+			}
+		};
+		xmlhttp.open( "POST", "together/scripty/checkExistenceInCol.php", true );
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send( "col=" + COL + "&value=" + input.value );
+	}
+}
+
+
+
+function checkPasswd2( input, DIV ) {
+	var minChar = 2;
+	var was = input.getAttribute( 'goodValue' );
+	var val = input.value;
+	document.getElementById( DIV ).style.fontFamily = 'monospace';
+	
+	if ( val == document.getElementById('passwd').value ) {
+		document.getElementById( DIV ).innerHTML = 'OK';
+		document.getElementById( DIV ).style.color = 'green';
+	} else {
+		document.getElementById( DIV ).innerHTML = 'Hesla se neshodují';
+		document.getElementById( DIV ).style.color = 'red';
+	}
+}
+function checkPasswd( input, DIV ) {
+	var minChar = 2;
+	var was = input.getAttribute( 'goodValue' );
+	var val = input.value;
+	document.getElementById( DIV ).style.fontFamily = 'monospace';
+	
+	if ( val == was ) {
+		document.getElementById( DIV ).innerHTML = '';
+	} else if ( val.length < minChar ) {
+		document.getElementById( DIV ).innerHTML = 'příliš krátké (< '+minChar+' znaků)';
+		document.getElementById( DIV ).style.color = 'violet';
+	} else {
+		var degree = 0;
+		if ( val != val.toLowerCase() ) degree++;
+		if ( val != val.toUpperCase() ) degree++;
+		if ( /\d/.test(val) ) degree++; //contain number
+		
+		if ( degree < 2 ) {
+			document.getElementById( DIV ).innerHTML = 'Alespoň 2 vlastnosti z "malé písmeno", "velké písmeno" a "číslice"';
+			document.getElementById( DIV ).style.color = 'violet';
+		} else {
+			document.getElementById( DIV ).innerHTML = 'OK';
+			document.getElementById( DIV ).style.color = 'green';
+		}
+	}
+	checkPasswd2( document.getElementById('passwd2'), 'warningPass2' );
+}
+
+function changeSettings() {
+	var DIV = 'settingsDiv';
+	var sgName = document.getElementById( 'warningName' ).innerHTML;
+	var sgLogin = document.getElementById( 'warningLogin' ).innerHTML;
+	var sgPass1 = document.getElementById( 'warningPass1' ).innerHTML;
+	var sgPass2 = document.getElementById( 'warningPass2' ).innerHTML;
+	var sgMother = document.getElementById( 'warningMother' ).innerHTML;
+	var sgMe = document.getElementById( 'warningMe' ).innerHTML;
+	
+	if ( sgName != '' && sgName != 'OK' ) alert ('Špatně vyplněné jméno' );
+	else if ( sgLogin != '' && sgLogin != 'OK' ) alert( 'Špatně vyplněný login' );
+	else if ( sgPass1 != '' && sgPass1 != 'OK' ) alert( 'Špatně vyplněné heslo' );
+	else if ( sgPass2 != '' && sgPass2 != 'OK' ) alert( 'Špatně vyplněné heslo' );
+	else if ( sgMother != '' && sgMother != 'OK' ) alert( 'Špatně vyplněný mail na rodiče' );
+	else if ( sgMe != '' && sgMe != 'OK' ) alert( 'Špatně vyplněný mail' );
+	else
+	{ //make changes
+		var id = document.getElementById( 'settingsID' ).value;
+		var name = document.getElementById( 'name' ).value;
+		var login = document.getElementById( 'login' ).value;
+		var passwd = document.getElementById( 'passwd' ).value;
+		var Select = document.getElementById( 'SendByOne' );
+		var sendByOne = Select.options[Select.selectedIndex].value;
+		Select = document.getElementById( 'SendMonthly' );
+		var sendMonthly = Select.options[Select.selectedIndex].value;
+		var mother = document.getElementById( 'motherMail' ).value;
+		var me = document.getElementById( 'meMail' ).value;
+		Select = document.getElementById( 'currency' );
+		var currency = Select.options[Select.selectedIndex].value;
+		
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			var xmlhttp = new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+				if ( xmlhttp.responseText == 'success' ) document.getElementById( DIV ).innerHTML = 'Vše změněno';
+				else document.getElementById( DIV ).innerHTML = xmlhttp.responseText;
+			} else document.getElementById( DIV ).innerHTML = 'Něco se pokazilo';
+		};
+		xmlhttp.open( "POST", "together/scripty/changeSettings.php", true );
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency );
+	}
+}
