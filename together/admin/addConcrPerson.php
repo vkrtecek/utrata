@@ -20,6 +20,7 @@ if ( file_exists( $promenneFile ) && require $promenneFile ) {
   `nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
   `cena` double NOT NULL,
+	`kurz` double default 1,
   `datum` datetime NOT NULL,
   `pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
   `platnost` int(11) NOT NULL DEFAULT '1',

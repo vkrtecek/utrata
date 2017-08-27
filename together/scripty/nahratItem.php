@@ -21,27 +21,26 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 	if ( file_exists( "../getMyTime().php" ) && require( "../getMyTime().php" ) )
 	{
 		if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
-		{
+		{			
 			$totalPrice = number_format( $price * $course, 5, '.', '' );
 			
 			$sql = $spojeni->query( "SELECT * FROM utrata_".$user." WHERE id = (SELECT max(id) FROM utrata_".$user.")" );
 			$last = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
 					
-			if ( $last['nazev'] == $name && $last['popis'] == $desc && $last['cena'] == $totalPrice && $last['pozn'] == $pozn && $last['datum'] == toSQLTime($date) && $last['typ'] == $type ) echo 'duplicity';
+			if ( $last['nazev'] == $name && $last['popis'] == $desc && $last['cena'] == $price && $last['pozn'] == $pozn && $last['datum'] == toSQLTime($date) && $last['typ'] == $type ) echo 'duplicity';
 			else {
 				//setlocale(LC_ALL, 'czech');
 				//$name = strtolower(preg_replace('/[^a-zA-Z0-9.]/','',iconv('UTF-8', 'ASCII//TRANSLIT', $name)));
 				//$desc = strtolower(preg_replace('/[^a-zA-Z0-9.]/','',iconv('UTF-8', 'ASCII//TRANSLIT', $desc)));
 			
 				if ( $vyber ) { //výběr
-					$spojeni->query("INSERT INTO utrata_".$user." (nazev, popis, cena, pozn, datum, typ, vyber) VALUES ('".$name."', '".$desc."', '".$totalPrice."', 'ostatni', '".toSQLTime( $date )."', 'karta', 1)");
+					$spojeni->query("INSERT INTO utrata_".$user." (nazev, popis, cena, kurz, pozn, datum, typ, vyber) VALUES ('".$name."', '".$desc."', '".$price."', '".$course."', 'ostatni', '".toSQLTime( $date )."', 'karta', 1)");
 				
 					$sql = $spojeni->query( "SELECT max(id) MAX FROM utrata_".$user );
 					$max = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
 					$spojeni->query("INSERT INTO utrata_akt_hodnota_".$user." (datum, hodnota, typ, duvod, idToDelete) VALUES ('".toSQLTime( $date )."', '".$totalPrice."', 'hotovost', 'Výběr', ".$max['MAX'].")");
 				}	else { //ordinary item
-				echo "INSERT INTO utrata_".$user." (nazev, popis, cena, pozn, datum, typ, odepsat) VALUES ('".$name."', '".$desc."', '".$totalPrice."', '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")";
-					$spojeni->query("INSERT INTO utrata_".$user." (nazev, popis, cena, pozn, datum, typ, odepsat) VALUES ('".$name."', '".$desc."', '".$totalPrice."', '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")");
+					$spojeni->query("INSERT INTO utrata_".$user." (nazev, popis, cena, kurz, pozn, datum, typ, odepsat) VALUES ('".$name."', '".$desc."', '".$price."', '".$course."', '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")");
 					
 					$sql = $spojeni->query( "SELECT M.*, C.value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name='".$user."'" );
 					$usr = mysqli_fetch_array( $sql, MYSQLI_ASSOC );

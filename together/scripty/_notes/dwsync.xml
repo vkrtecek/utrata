@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
 <file name="dbConn.js" server="79175.w75.wedos.net" local="131479903915847109" remote="131479836000000000" Dst="2" />
-<file name="showItems.php" server="79175.w75.wedos.net" local="131479898970238980" remote="131479827000000000" Dst="2" />
+<file name="showItems.php" server="79175.w75.wedos.net" local="131483113046079208" remote="131483044800000000" Dst="2" />
 <file name="updateState.php" server="79175.w75.wedos.net" local="131195522757862123" remote="131196354600000000" Dst="2" />
 <file name="showStatus.php" server="79175.w75.wedos.net" local="131479010657430356" remote="131478955200000000" Dst="2" />
 <file name="updateItem.php" server="79175.w75.wedos.net" local="131110201654089712" remote="131196354600000000" Dst="2" />
@@ -11,6 +11,6 @@
 <file name="sendToMother.php" server="79175.w75.wedos.net" local="131479026806050830" remote="131478955200000000" Dst="2" />
 <file name="showMenu.php" server="79175.w75.wedos.net" local="131242071884289058" remote="131242035600000000" Dst="1" />
 <file name="getCurseValue.php" server="79175.w75.wedos.net" local="131479768712579575" remote="131479830000000000" Dst="2" />
-<file name="nahratItem.php" server="79175.w75.wedos.net" local="131479906918313696" remote="131479835400000000" Dst="2" />
+<file name="nahratItem.php" server="79175.w75.wedos.net" local="131483115921484227" remote="131483044800000000" Dst="2" />
 <file name="showCurrencies.php" server="79175.w75.wedos.net" local="131479773292542065" remote="131479830000000000" Dst="2" />
 </dwsync>

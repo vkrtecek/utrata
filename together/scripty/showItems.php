@@ -23,6 +23,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		$suma = 0;
 		while ( $item = mysqli_fetch_array( $sql ) )
 		{
+			$price = $item['cena'] * $item['kurz'];
 			$each_item = '<div class="item';
 			if ( !$platnost ) $each_item .= '_old';
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
@@ -35,7 +36,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 ', '<br />', $item['popis'] ).'</td>';
 			$each_item .= '<td class="pozn"><em>('.$item['pozn'].')</em></td>';
 			$each_item .= '<td class="typ">'.$item['typ'].'</td>';
-			$each_item .= '<td class="cena"><strong>'.number_format((float)$item['cena'], 2, ',', ' ').' '.$currency.'</strong></td>';
+			$each_item .= '<td class="cena"><strong>'.number_format((float)$price, 2, ',', ' ').' '.$currency.'</strong></td>';
 			$each_item .= '</tr></table>';
 			$each_item .= '<p><strong>'.dateToReadableFormat($item['datum']).'</strong></p>';
 			$each_item .= '</div>';
