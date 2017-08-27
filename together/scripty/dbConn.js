@@ -18,7 +18,7 @@ function showItems( where, table, limit, platnost ){
 	var ANDY = [];
 	var ORY = [];
 	
-	var prikaz = 'SELECT * FROM '+table+' WHERE platnost = '+platnost+' AND nazev NOT LIKE \'vyber\' AND popis NOT LIKE \'vyber\'';
+	var prikaz = 'SELECT * FROM '+table+' WHERE platnost = '+platnost+' AND vyber=0';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
 	if ( pozn != '' ) prikaz += ' AND pozn = \''+pozn+'\'';
 	if ( year != '' ) prikaz += ' AND datum LIKE "%25'+year+'-%25"';

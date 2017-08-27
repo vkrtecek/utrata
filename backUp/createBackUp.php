@@ -18,19 +18,22 @@ if ( file_exists($promenne) && require($promenne) )
 		
 		
 		$createTable1 = 'CREATE TABLE IF NOT EXISTS `utrata'.$suf.$name.'` (
-  `ID` bigint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
-  `popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `cena` float NOT NULL,
-  `datum` datetime NOT NULL,
-  `pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `platnost` int(11) NOT NULL DEFAULT \'1\',
-  `typ` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL DEFAULT \'karta\'
+	`ID` bigint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+	`popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+	`cena` double NOT NULL,
+	`kurz` double default 1,
+	`datum` datetime NOT NULL,
+	`pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+	`platnost` int(11) NOT NULL DEFAULT \'1\',
+	`typ` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL DEFAULT \'karta\',
+	`vyber` int(1) default 0,
+	`odepsat` int(1) default 0
 );';
 		$sql = $spojeni->query( "SELECT * FROM utrata".$suf.$name );
 		while ( $it = mysqli_fetch_array($sql) )
 		{
-			$insertInto1 .= "INSERT INTO `utrata".$suf.$name."` (`ID`, `nazev`, `popis`, `cena`, `datum`, `pozn`, `platnost`, `typ`) VALUES ( '".$it['ID']."', '".$it['nazev']."', '".$it['popis']."', '".$it['cena']."', '".$it['datum']."', '".$it['pozn']."', '".$it['platnost']."', '".$it['typ']."' );
+			$insertInto1 .= "INSERT INTO `utrata".$suf.$name."` (`ID`, `nazev`, `popis`, `cena`, `kurz`, `datum`, `pozn`, `platnost`, `typ`, `vyber`, `odepsat`) VALUES ( '".$it['ID']."', '".$it['nazev']."', '".$it['popis']."', '".$it['cena']."', '".$it['kurz']."', '".$it['datum']."', '".$it['pozn']."', '".$it['platnost']."', '".$it['typ']."', '".$it['vyber']."', '".$it['odepsat']."' );
 ";
 		}
 		
