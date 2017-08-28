@@ -1,6 +1,8 @@
 <?php
 $mail = $_REQUEST['mail'];
 
+
+
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
@@ -15,12 +17,37 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		} else if ( $res['CNT'] == 1 ) { //success
 			$sql = $spojeni->query( $st2 );
 			$person = mysqli_fetch_array($sql, MYSQLI_ASSOC);
+			$to = $person['me'];
 			$subject = 'Útrata '.$person['name'].' - zapomenuté údaje';
-			$message = 'Přihlašovací jméno: '.$person['login'].'
+			$message = 'Login: '.$person['login'].'
 heslo: '.$person['passwd'];
-			$header = 'From: Útrata<'.$spravce.'>\n';
-			mail( $mail, $subject, $message, $header );
-			echo 'success';
+			$headers = 'From: Útrata<'.$spravce.'>';
+			
+			function autoUTF($s)
+			{
+				// detect UTF-8
+				if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
+					return $s;
+				// detect WINDOWS-1250
+				if (preg_match('#[\x7F-\x9F\xBC]#', $s))
+					return iconv('WINDOWS-1250', 'UTF-8', $s);
+				// assume ISO-8859-2
+				return iconv('ISO-8859-2', 'UTF-8', $s);
+			}
+			 
+			function cs_mail ($to, $subject, $message, $headers = "")
+			{
+				$subject = "=?utf-8?B?".base64_encode(autoUTF ($subject))."?=";
+				//$headers .= "MIME-Version: 1.0\n";
+				//$headers .= "Content-Type: text/html; charset=\"UTF-8\"\n";
+				//$headers .= "Content-Transfer-Encoding: base64\n";
+				//$message = base64_encode (autoUTF ($message));
+				return mail($to, $subject, $message, $headers);
+			}
+			if (cs_mail($to, $subject, $message, $headers))
+				echo 'success';
+			else
+				echo 'Email se nepodařilo odeslat';
 		} else if ( $res['CNT'] < 1 ) { //nobody
 			echo 'Nikdo s takovým mailem není v databázi veden';
 		} else { //some error
