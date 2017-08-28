@@ -491,3 +491,37 @@ function changeSettings() {
 		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency );
 	}
 }
+
+function sendForgottenData() {
+	var mail = document.getElementById('mail').value;
+	var DIV = 'footerP';
+	if ( mail == '' ) {
+		document.getElementById( DIV ).innerHTML = 'Vyplň mail';
+		document.getElementById( DIV ).style.color = 'red';
+	} else {
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			var xmlhttp = new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+				if ( xmlhttp.responseText == 'success' ) {
+					document.getElementById( DIV ).innerHTML = 'Přihlašovací údaje Vám byly zaslány na ' + mail;
+					document.getElementById( DIV ).style.color = 'green';
+				}	else {
+					document.getElementById( DIV ).innerHTML = xmlhttp.responseText;
+					document.getElementById( DIV ).style.color = 'violet';
+				}
+			} else {
+				document.getElementById( DIV ).innerHTML = 'Něco se pokazilo';
+				document.getElementById( DIV ).style.color = 'red';
+			}
+		};
+		xmlhttp.open( "POST", "together/scripty/sendForgottenData.php", true );
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send( "mail=" + mail );
+	}
+}

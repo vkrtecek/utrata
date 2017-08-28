@@ -96,12 +96,70 @@ if ( file_exists($promenne) && require($promenne) )
 						<td>
 							<button type="submit" name="login">Přihlásit</button>
 						</td>
+						<td>
+							<span id="forgottenPasswd">Zapomenuté přihlašovací údaje</span>
+						</td>
 					</tr>
 				</table>
                 <button id="admin" name="admin">administrator</button>
 			</form>
-            <script type="text/javascript">
-			document.getElementById( 'focus' ).focus();
+			
+			<div id="modal">
+				<div id="modalContent">
+					<div id="header">
+						<span id="close">&times;</span>
+						<h2>Zapomenuté údaje</h2>
+					</div>
+					<div id="content">
+						<table rules="none">
+							<tr>
+								<td>
+									<label for="mail">Váš e-mail</label>
+								</td>
+								<td>
+									<input type="text" id="mail" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<button onclick="sendForgottenData()">Odeslat</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="footer">
+						<strong id="footerP"></strong>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+				document.getElementById( 'focus' ).focus();
+				/*----------------------------------------------------*/
+				var modal = document.getElementById( 'modal' );
+				var btn = document.getElementById( 'forgottenPasswd' );
+				var clos = document.getElementById( 'close' );
+				
+				btn.onclick = function(){
+					modal.style.display = 'block';
+					document.getElementById( 'mail' ).focus();
+				}
+				clos.onclick = function() {
+					modal.style.display = 'none';
+					document.getElementById( 'focus' ).focus();
+				}
+				window.onclick = function(e) {
+					if ( e.target == modal ) {
+						//modal.style.display = 'none';
+						//document.getElementById( 'focus' ).focus();
+					}
+				}
+				window.onkeydown = function(e) {
+					if ( e.keyCode == 27 ) { // press ESC
+						modal.style.display = 'none';
+						document.getElementById( 'focus' ).focus();
+					}
+				}
 			</script>
 		<?php 
 		} 
