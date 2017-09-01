@@ -525,3 +525,46 @@ function sendForgottenData() {
 		xmlhttp.send( "mail=" + mail );
 	}
 }
+
+
+
+$(document).ready(function(){
+	$('#cena').focus();
+	$("#nahr_name").focus();
+});
+
+$(document).keyup(function(e){
+	
+	if ( e.keyCode == 27 || e.keyCode == 8 ) { //pressed ESC or BackSpace
+		if ( document.body.scrollTop > 0 )
+			document.body.scrollTop = 0;
+		else
+			window.history.go(-1);
+	}
+});
+
+$(document).keydown(function(event){
+	//alert( event.keyCode );
+	if ( event.shiftKey && event.keyCode == 78 ) { //Shift+N
+		$('#addItem').click();
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 77 ) { //Shift+M
+		$('#addTransaction').click();
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 79 ) { //Shift+O
+		$('#oldBills').click();
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 83 ) { //Shift+S
+		$('#settings').click();
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 90 ) { //Shift+Z
+		window.history.go(-1);
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 89 ) { //Shift+Y
+		window.history.go(1);
+		event.preventDefault(); 
+	} else if ( event.shiftKey && event.keyCode == 66 ) { //Shift+B
+		document.getElementsByName('back')[0].click();
+		event.preventDefault(); 
+	}
+});
