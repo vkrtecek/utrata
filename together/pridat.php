@@ -31,13 +31,7 @@ function toDefaultTime( $in )
 					<input type="checkbox" id="nahr_odepsat" onchange="document.getElementById('nahr_vyber').checked=false;" /><label for="nahr_odepsat"> Odepsat</label>
           <input type="checkbox" id="nahr_vyber" onchange="document.getElementById('nahr_odepsat').checked=false;" /><label for="nahr_vyber"> Výběr</label>
         <p><label>Popis: <textarea class="ins" name="nahr_popis" id="nahr_desc" rows="1"><?php if (isset($_REQUEST['nahr_popis'])) echo $_REQUEST['nahr_popis'];?></textarea></label></p><br />
-        <p>Poznámka: <select name="nahr_pozn" id="nahr_pozn" size="1">
-            <option value="jidlo" <?php if (isset($_REQUEST['nahr_pozn']) && $_REQUEST['nahr_pozn'] == 'jidlo') echo 'selected="selected"';?>>Jídlo</option>
-            <option value="transport" <?php if (isset($_REQUEST['nahr_pozn']) && $_REQUEST['nahr_pozn'] == 'transport') echo 'selected="selected"';?>>Transport</option>
-            <option value="kosmetika" <?php if (isset($_REQUEST['nahr_pozn']) && $_REQUEST['nahr_pozn'] == 'kosmetika') echo 'selected="selected"';?>>Kosmetika</option>
-            <option value="leky" <?php if (isset($_REQUEST['nahr_pozn']) && $_REQUEST['nahr_pozn'] == 'leky') echo 'selected="selected"';?>>Léky</option>
-            <option value="ostatni" <?php if (isset($_REQUEST['nahr_pozn']) && $_REQUEST['nahr_pozn'] == 'ostatni') echo 'selected="selected"';?>>Ostatní</option>
-        </select></p><br />
+				<span id="purposesHere"></span>
         <p>Typ platby: <select name="nahr_typ" id="nahr_type" rows="1">
             <option value="karta" <?php if (isset($_REQUEST['nahr_typ']) && $_REQUEST['nahr_typ'] == 'karta') echo 'selected="selected"';?>>Karta</option>
             <option value="hotovost" <?php if (isset($_REQUEST['nahr_typ']) && $_REQUEST['nahr_typ'] == 'hotovost') echo 'selected="selected"';?>>Hotovost</option>
@@ -58,3 +52,6 @@ function toDefaultTime( $in )
     echo ' <strong class="red" id="fillPrice"></strong><br />';
 	echo '</div>';
 ?>
+<script type="text/javascript">
+printPurposes( 'purposesHere' );
+</script>

@@ -34,7 +34,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			$each_item .= '<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
 			$each_item .= '<td class="popis">'.str_replace( '
 ', '<br />', $item['popis'] ).'</td>';
-			$each_item .= '<td class="pozn"><em>('.$item['pozn'].')</em></td>';
+			$each_item .= '<td class="pozn"><em>('.$item['value'].')</em></td>';
 			$each_item .= '<td class="typ">'.$item['typ'].'</td>';
 			$each_item .= '<td class="cena"><strong>'.number_format((float)$price, 2, ',', ' ').' '.$currency.'</strong></td>';
 			$each_item .= '</tr></table>';

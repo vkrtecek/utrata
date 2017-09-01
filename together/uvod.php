@@ -23,7 +23,7 @@
 
 <div id="hereTable"><img src="together/img/loading.gif" alt="načítání" /></div>
 <script>
-    LIMIT = 300;
+    LIMIT = 3000;
     WHERE = 'hereTable';
     TABLE = 'utrata_<?php echo $name; ?>';
     MOTHER = '<?php echo $mother; ?>';

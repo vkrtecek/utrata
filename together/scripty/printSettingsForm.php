@@ -1,6 +1,12 @@
 <?php
 $login = $_REQUEST['login'];
 	
+function inArray( $arr, $item ) {
+	foreach ( $arr as $a )
+		if ( $a == $item ) return true;
+	return false;
+}
+	
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
@@ -9,7 +15,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		$sql = $spojeni->query( $st );
 		$person = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
 		
-		$sql = $spojeni->query( "SELECT * FROM utr_currencies" );
+		$sqlCurrencies = $spojeni->query( "SELECT * FROM utr_currencies" );
 		
 		echo '<table rules="none">
 			<tr>
@@ -88,8 +94,30 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 				</td>
 				<td>
 					<select id="currency">';
-					while ( $curr = mysqli_fetch_array($sql, MYSQLI_ASSOC) ) {
+					while ( $curr = mysqli_fetch_array($sqlCurrencies, MYSQLI_ASSOC) ) {
 						echo '<option value="'.$curr['CurrencyID'].'" '.($curr['CurrencyID']==$person['currencyID'] ? 'selected=""' : '').'>'.$curr['name'].'</option>';
+					}
+		echo '</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="purposes">Druhy útraty</label>
+				</td>
+				<td>
+					<select id="purposes" multiple="multiple">';
+					$st = "SELECT * FROM utrata_members M LEFT JOIN utrata_UserPurposes UP ON M.name=UP.UserID LEFT JOIN utrata_Purposes P ON UP.PurposeID=P.PurposeID WHERE M.login='".$login."'";
+					$sqlUserPurpose = $spojeni->query( $st );
+					$arr = array();
+					while ( $userPurpose = mysqli_fetch_array($sqlUserPurpose, MYSQLI_ASSOC)) {
+						array_push($arr, $userPurpose['code'] );
+					}
+					$st = "SELECT * FROM utrata_Purposes";
+					$sqlPurposes = $spojeni->query( $st );
+					while( $purpose = mysqli_fetch_array($sqlPurposes, MYSQLI_ASSOC) ) {
+						echo '<option value="'.$purpose['code'].'" ';
+						if ( inArray($arr, $purpose['code']) ) echo 'selected=""';
+						echo '>'.$purpose['value'].'</option>';
 					}
 		echo '</select>
 				</td>

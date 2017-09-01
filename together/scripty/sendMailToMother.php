@@ -14,7 +14,7 @@ $mail = "../mail.php";
 if ( file_exists($mail) && require($mail) )
 {
 	echo '<p>Účetnictví za <strong>'.ourMonth($month).' '.$year.'</strong> odesláno na '.$mother.'</p>';
-	my_mail( $mother, $subject, $message, $headers );
+	/*my_*/mail( $mother, $subject, $message, $headers );
 }
 ?>
 <select name="mesic_send" id="mesic_send">

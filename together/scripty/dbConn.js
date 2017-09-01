@@ -18,7 +18,7 @@ function showItems( where, table, limit, platnost ){
 	var ANDY = [];
 	var ORY = [];
 	
-	var prikaz = 'SELECT * FROM '+table+' WHERE platnost = '+platnost+' AND vyber=0';
+	var prikaz = 'SELECT * FROM '+table+' USER LEFT JOIN utrata_Purposes P ON USER.pozn=P.PurposeID WHERE platnost = '+platnost+' AND vyber=0';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
 	if ( pozn != '' ) prikaz += ' AND pozn = \''+pozn+'\'';
 	if ( year != '' ) prikaz += ' AND datum LIKE "%25'+year+'-%25"';
@@ -92,7 +92,7 @@ function updateItem( id, table, where ){
 	}
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			showItems( where, table, 300 );
+			showItems( where, table, LIMIT );
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/updateItem.php", true );
@@ -112,7 +112,7 @@ function deleteItem( id, table, where, platnost ){
 	}
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			showItems( where, table, 300, platnost );
+			showItems( where, table, LIMIT, platnost );
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/deleteItem.php", true );
@@ -472,6 +472,8 @@ function changeSettings() {
 		var me = document.getElementById( 'meMail' ).value;
 		Select = document.getElementById( 'currency' );
 		var currency = Select.options[Select.selectedIndex].value;
+		var purposes = $('#purposes').val();
+		
 		
 		if (window.XMLHttpRequest) {
 			// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -488,7 +490,7 @@ function changeSettings() {
 		};
 		xmlhttp.open( "POST", "together/scripty/changeSettings.php", true );
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency );
+		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency+"&purposes="+purposes );
 	}
 }
 
@@ -526,6 +528,29 @@ function sendForgottenData() {
 	}
 }
 
+function printPurposes( SPAN ) {
+	var name = document.getElementsByName('jmeno')[0].value;
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+			document.getElementById( SPAN ).innerHTML = xmlhttp.responseText;
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/printPurposes.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "name=" + name );
+}
+
+
+
+
+
 
 
 $(document).ready(function(){
@@ -535,7 +560,7 @@ $(document).ready(function(){
 
 $(document).keyup(function(e){
 	
-	if ( e.keyCode == 27 || e.keyCode == 8 ) { //pressed ESC or BackSpace
+	if ( e.keyCode == 27 /*|| e.keyCode == 8 */) { //pressed ESC or BackSpace
 		if ( document.body.scrollTop > 0 )
 			document.body.scrollTop = 0;
 		else
