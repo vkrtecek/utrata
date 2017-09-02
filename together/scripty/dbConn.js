@@ -528,6 +528,9 @@ function sendForgottenData() {
 	}
 }
 
+/**
+* in form to add item
+*/
 function printPurposes( SPAN ) {
 	var name = document.getElementsByName('jmeno')[0].value;
 	if (window.XMLHttpRequest) {
@@ -545,6 +548,45 @@ function printPurposes( SPAN ) {
 	xmlhttp.open( "POST", "together/scripty/printPurposes.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send( "name=" + name );
+}
+
+
+function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS ) {
+	var purpose = document.getElementById( INPUT ).value;
+	if ( purpose == '' || purpose == null || purpose == 'undefined' ) {
+		document.getElementById( STATUS ).innerHTML = 'empty';
+		document.getElementById( STATUS ).style.color = 'violet';
+		return;
+	}
+	
+	var name = document.getElementsByName('jmeno')[0].value;
+	
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+			if ( xmlhttp.responseText == 'success' ) {
+				//$( '#'+SELECT_TO_REFRESH ).load();
+				location.reload();
+				document.getElementById( STATUS ).innerHTML = 'OK';
+				document.getElementById( STATUS ).style.color = 'green';
+			} else {
+				document.getElementById( STATUS ).innerHTML = xmlhttp.responseText;
+				document.getElementById( STATUS ).style.color = 'red';
+			}
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/addPurpose.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "name=" + name + "&purpose=" + purpose );
+	
+	document.getElementById( STATUS ).innerHTML = 'FAIL';
+	document.getElementById( STATUS ).style.color = 'red';
 }
 
 

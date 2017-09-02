@@ -120,6 +120,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 						echo '>'.$purpose['value'].'</option>';
 					}
 		echo '</select>
+				<div id="addPurpose">Přidat: <div class="bordered"><input type="text" id="newPurpose" /><button onclick="addPurpose( \'newPurpose\', \'purposes\', \'status\' )">+</button></div></div>
 				</td>
 			</tr>
 			<tr>

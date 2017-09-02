@@ -324,7 +324,7 @@ div#settingsDiv {
 	margin:auto;
 	margin-top:5rem;
 	padding:13px;
-	width:700px;
+	width:900px;
 	border: solid black 1px;
 }
 div#settingsDiv td {
@@ -409,4 +409,17 @@ div#modal div#footer {
 }
 div#modal div#content table td {
 	padding: 3px 3px 3px 0;
+}
+
+
+
+div#addPurpose {
+	display:inline-block;
+}
+div#addPurpose > div.bordered {
+	border: solid black 1px;
+	display:inline-block;
+}
+span#status {
+	margin-left: 5px;
 }
