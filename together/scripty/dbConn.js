@@ -612,26 +612,29 @@ $(document).keyup(function(e){
 
 $(document).keydown(function(event){
 	//alert( event.keyCode );
-	if ( event.shiftKey && event.keyCode == 78 ) { //Shift+N
+	if ( event.ctrlKey && event.keyCode == 188 ) { //Shift+,
 		$('#addItem').click();
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 77 ) { //Shift+M
+	} else if ( event.ctrlKey && event.keyCode == 77 ) { //Ctrl+M
 		$('#addTransaction').click();
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 79 ) { //Shift+O
+	} else if ( event.ctrlKey && event.keyCode == 79 ) { //Ctrl+O
 		$('#oldBills').click();
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 83 ) { //Shift+S
+	} else if ( event.ctrlKey && event.keyCode == 83 ) { //Ctrl+S
 		$('#settings').click();
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 90 ) { //Shift+Z
+	} else if ( event.ctrlKey && event.keyCode == 90 ) { //Ctrl+Z
 		window.history.go(-1);
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 89 ) { //Shift+Y
+	} else if ( event.ctrlKey && event.keyCode == 89 ) { //Ctrl+Y
 		window.history.go(1);
 		event.preventDefault(); 
-	} else if ( event.shiftKey && event.keyCode == 66 ) { //Shift+B
+	} else if ( event.ctrlKey && event.keyCode == 66 ) { //Ctrl+B
 		document.getElementsByName('back')[0].click();
+		event.preventDefault(); 
+	} else if ( event.ctrlKey && event.keyCode == 76 ) { //Ctrl+L
+		document.getElementsByName('logOut')[0].click();
 		event.preventDefault(); 
 	}
 });

@@ -30,5 +30,12 @@
 <form method="post" action="">
     <button name="logOut" type="submit" class="menu odhlasit" id="logout">Odhlásit</button>
 </form>
-
+<span id="helpSpan" title="Ctrl+, - new Item 
+Ctrl+M - new payment
+Ctrl+O - old items
+Ctrl+S - settings
+Ctrl+Z - back in history
+Ctrl+Y - next in history
+Ctrl+B - bak to main page
+Ctrl+L - logout" style="cursor:help;">Shortcuts</span>
 <div id="scrollUp"></div>
