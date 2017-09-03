@@ -1,6 +1,6 @@
 // JavaScript Document
 
-function showItems( where, table, limit, platnost ){
+function showItems( where, user, limit, platnost ){
 	
 	platnost = platnost == 0 ? 0 : 1;
 	var sortBy = document.getElementsByClassName( 'changeSort' )[0].value;
@@ -18,7 +18,7 @@ function showItems( where, table, limit, platnost ){
 	var ANDY = [];
 	var ORY = [];
 	
-	var prikaz = 'SELECT * FROM '+table+' USER LEFT JOIN utrata_Purposes P ON USER.pozn=P.PurposeID WHERE platnost = '+platnost+' AND vyber=0';
+	var prikaz = 'SELECT * FROM utrata_items USER LEFT JOIN utrata_Purposes P ON USER.pozn=P.PurposeID WHERE USER.UserID="' + user + '" AND platnost = '+platnost+' AND vyber=0';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
 	if ( pozn != '' ) prikaz += ' AND pozn = \''+pozn+'\'';
 	if ( year != '' ) prikaz += ' AND datum LIKE "%25'+year+'-%25"';
@@ -60,7 +60,7 @@ function showItems( where, table, limit, platnost ){
 	};
 	xmlhttp.open( "POST", "together/scripty/showItems.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "prikaz="+prikaz+"&table="+table+"&where="+where+"&platnost="+platnost );
+	xmlhttp.send( "prikaz="+prikaz+"&user="+user+"&where="+where+"&platnost="+platnost );
 };
 
 function showStatus( where, who ){
@@ -78,11 +78,11 @@ function showStatus( where, who ){
 	};
 	xmlhttpStat.open( "POST", "together/scripty/showStatus.php", true );
 	xmlhttpStat.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttpStat.send( "where="+where+"&utrata_check_state_table=utrata_check_state_"+who+"&utrata_table=utrata_"+who+"&utrata_akt_hodnota_table=utrata_akt_hodnota_"+who+"&who="+who );
+	xmlhttpStat.send( "where="+where+"&who="+who );
 };
 
 
-function updateItem( id, table, where ){	
+function updateItem( id, user, where ){	
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -92,14 +92,14 @@ function updateItem( id, table, where ){
 	}
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			showItems( where, table, LIMIT );
+			showItems( where, user, LIMIT );
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/updateItem.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "id="+id+"&table="+table );
+	xmlhttp.send( "id="+id+"&user="+user );
 };
-function deleteItem( id, table, where, platnost ){
+function deleteItem( id, user, where, platnost ){
 	var enter = confirm( 'Opravdu chceš smazat?' );
 	if ( !enter ) return;
 	
@@ -112,24 +112,24 @@ function deleteItem( id, table, where, platnost ){
 	}
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			showItems( where, table, LIMIT, platnost );
+			showItems( where, user, LIMIT, platnost );
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/deleteItem.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "id="+id+"&table="+table );
+	xmlhttp.send( "id="+id+"&user="+user );
 };
 
-function updateState( typ, table, whereAfter, value, who ){
+function updateState( typ, whereAfter, value, user ){
 	xmlhttpU = new XMLHttpRequest();
 	xmlhttpU.onreadystatechange = function() {
 		if (xmlhttpU.readyState == 4 && xmlhttpU.status == 200) {
-			showStatus( whereAfter, who );
+			showStatus( whereAfter, user );
 		}
 	};
 	xmlhttpU.open( "POST", "together/scripty/updateState.php", true );
 	xmlhttpU.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttpU.send( "typ=" + typ + "&table=" + table + "&value=" + value );
+	xmlhttpU.send( "typ=" + typ + "&value=" + value + "&user=" + user );
 };
 
 function clearSearch( name, x )
@@ -142,7 +142,7 @@ function clearSearch( name, x )
 	document.getElementsByClassName( 'changeSortBtn' )[0].value = '';
 	document.getElementsByClassName( 'changeSortBtn' )[1].value = '';
 	
-	showItems( 'hereTable', 'utrata_'+name, LIMIT, x );
+	showItems( 'hereTable', name, LIMIT, x );
 }
 
 function send_ucty( where, who )

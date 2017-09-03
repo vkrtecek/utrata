@@ -1,12 +1,12 @@
 <?php
 $id = $_REQUEST['id'];
-$table = $_REQUEST['table'];
+$user = $_REQUEST['user'];
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
-		$spojeni->query( "DELETE FROM ".$table." WHERE id = ".$id );
+		$spojeni->query( "DELETE FROM utrata_items WHERE UserID='".$user."' AND id = ".$id );
 	}
 	else echo '<p>Connection failed.</p>';
 }

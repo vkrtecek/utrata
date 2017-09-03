@@ -87,7 +87,7 @@ if ( !$platba_nahrana )
 	else //item nahrán
 	{
 		$spojeni->query("SET CHARACTER SET utf8");
-		$spojeni->query("INSERT INTO utrata_akt_hodnota_".$name." (datum, hodnota, duvod, typ) VALUES ('".getMyTime()."', '".$_REQUEST['cena']."', '".$_REQUEST['duvod']."', '".$_REQUEST['typ']."')");
+		$spojeni->query("INSERT INTO utrata_akt_hodnota (UserID, datum, hodnota, duvod, typ) VALUES ( '".$name."', '".getMyTime()."', '".$_REQUEST['cena']."', '".$_REQUEST['duvod']."', '".$_REQUEST['typ']."')");
 		echo '<p>Transakce proběhla úspěšně.</p>';?>
 		<form method="post" action="">
 			<input name="jmeno" value="<?php echo $login;?>" type="hidden" />
@@ -120,14 +120,14 @@ if ( !$platba_nahrana )
 	<?php
 		$spojeni->query('SET CHARACTER SET UTF8');
 		if (isset($_REQUEST['smazat_prispevek'])) {
-			$sql = $spojeni->query( "SELECT idToDelete FROM utrata_akt_hodnota_".$name." WHERE ID = ".$_REQUEST['smazat_prispevek'] );
+			$sql = $spojeni->query( "SELECT idToDelete FROM utrata_akt_hodnota WHERE ID = ".$_REQUEST['smazat_prispevek'] );
 			$id = mysqli_fetch_array( $sql );
-			$spojeni->query('DELETE FROM utrata_akt_hodnota_'.$name.' WHERE ID = '.$_REQUEST['smazat_prispevek']);
+			$spojeni->query('DELETE FROM utrata_akt_hodnota WHERE ID = '.$_REQUEST['smazat_prispevek']);
 			if ( $id['idToDelete'] ) {
-				$spojeni->query("DELETE FROM utrata_".$name." WHERE ID = ".$id['idToDelete']);
+				$spojeni->query("DELETE FROM utrata_items WHERE ID = ".$id['idToDelete']);
 			}
 		}
-		$sql = $spojeni->query('SELECT * FROM utrata_akt_hodnota_'.$name.' ORDER BY ID DESC');
+		$sql = $spojeni->query('SELECT * FROM utrata_akt_hodnota WHERE UserID="'.$name.'" ORDER BY ID DESC');
 		
 		echo '<table rules="all">';
 		echo '<tr><th>ID</th><th>Datum</th><th>Hodnota</th><th>Důvod</th><th>Typ</th><th>Del</th></tr>';

@@ -22,13 +22,13 @@
     <div id="hereTable"><img src="together/img/loading.gif" alt="načítání" /></div>
     <script>
         LIMIT = 3000;
-        showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT, 0 );
+        showItems( 'hereTable', '<?php echo $name; ?>', LIMIT, 0 );
         
         $( ".changeSort" ).change(function(){
-            showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT, 0 );
+            showItems( 'hereTable', '<?php echo $name; ?>', LIMIT, 0 );
         });
         $( ".changeSortBtn" ).keyup(function(){
-            showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT, 0 );
+            showItems( 'hereTable', '<?php echo $name; ?>', LIMIT, 0 );
         });
         
         window.onscroll = function(){
@@ -40,7 +40,7 @@
             if ( actualHeight + tolerance + windowHeight >= maxHeight )
             {
                 LIMIT += 300;
-                showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT, 0 );
+                showItems( 'hereTable', '<?php echo $name; ?>', LIMIT, 0 );
             }
 			
 			var actualScroll = $("body").scrollTop();

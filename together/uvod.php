@@ -27,13 +27,13 @@
     WHERE = 'hereTable';
     TABLE = 'utrata_<?php echo $name; ?>';
     MOTHER = '<?php echo $mother; ?>';
-    showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT );
+    showItems( 'hereTable', '<?php echo $name; ?>', LIMIT );
     
     $( ".changeSort" ).change(function(){
-        showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT );
+        showItems( 'hereTable', '<?php echo $name; ?>', LIMIT );
     });
     $( ".changeSortBtn" ).keyup(function(){
-        showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT );
+        showItems( 'hereTable', '<?php echo $name; ?>', LIMIT );
     });
     
     
@@ -51,7 +51,7 @@
         {
             wait( 300 );
             LIMIT += 300;
-            showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT );
+            showItems( 'hereTable', '<?php echo $name; ?>', LIMIT );
         }
 		
 		var actualScroll = $("body").scrollTop();

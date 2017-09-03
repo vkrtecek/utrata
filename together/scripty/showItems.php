@@ -1,6 +1,6 @@
 <?php
 $prikaz = $_REQUEST['prikaz'];
-$table = $_REQUEST['table'];
+$user = $_REQUEST['user'];
 $where = $_REQUEST['where'];
 $platnost = $_REQUEST['platnost'];
 //echo $prikaz;
@@ -9,9 +9,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
-		$arr = explode( '_', $table );
-		$who = $arr[1];
-		$sql = $spojeni->query( 'SELECT value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name = "'.$who.'"' );
+		$sql = $spojeni->query( 'SELECT value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name = "'.$user.'"' );
 		$sql = mysqli_fetch_array( $sql );
 		$currency = $sql['value'];
 		
@@ -28,8 +26,8 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			if ( !$platnost ) $each_item .= '_old';
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
 			$each_item .= '">';
-			$each_item .= "<button title=\"Delete\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$table."', '".$where."'".( !$platnost ? ', 0' : '' )." )\"><b>×</b></button>";
-			if ( $platnost ) $each_item .= "<button title=\"Check\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$table."', '".$where."' )\"><b>✓</b></button>";
+			$each_item .= "<button title=\"Delete\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."'".( !$platnost ? ', 0' : '' )." )\"><b>×</b></button>";
+			if ( $platnost ) $each_item .= "<button title=\"Check\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>✓</b></button>";
 			$each_item .= '<table rules="none"><tr>';
 			$each_item .= '<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
 			$each_item .= '<td class="popis">'.str_replace( '
