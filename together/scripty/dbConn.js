@@ -531,8 +531,7 @@ function sendForgottenData() {
 /**
 * in form to add item
 */
-function printPurposes( SPAN ) {
-	var name = document.getElementsByName('jmeno')[0].value;
+function printPurposes( SPAN, name, DEFAULT ) {
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -542,12 +541,13 @@ function printPurposes( SPAN ) {
 	}
 	xmlhttp.onreadystatechange = function() {
 		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-			document.getElementById( SPAN ).innerHTML = xmlhttp.responseText;
+			//document.getElementById( SPAN ).innerHTML = xmlhttp.responseText;
+			document.getElementById( 'nahr_pozn' ).innerHTML = xmlhttp.responseText;
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/printPurposes.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "name=" + name );
+	xmlhttp.send( "name=" + name + "&defaultOption=" + DEFAULT );
 }
 
 

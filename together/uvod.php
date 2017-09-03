@@ -10,7 +10,7 @@
   <?php
   	$sortForm = 'together/sortForm.php';
   	if ( file_exists($sortForm) && require($sortForm) ) {
-		printSortingForm( false, $name );
+		printSortingForm( false, $name, $login );
 	}
 	else echo "<p>File $sortForm doesn't exists</p>";
   ?>
@@ -112,12 +112,11 @@
         }
     </script>
 <?php } ?>
-        
 
-        
-        
-        
-        
+
+
+
+
 
 <script type="text/javascript">
 document.getElementById( 'focus' ).focus();

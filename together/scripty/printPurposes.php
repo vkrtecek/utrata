@@ -1,5 +1,6 @@
 <?php
 $name = $_REQUEST['name'];
+$defaultOption = $_REQUEST['defaultOption'];
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
@@ -7,11 +8,10 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 	{
 		$st = "SELECT * FROM utrata_Purposes WHERE PurposeID IN (SELECT PurposeID FROM utrata_UserPurposes WHERE UserID=(SELECT name FROM utrata_members WHERE login='".$name."'))";
 		$sql = $spojeni->query( $st );
-		echo '<p>Poznámka: <select name="nahr_pozn" id="nahr_pozn" size="1">';
+		echo $defaultOption;
 		while ( $opt = mysqli_fetch_array($sql, MYSQLI_ASSOC) ) {
 			echo '<option value="'.$opt['PurposeID'].'">'.$opt['value'].'</option>';
 		}
-		echo '</select></p><br />';
 	}
 	else echo '<p>Connection failed.</p>';
 }

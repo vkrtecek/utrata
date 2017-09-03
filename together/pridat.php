@@ -31,7 +31,11 @@ function toDefaultTime( $in )
 					<input type="checkbox" id="nahr_odepsat" onchange="document.getElementById('nahr_vyber').checked=false;" /><label for="nahr_odepsat"> Odepsat</label>
           <input type="checkbox" id="nahr_vyber" onchange="document.getElementById('nahr_odepsat').checked=false;" /><label for="nahr_vyber"> Výběr</label>
         <p><label>Popis: <textarea class="ins" name="nahr_popis" id="nahr_desc" rows="1"><?php if (isset($_REQUEST['nahr_popis'])) echo $_REQUEST['nahr_popis'];?></textarea></label></p><br />
-				<span id="purposesHere"></span>
+				<p>Poznámka: 
+					<select name="nahr_pozn" id="nahr_pozn" size="1">
+						<span id="purposesHere"></span>
+					</select>
+				</p><br />
         <p>Typ platby: <select name="nahr_typ" id="nahr_type" rows="1">
             <option value="karta" <?php if (isset($_REQUEST['nahr_typ']) && $_REQUEST['nahr_typ'] == 'karta') echo 'selected="selected"';?>>Karta</option>
             <option value="hotovost" <?php if (isset($_REQUEST['nahr_typ']) && $_REQUEST['nahr_typ'] == 'hotovost') echo 'selected="selected"';?>>Hotovost</option>
@@ -53,5 +57,5 @@ function toDefaultTime( $in )
 	echo '</div>';
 ?>
 <script type="text/javascript">
-printPurposes( 'purposesHere' );
+printPurposes( 'purposesHere', '<?=$login;?>' );
 </script>

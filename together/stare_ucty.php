@@ -13,7 +13,7 @@
     <?php
   	$sortForm = 'together/sortForm.php';
   	if ( file_exists($sortForm) && require($sortForm) ){
-		printSortingForm( true, $name );
+		printSortingForm( true, $name, $login );
 	}
 	else echo "<p>File $sortForm doesn't exists</p>";
   ?>
@@ -21,7 +21,7 @@
       
     <div id="hereTable"><img src="together/img/loading.gif" alt="načítání" /></div>
     <script>
-        LIMIT = 300;
+        LIMIT = 3000;
         showItems( 'hereTable', 'utrata_<?php echo $name; ?>', LIMIT, 0 );
         
         $( ".changeSort" ).change(function(){
