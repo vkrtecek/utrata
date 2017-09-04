@@ -17,23 +17,26 @@ if ( file_exists($promenne) && require($promenne) )
 		
 		
 		
-		$createTable1 = 'CREATE TABLE IF NOT EXISTS `utrata'.$suf.$name.'` (
-	`ID` bigint(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`nazev` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
-	`popis` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-	`cena` double NOT NULL,
-	`kurz` double default 1,
-	`datum` datetime NOT NULL,
-	`pozn` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-	`platnost` int(11) NOT NULL DEFAULT \'1\',
-	`typ` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL DEFAULT \'karta\',
-	`vyber` int(1) default 0,
-	`odepsat` int(1) default 0
-);';
-		$sql = $spojeni->query( "SELECT * FROM utrata".$suf.$name );
+		$createTable1 = "CREATE TABLE utrata_items (
+	ID bigint(4) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	UserID varchar(255) CHARACTER SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL,
+	nazev varchar(255) CHARACTER SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL,
+	popis varchar(255) CHARACTER SET UTF8 COLLATE UTF8_CZECH_CI,
+	cena double NOT NULL,
+	kurz double DEFAULT 1,
+	datum datetime NOT NULL,
+	pozn int(11) NOT NULL,
+	platnost int(1) DEFAULT 1,
+	typ varchar(255) CHARACTER SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL DEFAULT 'karta',
+	vyber int(1) DEFAULT 0,
+	odepsat int(1) DEFAULT 0,
+	FOREIGN KEY (UserID) REFERENCES utrata_members(name),
+	FOREIGN KEY (pozn) REFERENCES utrata_Purposes(PurposeID)
+);";
+		$sql = $spojeni->query( "SELECT * FROM utrata_items WHERE UserID='".$name."'" );
 		while ( $it = mysqli_fetch_array($sql) )
 		{
-			$insertInto1 .= "INSERT INTO `utrata".$suf.$name."` (`ID`, `nazev`, `popis`, `cena`, `kurz`, `datum`, `pozn`, `platnost`, `typ`, `vyber`, `odepsat`) VALUES ( '".$it['ID']."', '".$it['nazev']."', '".$it['popis']."', '".$it['cena']."', '".$it['kurz']."', '".$it['datum']."', '".$it['pozn']."', '".$it['platnost']."', '".$it['typ']."', '".$it['vyber']."', '".$it['odepsat']."' );
+			$insertInto1 .= "INSERT INTO `utrata_items` (`ID`, `UserID`, `nazev`, `popis`, `cena`, `kurz`, `datum`, `pozn`, `platnost`, `typ`, `vyber`, `odepsat`) VALUES ( '".$it['ID']."', '".$it['UserID']."', '".$it['nazev']."', '".$it['popis']."', '".$it['cena']."', '".$it['kurz']."', '".$it['datum']."', '".$it['pozn']."', '".$it['platnost']."', '".$it['typ']."', '".$it['vyber']."', '".$it['odepsat']."' );
 ";
 		}
 		
@@ -41,19 +44,20 @@ if ( file_exists($promenne) && require($promenne) )
 		
 		
 		
-		/*carefully*///if ( $name == 'vojta' ) { $name = ''; $suf = ''; }
-		$createTable2 = 'CREATE TABLE IF NOT EXISTS `utrata_akt_hodnota'.$suf.$name.'` (
+		$createTable2 = 'CREATE TABLE IF NOT EXISTS `utrata_akt_hodnota` (
   `ID` int(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`UserID` varchar(255) CHARSET SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL,
   `datum` datetime NOT NULL,
   `hodnota` float NOT NULL,
-  `duvod` varchar(61) COLLATE utf8_czech_ci DEFAULT NULL,
-  `typ` varchar(255) COLLATE utf8_czech_ci NOT NULL DEFAULT \'karta\',
-  `idToDelete` bigint(18) NULL DEFAULT NULL
+  `duvod` varchar(61) CHARSET SET UTF8 COLLATE UTF8_CZECH_CI DEFAULT NULL,
+  `typ` varchar(255) CHARSET SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL DEFAULT \'karta\',
+  `idToDelete` bigint(18) NULL DEFAULT NULL,
+	FOREIGN KEY (UserID) REFERENCES utrata_members(name)
 );';
-		$sql = $spojeni->query( "SELECT * FROM utrata_akt_hodnota".$suf.$name );
+		$sql = $spojeni->query( "SELECT * FROM utrata_akt_hodnota WHERE UserID='".$name."'" );
 		while ( $it = mysqli_fetch_array($sql) )
 		{
-			$insertInto2 .= "INSERT INTO `utrata_akt_hodnota".$suf.$name."` (`ID`, `datum`, `hodnota`, `duvod`, `typ`, `idToDelete`) VALUES ( '".$it['ID']."', '".$it['datum']."', '".$it['hodnota']."', '".$it['duvod']."', '".$it['typ']."', ".$it['idToDelete']." );
+			$insertInto2 .= "INSERT INTO `utrata_akt_hodnota` (`ID`, `UserID`, `datum`, `hodnota`, `duvod`, `typ`, `idToDelete`) VALUES ( '".$it['ID']."', '".$it['UserID']."', '".$it['datum']."', '".$it['hodnota']."', '".$it['duvod']."', '".$it['typ']."', ".($it['idToDelete'] ? $it['idToDelete'] : "NULL")." );
 ";
 		}
 		
@@ -62,16 +66,18 @@ if ( file_exists($promenne) && require($promenne) )
 		
 		
 		
-		$createTable3 = 'CREATE TABLE IF NOT EXISTS `utrata_check_state'.$suf.$name.'` (
-	`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`typ` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+		$createTable3 = 'CREATE TABLE IF NOT EXISTS `utrata_check_state` (
+	`ID` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	`UserID` varchar(255) CHARSET SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL,
+	`typ` varchar(50) CHARSET SET UTF8 COLLATE UTF8_CZECH_CI NOT NULL,
 	`checked` datetime NOT NULL,
-	`value` double NOT NULL
-)';
-		$sql = $spojeni->query( "SELECT * FROM utrata_check_state".$suf.$name );
+	`value` double NOT NULL,
+	FOREIGN KEY (UserID) REFERENCES utrata_members(name)
+);';
+		$sql = $spojeni->query( "SELECT * FROM utrata_check_state WHERE UserID='".$name."'" );
 		while ( $it = mysqli_fetch_array($sql) )
 		{
-			$insertInto3 .= "INSERT INTO `utrata_check_state".$suf.$name."` (`id`, `typ`, `checked`, `value`) VALUES ( '".$it['id']."', '".$it['typ']."', '".$it['checked']."', '".$it['value']."' );
+			$insertInto3 .= "INSERT INTO `utrata_check_state` (`ID`, `UserID`, `typ`, `checked`, `value`) VALUES ( '".$it['ID']."', '".$it['UserID']."', '".$it['typ']."', '".$it['checked']."', '".$it['value']."' );
 ";
 		}
 		
