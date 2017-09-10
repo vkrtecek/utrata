@@ -11,6 +11,8 @@ if ( file_exists( $promenneFile ) && require $promenneFile ) {
 		$spojeni->query( $statement );
 		$statement = "DELETE FROM utrata_akt_hodnota WHERE UserID='".$id.'"';
 		$spojeni->query( $statement );
+		$statement = "DELETE FROM utrata_UserPurposes WHERE UserID='".$id."'";
+		$spojeni->query( $statement );
 
 		$statement = "DELETE FROM utrata_members WHERE name = '".$id."'";
 		$spojeni->query( $statement );

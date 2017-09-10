@@ -159,7 +159,7 @@ function validateEmail(email) {
 }
 function checkAdding( where ) {
 	var MIN_CHARS = 2;
-	var inss = [ 'insName', 'insLogin', 'insPasswd', 'insSendMonthly', 'insSendByOne', 'insMother', 'insMe', 'insCurrency' ];
+	var inss = [ 'insName', 'insLogin', 'insPasswd', 'insSendMonthly', 'insSendByOne', 'insMother', 'insMe', 'insLanguage', 'insCurrency' ];
 	var ins = [];
 	var empty = lengths = false;
 	
@@ -169,7 +169,7 @@ function checkAdding( where ) {
 		if ( ins[inss[i]] == "" ) {
 			empty = true;
 		} else if ( ins[inss[i]].length < MIN_CHARS ) {
-			if ( inss[i] == 'insSendMonthly' || inss[i] == 'insSendByOne' || inss[i] == 'insCurrency' ) continue;
+			if ( inss[i] == 'insSendMonthly' || inss[i] == 'insSendByOne' || inss[i] == 'insLanguage' || inss[i] == 'insCurrency' ) continue;
 			lengths = true;
 		}
 	}
@@ -206,7 +206,7 @@ function checkAdding( where ) {
 		};
 		xmlhttpStat.open( "POST", "together/admin/addConcrPerson.php", true );
 		xmlhttpStat.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttpStat.send( "name="+ins['insName']+"&login="+ins['insLogin']+"&passwd="+ins['insPasswd']+"&sendMonthly="+ins['insSendMonthly']+"&sendByOne="+ins['insSendByOne']+"&mother="+ins['insMother']+"&me="+ins['insMe']+"&currency="+ins['insCurrency'] );
+		xmlhttpStat.send( "name="+ins['insName']+"&login="+ins['insLogin']+"&passwd="+ins['insPasswd']+"&sendMonthly="+ins['insSendMonthly']+"&sendByOne="+ins['insSendByOne']+"&mother="+ins['insMother']+"&me="+ins['insMe']+"&language="+ins['insLanguage']+"&currency="+ins['insCurrency'] );
 	}
 }
 

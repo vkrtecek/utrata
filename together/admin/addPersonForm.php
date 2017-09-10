@@ -1,3 +1,8 @@
+<?php
+	require( "../../../promenne.php" );
+	$spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name );
+	$spojeni->query( "SET CHARACTER SET UTF8" );
+?>
 <table rules="none" id="addUser">
 	<tr>
     	<td>
@@ -61,6 +66,21 @@
         	<input id="insMe" name="" value="" />
         </td>
     </tr>
+		<tr>
+			<td>
+				<label for="insLanguage">Language: </label>
+			</td>
+			<td>
+				<select id="insLanguage">
+					<?php
+						$sql = $spojeni->query( "SELECT * FROM utr_languages" );
+						while( $language = mysqli_fetch_array($sql, MYSQLI_ASSOC)) {
+							echo '<option value="'.$language['LanguageCode'].'">'.$language['Name'].'</option>';
+						}
+					?>
+				</select>
+			</td>
+		</tr>
     <tr>
     	<td>
             <label for="insCurrency">Currency: </label>
@@ -68,13 +88,9 @@
         <td>
         	<select id="insCurrency">
           	<?php
-							require( "../../../promenne.php" );
-							$spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name );
-							if ( $spojeni->query( "SET CHARACTER SET UTF8" ) ) {
-								$sql = $spojeni->query( "SELECT * FROM utr_currencies" );
-								while ( $currency = mysqli_fetch_array($sql, MYSQLI_ASSOC) ) {
-									echo '<option value="'.$currency['CurrencyID'].'">'.$currency['name'].' ('.$currency['value'].')'.'</option>';
-								}
+							$sql = $spojeni->query( "SELECT * FROM utr_currencies" );
+							while ( $currency = mysqli_fetch_array($sql, MYSQLI_ASSOC) ) {
+								echo '<option value="'.$currency['CurrencyID'].'">'.$currency['name'].' ('.$currency['value'].')'.'</option>';
 							}
 						?>
           </select> 
