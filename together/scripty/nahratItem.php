@@ -43,7 +43,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			
 				if ( $vyber ) { //výběr
 					$spojeni->query("INSERT INTO utrata_items (UserID, nazev, popis, cena, kurz, pozn, datum, typ, vyber) VALUES ('".$user."', '".$name."', '".$desc."', ".$price.", '".$course."', ".$poznForVyber.", '".toSQLTime( $date )."', 'karta', 1)");
-					$spojeni->query("INSERT INTO utrata_akt_hodnota (UserID, datum, hodnota, typ, duvod, idToDelete) VALUES ('".$user."', '".toSQLTime( $date )."', '".$totalPrice."', 'hotovost', 'Výběr', (SELECT MAX(id) FROM utrata_items WHERE UserID='".$user."'))");
+					$spojeni->query("INSERT INTO utrata_akt_hodnota (UserID, datum, hodnota, typ, duvod, idToDelete) VALUES ('".$user."', '".toSQLTime( $date )."', '".$totalPrice."', '".translateByCode($spojeni, 'name', $user, 'PrintItems.PayedBy.Cash')."', 'Výběr', (SELECT MAX(id) FROM utrata_items WHERE UserID='".$user."'))");
 				}	else { //ordinary item
 					$spojeni->query("INSERT INTO utrata_items (UserID, nazev, popis, cena, kurz, pozn, datum, typ, odepsat) VALUES ('".$user."', '".$name."', '".$desc."', '".$price."', '".$course."', '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")");
 					
@@ -53,21 +53,37 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 					if ( $usr['sendByOne'] == 1 ) {
 						$mailphp = '../mail.php';
 						if ( file_exists($mailphp) && require($mailphp) ) {
+							$mesice = array(
+								translateByCode($spojeni, 'name', $user, 'Month.January'),
+								translateByCode($spojeni, 'name', $user, 'Month.February'),
+								translateByCode($spojeni, 'name', $user, 'Month.March'),
+								translateByCode($spojeni, 'name', $user, 'Month.April'),
+								translateByCode($spojeni, 'name', $user, 'Month.May'),
+								translateByCode($spojeni, 'name', $user, 'Month.June'),
+								translateByCode($spojeni, 'name', $user, 'Month.July'),
+								translateByCode($spojeni, 'name', $user, 'Month.August'),
+								translateByCode($spojeni, 'name', $user, 'Month.September'),
+								translateByCode($spojeni, 'name', $user, 'Month.October'),
+								translateByCode($spojeni, 'name', $user, 'Month.November'),
+								translateByCode($spojeni, 'name', $user, 'Month.December')
+							);
+							
+							
 							$to = $usr['mother'];
 							$subject = 'Další '.$user.'\'s útrata';
 							$message = '
-							Název: '.$name.'
-							Poopis: '.$desc.'
-							Typ: '.$pozn.'
-							Cena: '.$totalPrice.' '.$usr['value'].'
+							'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.Name').': '.$name.'
+							'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.Description').': '.$desc.'
+							'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.Note').': '.$pozn.'
+							'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.Price').': '.$totalPrice.' '.$usr['value'].'
 							
-							('.dateToReadableFormat( getMyTime() ).')
+							('.dateToReadableFormat( getMyTime(), $mesice ).')
 							http://vlcata.pohrebnisluzbazlin.cz/index.php';
 							$headers = 'From: utrata <'.$spravce.'>\n';
 							
 							my_mail($to, $subject, $message, $headers);
 						}
-						else echo 'Soubor mail.php se nepodařilo najít.';
+						else echo 'Cannot find file mail.php.';
 					}
 				}
 				echo 'success';

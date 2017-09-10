@@ -25,6 +25,6 @@ function cs_mail ($to, $subject, $message, $headers)
 
 function my_mail($to, $subject, $message, $headers)
 {
-	if (!cs_mail($to, $subject, $message, $headers)) echo 'E-mail se nepodařilo odeslat.';
+	if (!cs_mail($to, $subject, $message, $headers)) echo 'Cannot send an e-mail.';
 }
 ?>

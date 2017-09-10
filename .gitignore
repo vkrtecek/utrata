@@ -1,6 +1,5 @@
 *.xml
 *.png
 *.jpg
-**/_notes/**
-_notes/*
+_notes/
 *.txt

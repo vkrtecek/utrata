@@ -244,20 +244,18 @@ function updateCell( idOfCell, column, idOfTable ) {
 	var val = document.getElementById( idOfCell ).innerHTML;
 	VAL_TO_CHANGE = val;
 	document.getElementById( idOfCell ).innerHTML = "<input type=\"text\" class=\"updateCellInput\" under=\""+idOfCell+"\" myColumn=\""+column+"\" tableId=\""+idOfTable+"\" value=\""+val+"\" />";
-	
-	//alert( idOfCell+" "+column+" "+idOfTable );
 }
 
 
 $(document).mouseup(function(e){
 	var container = $(".updateCellInput");
 	if ( container.is(e.target) ) return;
-	if ( !($(".updateCellInput").length) ) return;
+	if ( !(container.length) ) return;
 	
-	var id = $(".updateCellInput").attr( 'under' );
-	var column = $(".updateCellInput").attr( 'myColumn' );
-	var tableId = $(".updateCellInput").attr( 'tableId' );
-	var val = $(".updateCellInput").val();
+	var id = container.attr( 'under' );
+	var column = container.attr( 'myColumn' );
+	var tableId = container.attr( 'tableId' );
+	var val = container.val();
 	
 	var ERROR = false;
 	
@@ -277,7 +275,7 @@ $(document).mouseup(function(e){
 			break;
 		case 'sendMonthly':
 			if ( val != '1' && val != '0' ) {
-				alert( "Only 1 and 0 values are possible" );
+				alert( "Only 1 or 0 value are possible" );
 				document.getElementById( id ).innerHTML = VAL_TO_CHANGE;
 				return;
 			}

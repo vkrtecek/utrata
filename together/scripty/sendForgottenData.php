@@ -13,14 +13,14 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		$sql = $spojeni->query( $st1 );
 		$res = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
 		if ( $res['CNT'] > 1 ) { // more mails
-			echo 'Více lidí má stejný mail. Kontaktujte správce webu ('.$spravce.')';
+			echo translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.MorePeopleWithSameMail').' ('.$spravce.')';
 		} else if ( $res['CNT'] == 1 ) { //success
 			$sql = $spojeni->query( $st2 );
 			$person = mysqli_fetch_array($sql, MYSQLI_ASSOC);
 			$to = $person['me'];
-			$subject = 'Útrata '.$person['name'].' - zapomenuté údaje';
-			$message = 'Login: '.$person['login'].'
-heslo: '.$person['passwd'];
+			$subject = translateByCode($spojeni, 'login', $person['login'], 'Login.Forgotten.Mail.Subject.AppName').' '.$person['name'].' - '.translateByCode($spojeni, 'login', $person['login'], 'Login.Forgotten.Mail.Subject.Specification');
+			$message = translateByCode($spojeni, 'login', $person['login'], 'Login.Forgotten.Mail.Message.Login').': '.$person['login'].'
+'.translateByCode($spojeni, 'login', $person['login'], 'Login.Forgotten.Mail.Message.Password').': '.$person['passwd'];
 			$headers = 'From: Útrata<'.$spravce.'>';
 			
 			function autoUTF($s)
@@ -47,11 +47,11 @@ heslo: '.$person['passwd'];
 			if (cs_mail($to, $subject, $message, $headers))
 				echo 'success';
 			else
-				echo 'Email se nepodařilo odeslat';
+				echo translateByCode($spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.MailNotSent');
 		} else if ( $res['CNT'] < 1 ) { //nobody
-			echo 'Nikdo s takovým mailem není v databázi veden';
+			echo translateByCode($spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.Nobody');
 		} else { //some error
-			echo 'some error in SQL statement';
+			echo translateByCode($spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.SQLStatementError');
 		}
 	}
 	else echo '<p>Connection failed.</p>';

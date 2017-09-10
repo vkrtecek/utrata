@@ -6,7 +6,7 @@ function inArray( $arr, $item ) {
 		if ( $a == $item ) return true;
 	return false;
 }
-	
+
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
@@ -17,80 +17,81 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		
 		$sqlCurrencies = $spojeni->query( "SELECT * FROM utr_currencies" );
 		
+		
 		echo '<table rules="none">
 			<tr>
 				<td>
-					<label for="name">Jméno</label>
+					<label for="name">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Name').'</label>
 				</td>
 				<td>
-					<input disabled type="text" id="name" value="'.$person['name'].'" goodValue="'.$person['name'].'" onKeyUp="makeLowercase( this ); checkExistenceInCol( this, \'name\', \'warningName\' );" /><strong id="warningName"></strong>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="login">Login</label>
-				</td>
-				<td>
-					<input type="text" id="login" value="'.$person['login'].'" goodValue="'.$person['login'].'" onKeyUp="makeLowercase( this ); checkExistenceInCol( this, \'login\', \'warningLogin\' );" /><strong id="warningLogin"></strong>
+					<input disabled type="text" id="name" value="'.$person['name'].'" goodValue="'.$person['name'].'" onKeyUp="makeLowercase( this ); checkExistenceInCol( this, \'name\', \'warningName\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login.TooShort').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login.AlreadyExists').'\' );" /><strong id="warningName"></strong>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="passwd">Heslo</label>
+					<label for="login">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login').'</label>
 				</td>
 				<td>
-					<input type="password" id="passwd" value="'.$person['passwd'].'" goodValue="'.$person['passwd'].'" onKeyUp="checkPasswd( this, \'warningPass1\', false );" /><strong id="warningPass1"></strong>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="passwd2">Heslo znova</label>
-				</td>
-				<td>
-					<input type="password" id="passwd2" value="'.$person['passwd'].'" goodValue="'.$person['passwd'].'" onKeyUp="checkPasswd( this, \'warningPass2\', true );" /><strong id="warningPass2"></strong>
+					<input type="text" id="login" value="'.$person['login'].'" goodValue="'.$person['login'].'" onKeyUp="makeLowercase( this ); checkExistenceInCol( this, \'login\', \'warningLogin\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login.TooShort').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login.AlreadyExists').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Login.SomeError').'\' );" /><strong id="warningLogin"></strong>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="SendByOne">Posílat rodiči každou položku</label>
+					<label for="passwd">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Password').'</label>
+				</td>
+				<td>
+					<input type="password" id="passwd" value="'.$person['passwd'].'" goodValue="'.$person['passwd'].'" onKeyUp="checkPasswd( this, \'warningPass1\', false, \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Password.TooShort').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Password.BadSecurity').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.ConfirmPassword.NotSame').'\' );" /><strong id="warningPass1"></strong>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="passwd2">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.ConfirmPassword').'</label>
+				</td>
+				<td>
+					<input type="password" id="passwd2" value="'.$person['passwd'].'" goodValue="'.$person['passwd'].'" onKeyUp="checkPasswd( this, \'warningPass2\', true, \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Password.TooShort').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Password.BadSecurity').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.ConfirmPassword.NotSame').'\' );" /><strong id="warningPass2"></strong>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="SendByOne">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.SendByOne').'</label>
 				</td>
 				<td>
 					<select id="SendByOne">
-						<option value="1" '.($person['sendByOne'] == 1 ? 'selected=""' : '').'>ANO</option>
-						<option value="0" '.($person['sendByOne'] == 0 ? 'selected=""' : '').'>NE</option>
+						<option value="1" '.($person['sendByOne'] == 1 ? 'selected=""' : '').'>'.translateByCode($spojeni, 'login', $login, 'Yes').'</option>
+						<option value="0" '.($person['sendByOne'] == 0 ? 'selected=""' : '').'>'.translateByCode($spojeni, 'login', $login, 'No').'</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="SendMonthly">Možnost posílat měsíční výpis</label>
+					<label for="SendMonthly">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.SendMonthly').'</label>
 				</td>
 				<td>
 					<select id="SendMonthly">
-						<option value="1" '.($person['sendMonthly'] == 1 ? 'selected=""' : '').'>ANO</option>
-						<option value="0" '.($person['sendMonthly'] == 0 ? 'selected=""' : '').'>NE</option>
+						<option value="1" '.($person['sendMonthly'] == 1 ? 'selected=""' : '').'>'.translateByCode($spojeni, 'login', $login, 'Yes').'</option>
+						<option value="0" '.($person['sendMonthly'] == 0 ? 'selected=""' : '').'>'.translateByCode($spojeni, 'login', $login, 'No').'</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="motherMail">Mail na rodiče</label>
+					<label for="motherMail">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.MailToParent').'</label>
 				</td>
 				<td>
-					<input type="text" id="motherMail" value="'.$person['mother'].'" goodValue="'.$person['mother'].'" onKeyUp="checkMail( this, \'warningMother\');" /><strong id="warningMother"></strong>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="meMail">Mail na mě</label>
-				</td>
-				<td>
-					<input type="text" id="meMail" value="'.$person['me'].'" goodValue="'.$person['me'].'" onKeyUp="checkMail( this, \'warningMe\');" /><strong id="warningMe"></strong>
+					<input type="text" id="motherMail" value="'.$person['mother'].'" goodValue="'.$person['mother'].'" onKeyUp="checkMail( this, \'warningMother\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Mail.BadFormat').'\' );" /><strong id="warningMother"></strong>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="currency">Měna</label>
+					<label for="meMail">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.MailToMe').'</label>
+				</td>
+				<td>
+					<input type="text" id="meMail" value="'.$person['me'].'" goodValue="'.$person['me'].'" onKeyUp="checkMail( this, \'warningMe\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Mail.BadFormat').'\' );" /><strong id="warningMe"></strong>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="currency">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Currency').'</label>
 				</td>
 				<td>
 					<select id="currency">';
@@ -102,7 +103,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			</tr>
 			<tr>
 				<td>
-					<label for="purposes">Druhy útraty</label>
+					<label for="purposes">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.KindsOfSpend').'</label>
 				</td>
 				<td>
 					<select id="purposes" multiple="multiple">';
@@ -120,12 +121,12 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 						echo '>'.$purpose['value'].'</option>';
 					}
 		echo '</select>
-				<div id="addPurpose">Přidat: <div class="bordered"><input type="text" id="newPurpose" /><button onclick="addPurpose( \'newPurpose\', \'purposes\', \'status\' )">+</button></div></div>
+				<div id="addPurpose">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.KindOfSpend.AddNew').': <div class="bordered"><input type="text" id="newPurpose" /><button onclick="addPurpose( \'newPurpose\', \'purposes\', \'status\' )">+</button></div></div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<button onClick="changeSettings()">Změnit</button>
+					<button onClick="changeSettings( \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.Name').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.Login').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.Password').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.PasswordAgain').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.MailToParent').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Alert.MailToMe').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Result.Error').'\', \''.translateByCode($spojeni, 'login', $login, 'Settings.Form.Result.Success').'\' )">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Send').'</button>
 				</td>
 				<td>
 					<input type="hidden" id="settingsID" value="'.$person['name'].'" />

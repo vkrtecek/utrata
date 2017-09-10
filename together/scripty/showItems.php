@@ -9,6 +9,22 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
+		$months = array(
+			translateByCode( $spojeni, 'name', $user, 'Month.January' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.February' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.March' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.April' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.May' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.June' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.July' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.August' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.September' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.October' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.November' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.December' )
+		);
+		
+		
 		$sql = $spojeni->query( 'SELECT value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name = "'.$user.'"' );
 		$sql = mysqli_fetch_array( $sql );
 		$currency = $sql['value'];
@@ -16,7 +32,17 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		
 		$sql = $spojeni->query( $prikaz );
 		$prikaz = str_replace( '"', "\\'", $prikaz );
-		echo '<strong><table rules="none" id="popis"><tr><td class="nazev">Název položky</td><td class="popis">Bližší popis</td><td class="pozn">Poznámka</td><td class="typ">Typ</td><td class="cena">Celková cena</td></tr></table></strong>';
+		echo '<strong>
+		<table rules="none" id="popis">
+			<tr>
+				<td class="nazev">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Name').'</td>
+				<td class="popis">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Description').'</td>
+				<td class="pozn">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Note').'</td>
+				<td class="typ">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Type').'</td>
+				<td class="cena">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Price').'</td>
+			</tr>
+		</table>
+	</strong>';
 		$items_count = 0;
 		$suma = 0;
 		while ( $item = mysqli_fetch_array( $sql ) )
@@ -26,8 +52,8 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			if ( !$platnost ) $each_item .= '_old';
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
 			$each_item .= '">';
-			$each_item .= "<button title=\"Delete\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."'".( !$platnost ? ', 0' : '' )." )\"><b>×</b></button>";
-			if ( $platnost ) $each_item .= "<button title=\"Check\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>✓</b></button>";
+			$each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.DeleteItemTitle')."\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."'".( !$platnost ? ', 0' : '' )." )\"><b>×</b></button>";
+			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>✓</b></button>";
 			$each_item .= '<table rules="none"><tr>';
 			$each_item .= '<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
 			$each_item .= '<td class="popis">'.str_replace( '
@@ -36,15 +62,15 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			$each_item .= '<td class="typ">'.$item['typ'].'</td>';
 			$each_item .= '<td class="cena"><strong>'.number_format((float)$price, 2, ',', ' ').' '.$currency.'</strong></td>';
 			$each_item .= '</tr></table>';
-			$each_item .= '<p><strong>'.dateToReadableFormat($item['datum']).'</strong></p>';
+			$each_item .= '<p><strong>'.dateToReadableFormat($item['datum'], $months).'</strong></p>';
 			$each_item .= '</div>';
 			echo $each_item;
 			
 			$items_count++;
 			$suma += $item['cena']; 
 		}
-		if ($items_count == 0) echo '<div id="count">Takovému výběru neodpovídají žádné výsledky.</div>';
-		else echo '<table rules="none"><tr><td class="nazev">Celkem položek: '.number_format((float)$items_count, 0, ',', ' ').'</td><td class="popis"></td><td class="pozn"></td><td class="typ"></td><td class="cena">SUM: '.number_format((float)$suma, 2, ',', ' ').' '.$currency.'</td></tr></table>';
+		if ($items_count == 0) echo '<div id="count">'.translateByCode($spojeni, 'name', $user, 'PrintItems.NoResults').'</div>';
+		else echo '<table rules="none"><tr><td class="nazev">'.translateByCode($spojeni, 'name', $user, 'PrintItems.TotalItemsSize').': '.number_format((float)$items_count, 0, ',', ' ').'</td><td class="popis"></td><td class="pozn"></td><td class="typ"></td><td class="cena">'.translateByCode($spojeni, 'name', $user, 'PrintItems.TotalItemsPrice').': '.number_format((float)$suma, 2, ',', ' ').' '.$currency.'</td></tr></table>';
 		
 	}
 	else echo "<p>Connection failed.</p>";

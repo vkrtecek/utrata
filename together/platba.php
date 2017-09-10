@@ -5,7 +5,23 @@ $warning_len = false;
 $warning_fill = false;
 $platba_nahrana = false;
 $MAX_STRLEN_DUVOD = 60;
-$duvod = "Max ".$MAX_STRLEN_DUVOD." char";
+$duvod = str_replace( '{%d}', $MAX_STRLEN_DUVOD, translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Reason.Default') );
+
+$mesice = array(
+	translateByCode($spojeni, 'login', $login, 'Month.January'),
+	translateByCode($spojeni, 'login', $login, 'Month.February'),
+	translateByCode($spojeni, 'login', $login, 'Month.March'),
+	translateByCode($spojeni, 'login', $login, 'Month.April'),
+	translateByCode($spojeni, 'login', $login, 'Month.May'),
+	translateByCode($spojeni, 'login', $login, 'Month.June'),
+	translateByCode($spojeni, 'login', $login, 'Month.July'),
+	translateByCode($spojeni, 'login', $login, 'Month.August'),
+	translateByCode($spojeni, 'login', $login, 'Month.September'),
+	translateByCode($spojeni, 'login', $login, 'Month.October'),
+	translateByCode($spojeni, 'login', $login, 'Month.November'),
+	translateByCode($spojeni, 'login', $login, 'Month.December')
+);
+
 if (isset($_REQUEST['nahrat']) && $_REQUEST['cena'] == '') $warning1 = true;
 if (isset($_REQUEST['nahrat']) && !$warning1 && !is_numeric($_REQUEST['cena'])) $warning2 = true;
 if (isset($_REQUEST['nahrat']) && strlen($_REQUEST['duvod']) > $MAX_STRLEN_DUVOD ) $warning_len = true;
@@ -13,12 +29,12 @@ if (isset($_REQUEST['nahrat']) && ( strlen(trim($_REQUEST['duvod'])) == 0 || $_R
 if (isset($_REQUEST['nahrat']) && !$warning1 && !$warning2 && !$warning_len && !$warning_fill ) $platba_nahrana = true;
 ?>
 
-<h1>Přidat částku</h1>
+<h1><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Heading1');?></h1>
 <div id="right">
 	<form method="post" action="">
 		<input name="jmeno" value="<?php echo $login;?>" type="hidden" />
 		<input name="heslo" value="<?php echo $passwd;?>" type="hidden" />
-		<button type="submit" name="back" class="menu">Zpět na inventář</button>
+		<button type="submit" name="back" class="menu"><?=translateByCode($spojeni, 'login', $login, 'Menu.Back');?></button>
 	</form>
 </div>
 <?php
@@ -27,21 +43,21 @@ echo '<div id="allTransactions">';
 if ( !$platba_nahrana )
 { ?>
 	<form method="post"> 
-		<p><label> Věnovat: <input id="cena" name="cena" value="<?php if (isset($_REQUEST['cena'])) echo $_REQUEST['cena'];?>" /> <?php echo $currency; ?></label></p><br />
-		<p><label>Důvod: <input id="duvod" name="duvod" value="<?php if (isset($_REQUEST['duvod'])) echo $_REQUEST['duvod'];?>" /></label></p><br />
-		<p>Na: <select name="typ" rows="1">
-			<option value="karta" <?php if (isset($_REQUEST['typ']) && $_REQUEST['typ'] == 'karta') echo 'selected="selected"';?>>Kartu</option>
-			<option value="hotovost" <?php if (isset($_REQUEST['typ']) && $_REQUEST['typ'] == 'hotovost') echo 'selected="selected"';?>>V hotovosti</option>
+		<p><label> <?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Price');?>: <input id="cena" name="cena" value="<?php if (isset($_REQUEST['cena'])) echo $_REQUEST['cena'];?>" /> <?php echo $currency; ?></label></p><br />
+		<p><label><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Reason');?>: <input id="duvod" name="duvod" value="<?php if (isset($_REQUEST['duvod'])) echo $_REQUEST['duvod'];?>" /></label></p><br />
+		<p><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Type');?>: <select name="typ" rows="1">
+			<option value="karta" <?php if (isset($_REQUEST['typ']) && $_REQUEST['typ'] == 'karta') echo 'selected="selected"';?>><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Type.Card');?></option>
+			<option value="hotovost" <?php if (isset($_REQUEST['typ']) && $_REQUEST['typ'] == 'hotovost') echo 'selected="selected"';?>><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Type.Cash');?></option>
 		</select></p><br />
 		<input name="jmeno" value="<?php echo $login;?>" type="hidden" />
 		<input name="heslo" value="<?php echo $passwd;?>" type="hidden" />
 		<input type="hidden" name="sekce" value="platba" />
 		
-		<button name="nahrat">Nahrát</button></p><br />
+		<button name="nahrat"><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.Send');?></button></p><br />
 	</form>
 	<script>
 	MAX_STRLEN_DUVOD = <?php echo $MAX_STRLEN_DUVOD; ?>;
-	duvod = "<?php echo $duvod; ?>";
+	duvod = "<?=$duvod;?>";
 	<?php if ( !isset($_REQUEST['nahrat']) || $_REQUEST['duvod'] == $duvod ) {?>
 	$("#duvod").val( duvod );
 	$("#duvod").css( "color" , "grey" );
@@ -78,37 +94,37 @@ if ( !$platba_nahrana )
 	});
 	</script>
 	<?php
-		if ( $warning1 ) echo ' <strong class="red">Vyplň cenu</strong><br />';
-		if ( $warning2 ) echo ' <strong class="red">Cena není číslo</strong><br />';
-		if ( $warning_len ) echo ' <strong class="red">Důvod musí mít nanejvýše 60 znaků.</strong><br />';
-		if ( $warning_fill ) echo ' <strong class="red">Vyplň důvod.</strong><br />';
-		if (isset($_REQUEST['nahrat']) && strpos($_REQUEST['cena'],',') !== false) {?><em class="pozn">Pro oddělení haléřů použij desetinnou tečku</em><br /><?php }
+		if ( $warning1 ) echo ' <strong class="red">'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.BadPrice').'.</strong><br />';
+		if ( $warning2 ) echo ' <strong class="red">'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.PriceNaN').'.</strong><br />';
+		if ( $warning_len ) echo ' <strong class="red">'.str_replace( '{%d}', $MAX_STRLEN_DUVOD, translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.ReasonBadLength')).'.</strong><br />';
+		if ( $warning_fill ) echo ' <strong class="red">'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.BadReason').'.</strong><br />';
+		if (isset($_REQUEST['nahrat']) && strpos($_REQUEST['cena'],',') !== false) {?><em class="pozn"><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.UseDelimiter');?></em><br /><?php }
 	}
 	else //item nahrán
 	{
 		$spojeni->query("SET CHARACTER SET utf8");
 		$spojeni->query("INSERT INTO utrata_akt_hodnota (UserID, datum, hodnota, duvod, typ) VALUES ( '".$name."', '".getMyTime()."', '".$_REQUEST['cena']."', '".$_REQUEST['duvod']."', '".$_REQUEST['typ']."')");
-		echo '<p>Transakce proběhla úspěšně.</p>';?>
+		echo '<p>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.AddedText').'.</p>';?>
 		<form method="post" action="">
 			<input name="jmeno" value="<?php echo $login;?>" type="hidden" />
 			<input name="heslo" value="<?php echo $passwd;?>" type="hidden" />
 			<input type="hidden" name="sekce" value="platba" />
-			<button type="submit" name="dalsi" class="menu">Přidal talší položku</button>
+			<button type="submit" name="dalsi" class="menu"><?=translateByCode($spojeni, 'login', $login, 'AddTransaction.Form.AddAnotherItem');?></button>
 		</form>
 		<?php
 		$mailphp = 'together/mail.php';
 		if ( file_exists($mailphp) && require($mailphp) )
 		{
-			$to = $me;;
-			$subject = 'Transakce na '.$name.'\'s '.$_REQUEST['typ'];
-			$message = 'Bylo připsáno '.$_REQUEST['cena'].' '.$currency.'.
-			Věc: '.$_REQUEST['duvod'].'
-			('.dateToReadableFormat( getMyTime() ).')';
+			$to = $me;
+			$subject = translateByCode($spojeni, 'login', $login, 'AddTransaction.SuccessMail.Subject').' '.$name.'\'s '.$_REQUEST['typ'];
+			$message = translateByCode($spojeni, 'login', $login, 'AddTransaction.SuccessMail.Message1').' '.$_REQUEST['cena'].' '.$currency.'.
+			'.translateByCode($spojeni, 'login', $login, 'AddTransaction.SuccessMail.Message2').': '.$_REQUEST['duvod'].'
+			('.dateToReadableFormat( getMyTime(), $mesice ).')';
 			$headers = 'From: utrata <'.$spravce.'>\n';
 			
 			my_mail($to, $subject, $message, $headers);
 		}
-		else echo 'Soubor mail.php se nepodařilo najít.';
+		else echo 'Can\'t find file mail.php';
 	}
 	?>
 	
@@ -130,18 +146,26 @@ if ( !$platba_nahrana )
 		$sql = $spojeni->query('SELECT * FROM utrata_akt_hodnota WHERE UserID="'.$name.'" ORDER BY ID DESC');
 		
 		echo '<table rules="all">';
-		echo '<tr><th>ID</th><th>Datum</th><th>Hodnota</th><th>Důvod</th><th>Typ</th><th>Del</th></tr>';
+		echo '<tr>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.ID').'</th>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Date').'</th>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Value').'</th>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Reason').'</th>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Type').'</th>
+			<th>'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Delete').'</th>
+		</tr>';
+		
 		$poradnik = 1;
 		while ($polozka = mysqli_fetch_array($sql))
 		{
 			if ($poradnik % 2) $radek =  '<tr class="suda">';
 			else $radek = '<tr class="licha">';
-			$radek .= '<td>'.$poradnik.'</td><td>'.dateToReadableFormat($polozka['datum']).'</td><td>'.number_format($polozka['hodnota'], 2, ',', ' ').' '.$currency.'</td><td>'.$polozka['duvod'].'</td><td>'.$polozka['typ'].'</td>';
+			$radek .= '<td>'.$poradnik.'</td><td>'.dateToReadableFormat($polozka['datum'], $mesice).'</td><td>'.number_format($polozka['hodnota'], 2, ',', ' ').' '.$currency.'</td><td>'.$polozka['duvod'].'</td><td>'.$polozka['typ'].'</td>';
 			$radek .= '<td><form method="post" action="" onSubmit="return reallyDel()">
 			<input name="jmeno" value="'.$login.'" type="hidden" />
 			<input name="heslo" value="'.$passwd.'" type="hidden" />
 			<input type="hidden" name="sekce" value="platba" />
-			<button type="submit"  name="smazat_prispevek" title="Smazat" class="smazat_prispevek" value="'.$polozka['ID'].'"><b>×</b></button></form></td>';
+			<button type="submit"  name="smazat_prispevek" title="'.translateByCode($spojeni, 'login', $login, 'AddTransaction.Table.Delete.Title').'" class="smazat_prispevek" value="'.$polozka['ID'].'"><b>&times;</b></button></form></td>';
 			$radek .= '</tr>';
 			
 			echo $radek;
