@@ -289,14 +289,14 @@ $(document).mouseup(function(e){
 			break;
 		case 'mother':
 			if ( !validateEmail(val) ) {
-				alert( "Bad format of mail address" );
+				alert( "Wrong format of mail address" );
 				document.getElementById( id ).innerHTML = VAL_TO_CHANGE;
 				return;
 			}
 			break;
 		case 'me':
 			if ( !validateEmail(val) ) {
-				alert( "Bad format of mail address" );
+				alert( "Wrong format of mail address" );
 				document.getElementById( id ).innerHTML = VAL_TO_CHANGE;
 				return;
 			}

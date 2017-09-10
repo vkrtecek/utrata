@@ -8,13 +8,14 @@ $sendByOne = $_REQUEST['sendByOne'];
 $mother = $_REQUEST['mother'];
 $me = $_REQUEST['me'];
 $currency = $_REQUEST['currency'];
+$language = $_REQUEST['language'];
 $purposes = explode( ',', $_REQUEST['purposes'] );
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
-		$st = "UPDATE utrata_members SET login='".$login."', passwd='".$passwd."', sendMonthly=".$sendMonthly.", sendByOne=".$sendByOne.", mother='".$mother."', me='".$me."', currencyID=".$currency." WHERE name='".$name."'";
+		$st = "UPDATE utrata_members SET login='".$login."', passwd='".$passwd."', sendMonthly=".$sendMonthly.", sendByOne=".$sendByOne.", mother='".$mother."', me='".$me."', currencyID=".$currency.", LanguageCode='".$language."' WHERE name='".$name."'";
 		$spojeni->query( $st );
 		
 		//convert purposes to string usable in SQL statement
@@ -29,6 +30,10 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		
 		$morePurposes = "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) SELECT name, PurposeID FROM utrata_members CROSS JOIN utrata_Purposes WHERE name='".$name."' AND PurposeID IN ( SELECT PurposeID FROM utrata_Purposes WHERE code IN (".$arrayToSQL.") AND PurposeID NOT IN (SELECT PurposeID FROM utrata_UserPurposes WHERE UserID='".$name."') )";
 		$spojeni->query( $morePurposes );
+		
+		$lostPurposesCauseLanguageChange = "DELETE FROM utrata_UserPurposes WHERE UserID='".$name."' AND PurposeID NOT IN (SELECT PurposeID FROM utrata_Purposes WHERE LanguageCode = '".$language."')";
+		//echo $lostPurposesCauseLanguageChange;
+		$spojeni->query( $lostPurposesCauseLanguageChange );
 		
 		echo 'success';
 	}

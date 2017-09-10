@@ -11,6 +11,9 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
+		$st = "SELECT * FROM utr_languages";
+		$sqlLanguages = $spojeni->query( $st );
+		
 		$st = "SELECT * FROM utrata_members WHERE login='".$login."'";
 		$sql = $spojeni->query( $st );
 		$person = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
@@ -103,6 +106,18 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			</tr>
 			<tr>
 				<td>
+					<label for="language">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.Language').'</label>
+				</td>
+				<td>
+					<select id="language" onchange="redrawPurposesByLanguage( this )">';
+					while ( $lang = mysqli_fetch_array($sqlLanguages, MYSQLI_ASSOC) ) {
+						echo '<option value="'.$lang['LanguageCode'].'" '.($lang['LanguageCode']==$person['LanguageCode'] ? 'selected=""' : '').'>'.$lang['Name'].'</option>';
+					}
+		echo '</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label for="purposes">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.KindsOfSpend').'</label>
 				</td>
 				<td>
@@ -113,7 +128,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 					while ( $userPurpose = mysqli_fetch_array($sqlUserPurpose, MYSQLI_ASSOC)) {
 						array_push($arr, $userPurpose['code'] );
 					}
-					$st = "SELECT * FROM utrata_Purposes";
+					$st = "SELECT * FROM utrata_Purposes WHERE LanguageCode='".$person['LanguageCode']."'";
 					$sqlPurposes = $spojeni->query( $st );
 					while( $purpose = mysqli_fetch_array($sqlPurposes, MYSQLI_ASSOC) ) {
 						echo '<option value="'.$purpose['code'].'" ';
@@ -121,7 +136,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 						echo '>'.$purpose['value'].'</option>';
 					}
 		echo '</select>
-				<div id="addPurpose">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.KindOfSpend.AddNew').': <div class="bordered"><input type="text" id="newPurpose" /><button onclick="addPurpose( \'newPurpose\', \'purposes\', \'status\' )">+</button></div></div>
+				<div id="addPurpose">'.translateByCode($spojeni, 'login', $login, 'Settings.Form.KindOfSpend.AddNew').': <div class="bordered"><input type="text" id="newPurpose" /><button onclick="addPurpose( \'newPurpose\', \'purposes\', \'status\', \''.$person['LanguageCode'].'\' )">+</button></div></div>
 				</td>
 			</tr>
 			<tr>

@@ -471,6 +471,8 @@ function changeSettings( AlertName, AlertLogin, AlertPasswd, AlertPasswdAgain, A
 		var me = document.getElementById( 'meMail' ).value;
 		Select = document.getElementById( 'currency' );
 		var currency = Select.options[Select.selectedIndex].value;
+		Select = document.getElementById('language');
+		var language = Select.options[Select.selectedIndex].value;
 		var purposes = $('#purposes').val();
 		
 		
@@ -489,7 +491,7 @@ function changeSettings( AlertName, AlertLogin, AlertPasswd, AlertPasswdAgain, A
 		};
 		xmlhttp.open( "POST", "together/scripty/changeSettings.php", true );
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency+"&purposes="+purposes );
+		xmlhttp.send( "id="+id+"&name="+name+"&login="+login+"&passwd="+passwd+"&sendByOne="+sendByOne+"&sendMonthly="+sendMonthly+"&mother="+mother+"&me="+me+"&currency="+currency+"&language="+language+"&purposes="+purposes );
 	}
 }
 
@@ -550,7 +552,7 @@ function printPurposes( SPAN, name, DEFAULT ) {
 }
 
 
-function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS ) {
+function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS, language ) {
 	var purpose = document.getElementById( INPUT ).value;
 	if ( purpose == '' || purpose == null || purpose == 'undefined' ) {
 		document.getElementById( STATUS ).innerHTML = 'empty';
@@ -582,10 +584,32 @@ function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS ) {
 	};
 	xmlhttp.open( "POST", "together/scripty/addPurpose.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "name=" + name + "&purpose=" + purpose );
+	xmlhttp.send( "name=" + name + "&purpose=" + purpose + "&language=" + language );
 	
 	document.getElementById( STATUS ).innerHTML = 'FAIL';
 	document.getElementById( STATUS ).style.color = 'red';
+}
+
+function redrawPurposesByLanguage( Select ) {
+	var purpSelect = document.getElementById('purposes');
+	var language = Select.options[Select.selectedIndex].value;
+	purpSelect.innerHTML = '<option>' + language + '</option>';
+	
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+			purpSelect.innerHTML = xmlhttp.responseText;
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/redrawPurposesByLanguage.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "language=" + language );
 }
 
 

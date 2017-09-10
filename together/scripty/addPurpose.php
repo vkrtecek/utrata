@@ -1,6 +1,7 @@
 <?php
 $name = $_REQUEST['name'];
 $purpose = $_REQUEST['purpose'];
+$language = $_REQUEST['language'];
 
 function toCode( $str ) {
 	$unwanted_array = array(	'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
@@ -17,13 +18,13 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
-		$st = "SELECT count(*) CNT FROM utrata_Purposes WHERE code='".toCode( $purpose )."'";
+		$st = "SELECT count(*) CNT FROM utrata_Purposes WHERE code='".toCode( $purpose )."' AND LanguageCode='".$language."'";
 		$sql = $spojeni->query( $st );
 		$tmp = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
 		if ( $tmp['CNT'] > 0 ) {
 			echo 'code "'.toCode($purpose).'" already exists';
 		} else if ( $tmp['CNT'] == 0 ) {
-			$spojeni->query( "INSERT INTO utrata_Purposes ( code, value ) VALUES ( '".toCode( $purpose )."', '".$purpose."' );" );
+			$spojeni->query( "INSERT INTO utrata_Purposes ( code, value, LanguageCode ) VALUES ( '".toCode( $purpose )."', '".$purpose."', '".$language."' );" );
 			$spojeni->query( "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) VALUES ( (SELECT name FROM utrata_members WHERE login='".$name."'), (SELECT PurposeID FROM utrata_Purposes WHERE value='".$purpose."') )" );
 			echo 'success';
 		} else echo 'other error';
