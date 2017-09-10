@@ -1,16 +1,17 @@
 <div id="right"></div>
 <script type="text/javascript">
-    showMenu( 'right', '<?php echo $login; ?>', '<?php echo $passwd; ?>', <?php echo $sendMonthly; ?>, '<?php echo $name; ?>' );
+	TWO_SPACES_BEGGINING = '<?=translateByCode($spojeni, 'login', $login, 'PrintItems.Filtering.Error.TwoSpaces');?>';
+	showMenu( 'right', '<?php echo $login; ?>', '<?php echo $passwd; ?>', <?php echo $sendMonthly; ?>, '<?php echo $name; ?>' );
 </script>
 
-<h1><?php echo ucfirst( $name ); ?> - útrata :-)</h1>
+<h1><?= ucfirst( $name ); ?> - <?=translateByCode($spojeni, 'login', $login, 'Uvod.Heading1');?></h1>
 
 <div id="items">
 
   <?php
   	$sortForm = 'together/sortForm.php';
   	if ( file_exists($sortForm) && require($sortForm) ) {
-		printSortingForm( false, $name, $login );
+		printSortingForm( false, $name, $login, $spojeni );
 	}
 	else echo "<p>File $sortForm doesn't exists</p>";
   ?>
@@ -21,9 +22,9 @@
 
 
 
-<div id="hereTable"><img src="together/img/loading.gif" alt="načítání" /></div>
+<div id="hereTable"><img src="together/img/loading.gif" alt="<?=translateByCode($spojeni, 'login', $login, 'Items.Loading.Alt');?>" /></div>
 <script>
-    LIMIT = 3000;
+    LIMIT = 30000;
     WHERE = 'hereTable';
     TABLE = 'utrata_<?php echo $name; ?>';
     MOTHER = '<?php echo $mother; ?>';
@@ -84,26 +85,39 @@
 <?php if ( $sendMonthly ) { ?>
     <div id="send_to_mother">
         <select name="mesic_send" id="mesic_send">
-            <option value="">--měsíc--</option>
+            <option value=""><?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Month.Default');?></option>
             <?php
-            $mesice = array( 'leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec' );
+            $mesice = array(
+							translateByCode($spojeni, 'login', $login, 'Month.January'),
+							translateByCode($spojeni, 'login', $login, 'Month.February'),
+							translateByCode($spojeni, 'login', $login, 'Month.March'),
+							translateByCode($spojeni, 'login', $login, 'Month.April'),
+							translateByCode($spojeni, 'login', $login, 'Month.May'),
+							translateByCode($spojeni, 'login', $login, 'Month.June'),
+							translateByCode($spojeni, 'login', $login, 'Month.July'),
+							translateByCode($spojeni, 'login', $login, 'Month.August'),
+							translateByCode($spojeni, 'login', $login, 'Month.September'),
+							translateByCode($spojeni, 'login', $login, 'Month.October'),
+							translateByCode($spojeni, 'login', $login, 'Month.November'),
+							translateByCode($spojeni, 'login', $login, 'Month.December')
+						);
             for ( $i = 0; $i < count($mesice); $i++ )
             {
                 echo '<option value="'.str_pad( $i+1, 2, '0', STR_PAD_LEFT ).'">'.$mesice[$i].'</option>';
             }
             ?>
         </select>
-        <input style="max-width:50px;" type="text" name="rok_send" id="rok_send" value="rok" />
-        <button type="submit" onClick="send_ucty( 'send_to_mother', '<?php echo $name; ?>' )" class="menu">Náhled e-mailu</button>
+        <input style="max-width:50px;" type="text" name="rok_send" id="rok_send" value="<?=translateByCode($spojeni, 'login', $login, 'SendToParent.Year');?>" />
+        <button type="submit" onClick="send_ucty( 'send_to_mother', '<?=$name;?>', '<?=translateByCode($spojeni, 'login', $login, 'SendToParent.Year');?>' )" class="menu"><?=translateByCode($spojeni, 'login', $login, 'SendToParent.Button');?></button>
     </div>
     <script>
         $("#rok_send").focus(function(){
             val = $(this).val();
-            if ( val == "rok" ) $(this).val( "" );
+            if ( val == "<?=translateByCode($spojeni, 'login', $login, 'SendToParent.Year');?>" ) $(this).val( "" );
         });
         $("#rok_send").focusout(function(){
             val = $(this).val();
-            if ( val == "" ) $(this).val( "rok" );
+            if ( val == "" ) $(this).val( "<?=translateByCode($spojeni, 'login', $login, 'SendToParent.Year');?>" );
         });
         
         $("#send_to_mother").hide();
@@ -137,7 +151,7 @@ function downloadBackUp( name )
 				
 				//window.open( 'backUp/'+name+'.txt' );
 			}
-			else alert( 'vyskytla se chyba: ' + xmlhttp.responseText );
+			else alert( '<?=translateByCode($spojeni, 'login', $login, 'Uvod.DownloadBackUp.ErrorOcured');?>: ' + xmlhttp.responseText );
 		}
 	};
 	xmlhttp.open( 'POST', 'backUp/createBackUp.php', true );

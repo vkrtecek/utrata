@@ -28,7 +28,7 @@ if ( file_exists($promenne) && require($promenne) )
 					$sql = $spojeni->query( "SELECT M.*, C.value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE login='".$_REQUEST['jmeno']."' AND passwd='".$_REQUEST['heslo']."'" );
 					$person = mysqli_fetch_array( $sql );
 					$logged = true;
-					$title = $person['name'].'\'s útrata';
+					$title = $person['name'].translateByCode($spojeni, 'login', $person['login'], 'Title');
 					$spojeni->query( "UPDATE utrata_members SET logged=1, HASH='".$HASH."', access='".date( 'Y-m-d H:i:s' )."' WHERE login = '".$_REQUEST['jmeno']."'" );
 				}
 			} else if ( isset($_REQUEST['admin']) ) {
@@ -37,13 +37,13 @@ if ( file_exists($promenne) && require($promenne) )
 				if ( $administrator['admin'] ) $admin = true;
 			}
 		} else {
-			$sql = $spojeni->query( "SELECT M.*, C.value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyId=C.CurrencyID WHERE HASH = '".$HASH."'" );
+			$sql = $spojeni->query( "SELECT M.*, C.value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyId=C.CurrencyID WHERE M.HASH = '".$HASH."'" );
 			while ( $person2 = mysqli_fetch_array( $sql ) ) {
 				if ( $person2['logged'] == 1 )
 				{
 					$person = $person2;
 					$logged = true;
-					$title = $person['name'].'\'s útrata';
+					$title = $person['name'].translateByCode($spojeni, 'login', $person['login'], 'Title');
 				
 					$name = $person['login'];
 					$passwd = $person['passwd'];
@@ -78,7 +78,7 @@ if ( file_exists($promenne) && require($promenne) )
 				<table rules="none">
 					<tr>
 						<td>
-							<label>Jméno: 
+							<label><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Login' );?>: 
 						</td>
 						<td>
 							<input <?php if ( isset($_REQUEST['jmeno']) && !$logged ) echo 'style="border:solid red 1px;"';?> name="jmeno" type="text" value="<?php if (isset($_REQUEST['jmeno'])) echo $_REQUEST['jmeno'];?>" id="focus" /></label>
@@ -86,7 +86,7 @@ if ( file_exists($promenne) && require($promenne) )
 					</tr>
 					<tr>
 						<td>
-							<label>Heslo: 
+							<label><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Password' );?>: 
 						</td>
 						<td>
 							<input <?php if ( isset($_REQUEST['heslo']) && !$logged ) echo 'style="border:solid red 1px;"';?> name="heslo" type="password" /></label>
@@ -94,27 +94,27 @@ if ( file_exists($promenne) && require($promenne) )
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" name="login">Přihlásit</button>
+							<button type="submit" name="login"><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.LogInto' );?></button>
 						</td>
 						<td>
-							<span id="forgottenPasswd">Zapomenuté přihlašovací údaje</span>
+							<span id="forgottenPasswd"><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.ForgottenPassword' );?></span>
 						</td>
 					</tr>
 				</table>
-                <button id="admin" name="admin">administrator</button>
+                <button id="admin" name="admin"><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Admin' );?></button>
 			</form>
 			
 			<div id="modal">
 				<div id="modalContent">
 					<div id="header">
 						<span id="close">&times;</span>
-						<h2>Zapomenuté údaje</h2>
+						<h2><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Headding1' );?></h2>
 					</div>
 					<div id="content">
 						<table rules="none">
 							<tr>
 								<td>
-									<label for="mail">Váš e-mail</label>
+									<label for="mail"><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Mail' );?></label>
 								</td>
 								<td>
 									<input type="text" id="mail" />
@@ -122,7 +122,7 @@ if ( file_exists($promenne) && require($promenne) )
 							</tr>
 							<tr>
 								<td>
-									<button onclick="sendForgottenData()">Odeslat</button>
+									<button onclick="sendForgottenData( '<?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.EmptyMail' );?>', '<?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.Success' );?>', '<?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Status.Error' );?>' )"><?=translateByCode( $spojeni, 'LanguageCode', 'CZK', 'Login.Forgotten.Modal.Send' );?></button>
 								</td>
 							</tr>
 						</table>
@@ -201,9 +201,6 @@ if ( file_exists($promenne) && require($promenne) )
 			
 			
 			if ( file_exists($file) ) {
-				//echo '<script type="text/javascript">';
-				//echo 'drawPage( "body", "'.$file.'" )';
-				//echo '<script>';
 				require($file);
 			}
 			else echo "<p>File $file doesn't exist.</p>";

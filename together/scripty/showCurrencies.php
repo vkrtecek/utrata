@@ -1,5 +1,6 @@
 <?php
 $currency = $_REQUEST['currency'];
+$login = $_REQUEST['login'];
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
@@ -25,7 +26,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 				echo '>'.$curr['value'].'</option>';
 			}
 			echo '</select>';
-			echo '<label for="courseHere"> kurz: </label>';
+			echo '<label for="courseHere"> '.translateByCode($spojeni, 'login', $login, 'AddItem.Form.CurrencyCourse').': </label>';
 			echo '<input type="number" step="0.001" id="courseHere" value="1" />';
 		}
 		else echo '<p>Connection failed.</p>';

@@ -1,15 +1,25 @@
 <?php
-/*
-$checkTable = $_REQUEST['utrata_check_state_table'];
-$countTable = $_REQUEST["utrata_table"];
-$statTable = $_REQUEST["utrata_akt_hodnota_table"];
-*/
 $user = $_REQUEST['who'];
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
+		$months = array(
+			translateByCode( $spojeni, 'name', $user, 'Month.January' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.February' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.March' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.April' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.May' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.June' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.July' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.August' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.September' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.October' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.November' ),
+			translateByCode( $spojeni, 'name', $user, 'Month.December' )
+		);
+		
 		$sql = $spojeni->query( 'SELECT value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name = "'.$user.'"' );
 		$sql = mysqli_fetch_array( $sql );
 		$currency = $sql['value'];
@@ -56,12 +66,12 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		$sql = $spojeni->query("SELECT checked, value FROM utrata_check_state WHERE id = (SELECT max(id) FROM utrata_check_state WHERE UserID='".$user."' AND typ = 'hotovost')");
 		$toto2 = mysqli_fetch_array( $sql );
 		
-		echo '<em>Zůstatek na kartě: 
+		echo '<em>'.translateByCode($spojeni, 'name', $user, 'PrintItems.Status.Card').': 
 					<button name="check_K" onclick="updateState( \'karta\', \'prostred\', \''.number_format((float)$zustatek_karta, 2, '.', '').'\', \''.$user.'\' )" class="'.$redK.'"><strong class="check_H">'.number_format((float)$zustatek_karta, 2, ',', ' ').' '.$currency.'</strong></button>
-			  </em><span title="'.number_format((float)$toto1['value'], 2, ',', ' ').'">'.dateToReadableFormat($toto1['checked']).'</span><br />';
-		echo '<em>Zůstatek hotovosti: 
+			  </em><span title="'.number_format((float)$toto1['value'], 2, ',', ' ').'">'.dateToReadableFormat($toto1['checked'], $months).'</span><br />';
+		echo '<em>'.translateByCode($spojeni, 'name', $user, 'PrintItems.Status.Cash').': 
 					<button name="check_H" onclick="updateState( \'hotovost\', \'prostred\', \''.number_format((float)$zustatek_hot, 2, '.', '').'\', \''.$user.'\' )" class="'.$redH.'"><strong class="check_H">'.number_format((float)$zustatek_hot, 2, ',', ' ').' '.$currency.'</strong></button>
-			  </em><span title="'.number_format((float)$toto2['value'], 2, ',', ' ').'">'.dateToReadableFormat($toto2['checked']).'</span>';
+			  </em><span title="'.number_format((float)$toto2['value'], 2, ',', ' ').'">'.dateToReadableFormat($toto2['checked'], $months).'</span>';
 	}
 	else echo '<p>Connection failed.</p>';
 }

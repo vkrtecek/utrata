@@ -10,7 +10,7 @@ function showItems( where, user, limit, platnost ){
 	var year = document.getElementsByClassName( 'changeSortBtn' )[0].value;
 	var pattern = document.getElementsByClassName( 'changeSortBtn' )[1].value;
 	if ( /^  +/.test(pattern) ) {
-		alert( 'řetězec začínal dvěma mezarama!' );
+		alert( TWO_SPACES_BEGGINING );
 		document.getElementsByClassName( 'changeSortBtn' )[1].value = '';
 		pattern = '';
 	}
@@ -145,14 +145,12 @@ function clearSearch( name, x )
 	showItems( 'hereTable', name, LIMIT, x );
 }
 
-function send_ucty( where, who )
+function send_ucty( where, who, defYear )
 {
 	var month = document.getElementById( 'mesic_send' ).value;
 	var year = document.getElementById( 'rok_send' ).value;
-	if ( month == '' || year == 'rok' || parseInt(year) != year || year < 2015 )
-	{
+	if ( month == '' || year == defYear || parseInt(year) != year || year < 2015 )
 		return;
-	}
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttpMother = new XMLHttpRequest();
@@ -209,7 +207,7 @@ function showMenu( where, j, h, sendMonthlyToMother, name )
 }
 
 
-function otherCurrency( div, curr ) {
+function otherCurrency( div, curr, login ) {
 	var val = document.getElementById('otherCurrency').checked;
 	if ( val == false ) {
 		document.getElementById(div).innerHTML = '';
@@ -228,7 +226,7 @@ function otherCurrency( div, curr ) {
 		};
 		xmlhttp.open( "POST", "together/scripty/showCurrencies.php", true );
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.send( 'currency=' + curr );
+		xmlhttp.send( 'currency=' + curr + "&login=" + login );
 	}
 }
 
@@ -261,14 +259,14 @@ function getCurseValue( from, input, Select ) {
 * uložit záznam o útratě do DB
 * 
 */
-function nahratItem( DIV, login, passwd, user ) {
+function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAddedButton, alreadyExists, fillName, fillPrice ) {
 	
-	var writeSuccess = '<p>Položka byla nahrána do databáze.</p>' +
+	var writeSuccess = '<p>'+successfullyAdded+'.</p>' +
 	'<form method="post" action="">' +
 	'		<input name="jmeno" value="' + login + '" type="hidden" />' +
 	'		<input name="heslo" value="' + passwd + '" type="hidden" />' +
 	'		<input type="hidden" name="sekce" value="pridat" />' +
-	'		<button type="submit" name="dalsi" class="menu">Přidal talší položku</button>' +
+	'		<button type="submit" name="dalsi" class="menu">'+successfullyAddedButton+'</button>' +
 	'</form>';
 	
 	var name = document.getElementById( 'nahr_name' ).value;
@@ -287,11 +285,11 @@ function nahratItem( DIV, login, passwd, user ) {
 	if ( otherCurrency ) course = document.getElementById( 'courseHere' ).value;
 	
 	if ( name == '' ) {
-		document.getElementById( 'fillName' ).innerHTML = 'Vyplň název';
+		document.getElementById( 'fillName' ).innerHTML = fillName;
 		return;
 	} else document.getElementById( 'fillName' ).innerHTML = '';
 	if ( price == '' ) {
-		document.getElementById( 'fillPrice' ).innerHTML = 'Vyplň cenu';
+		document.getElementById( 'fillPrice' ).innerHTML = fillPrice;
 		return;
 	} else document.getElementById( 'fillPrice' ).innerHTML = '';
 	
@@ -308,7 +306,7 @@ function nahratItem( DIV, login, passwd, user ) {
 			if ( xmlhttp.responseText == 'success' ) {
 				document.getElementById( DIV ).innerHTML = writeSuccess;
 			} else if ( xmlhttp.responseText == 'duplicity' ) {
-				document.getElementById( DIV ).innerHTML += 'Záznam již existuje<br />';
+				document.getElementById( DIV ).innerHTML += alreadyExists+'<br />';
 			} else {
 				document.getElementById( DIV ).innerHTML += 'Some error -> ' + xmlhttp.responseText + '<br />';
 			}
@@ -342,7 +340,7 @@ function makeLowercase( input ) {
 	input.value = input.value.toLowerCase();	
 }
 
-function checkMail( input, DIV ) {
+function checkMail( input, DIV, wrongFormat ) {
 	document.getElementById( DIV ).style.fontFamily = 'monospace';
 	var was = input.getAttribute( 'goodValue' );
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -353,18 +351,18 @@ function checkMail( input, DIV ) {
 		document.getElementById( DIV ).innerHTML = 'OK';
 		document.getElementById( DIV ).style.color = 'green';
 	} else {
-		document.getElementById( DIV ).innerHTML = 'bad format';
+		document.getElementById( DIV ).innerHTML = wrongFormat;
 		document.getElementById( DIV ).style.color = 'red';
 	}
 }
 
-function checkExistenceInCol( input, COL, DIV ) {
+function checkExistenceInCol( input, COL, DIV, loginTooShort, loginAlreadyExists, loginSomeError ) {
 	var minChar = 2;
 	var puvodni = input.getAttribute( 'goodValue' );
 	document.getElementById( DIV ).style.fontFamily = 'monospace';
 	
 	if ( input.value.length < minChar ) {
-		document.getElementById( DIV ).innerHTML = 'příliš krátké (> '+minChar+' znaků)';
+		document.getElementById( DIV ).innerHTML = loginTooShort.replace( '{%d}', minChar );
 		document.getElementById( DIV ).style.color = 'violet';
 	} else if ( input.value == puvodni ) {
 		document.getElementById( DIV ).innerHTML =  '';
@@ -382,14 +380,14 @@ function checkExistenceInCol( input, COL, DIV ) {
 					document.getElementById( DIV ).innerHTML = 'OK';
 					document.getElementById( DIV ).style.color = 'green';
 				} else if ( xmlhttp.responseText == 'duplicity' ) {
-					document.getElementById( DIV ).innerHTML = 'Tato hodnota je již zabraná';
+					document.getElementById( DIV ).innerHTML = loginAlreadyExists;
 					document.getElementById( DIV ).style.color = 'red';
 				} else {
-					document.getElementById( DIV ).innerHTML = 'some error';
+					document.getElementById( DIV ).innerHTML = loginSomeError;
 					document.getElementById( DIV ).style.color = 'red';
 				}
 			} else {
-				document.getElementById( DIV ).innerHTML = 'some error';
+				document.getElementById( DIV ).innerHTML = loginSomeError;
 				document.getElementById( DIV ).style.color = 'red';
 			}
 		};
@@ -401,7 +399,7 @@ function checkExistenceInCol( input, COL, DIV ) {
 
 
 
-function checkPasswd2( input, DIV ) {
+function checkPasswd2( input, DIV, passwordsNotMaching ) {
 	var minChar = 2;
 	var was = input.getAttribute( 'goodValue' );
 	var val = input.value;
@@ -411,11 +409,11 @@ function checkPasswd2( input, DIV ) {
 		document.getElementById( DIV ).innerHTML = 'OK';
 		document.getElementById( DIV ).style.color = 'green';
 	} else {
-		document.getElementById( DIV ).innerHTML = 'Hesla se neshodují';
+		document.getElementById( DIV ).innerHTML = passwordsNotMaching;
 		document.getElementById( DIV ).style.color = 'red';
 	}
 }
-function checkPasswd( input, DIV ) {
+function checkPasswd( input, DIV, a, passwordTooShort, passwordBadSecurity, passwordsNotMaching ) {
 	var minChar = 2;
 	var was = input.getAttribute( 'goodValue' );
 	var val = input.value;
@@ -424,7 +422,7 @@ function checkPasswd( input, DIV ) {
 	if ( val == was ) {
 		document.getElementById( DIV ).innerHTML = '';
 	} else if ( val.length < minChar ) {
-		document.getElementById( DIV ).innerHTML = 'příliš krátké (< '+minChar+' znaků)';
+		document.getElementById( DIV ).innerHTML = passwordTooShort.replace( '{%d}', minChar );
 		document.getElementById( DIV ).style.color = 'violet';
 	} else {
 		var degree = 0;
@@ -433,17 +431,18 @@ function checkPasswd( input, DIV ) {
 		if ( /\d/.test(val) ) degree++; //contain number
 		
 		if ( degree < 2 ) {
-			document.getElementById( DIV ).innerHTML = 'Alespoň 2 vlastnosti z "malé písmeno", "velké písmeno" a "číslice"';
+			document.getElementById( DIV ).innerHTML = passwordBadSecurity;
 			document.getElementById( DIV ).style.color = 'violet';
 		} else {
 			document.getElementById( DIV ).innerHTML = 'OK';
 			document.getElementById( DIV ).style.color = 'green';
 		}
 	}
-	checkPasswd2( document.getElementById('passwd2'), 'warningPass2' );
+	checkPasswd2( document.getElementById('passwd2'), 'warningPass2', passwordsNotMaching );
 }
 
-function changeSettings() {
+
+function changeSettings( AlertName, AlertLogin, AlertPasswd, AlertPasswdAgain, AlertParentMail, AlertMyMail, ResultError, ResultSuccess ) {
 	var DIV = 'settingsDiv';
 	var sgName = document.getElementById( 'warningName' ).innerHTML;
 	var sgLogin = document.getElementById( 'warningLogin' ).innerHTML;
@@ -452,12 +451,12 @@ function changeSettings() {
 	var sgMother = document.getElementById( 'warningMother' ).innerHTML;
 	var sgMe = document.getElementById( 'warningMe' ).innerHTML;
 	
-	if ( sgName != '' && sgName != 'OK' ) alert ('Špatně vyplněné jméno' );
-	else if ( sgLogin != '' && sgLogin != 'OK' ) alert( 'Špatně vyplněný login' );
-	else if ( sgPass1 != '' && sgPass1 != 'OK' ) alert( 'Špatně vyplněné heslo' );
-	else if ( sgPass2 != '' && sgPass2 != 'OK' ) alert( 'Špatně vyplněné heslo' );
-	else if ( sgMother != '' && sgMother != 'OK' ) alert( 'Špatně vyplněný mail na rodiče' );
-	else if ( sgMe != '' && sgMe != 'OK' ) alert( 'Špatně vyplněný mail' );
+	if ( sgName != '' && sgName != 'OK' ) alert ( AlerName );
+	else if ( sgLogin != '' && sgLogin != 'OK' ) alert( AlertLogin );
+	else if ( sgPass1 != '' && sgPass1 != 'OK' ) alert( AlertPasswd );
+	else if ( sgPass2 != '' && sgPass2 != 'OK' ) alert( AlertPasswdAgin );
+	else if ( sgMother != '' && sgMother != 'OK' ) alert( AlertParentMail );
+	else if ( sgMe != '' && sgMe != 'OK' ) alert( AlertMyMail );
 	else
 	{ //make changes
 		var id = document.getElementById( 'settingsID' ).value;
@@ -484,9 +483,9 @@ function changeSettings() {
 		}
 		xmlhttp.onreadystatechange = function() {
 			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-				if ( xmlhttp.responseText == 'success' ) document.getElementById( DIV ).innerHTML = 'Vše změněno';
+				if ( xmlhttp.responseText == 'success' ) document.getElementById( DIV ).innerHTML = ResultSuccess;
 				else document.getElementById( DIV ).innerHTML = xmlhttp.responseText;
-			} else document.getElementById( DIV ).innerHTML = 'Něco se pokazilo';
+			} else document.getElementById( DIV ).innerHTML = ResultError;
 		};
 		xmlhttp.open( "POST", "together/scripty/changeSettings.php", true );
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -494,11 +493,11 @@ function changeSettings() {
 	}
 }
 
-function sendForgottenData() {
+function sendForgottenData( fillMail, successfullySend, somethingWrong ) {
 	var mail = document.getElementById('mail').value;
 	var DIV = 'footerP';
 	if ( mail == '' ) {
-		document.getElementById( DIV ).innerHTML = 'Vyplň mail';
+		document.getElementById( DIV ).innerHTML = fillMail;
 		document.getElementById( DIV ).style.color = 'red';
 	} else {
 		if (window.XMLHttpRequest) {
@@ -511,14 +510,14 @@ function sendForgottenData() {
 		xmlhttp.onreadystatechange = function() {
 			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
 				if ( xmlhttp.responseText == 'success' ) {
-					document.getElementById( DIV ).innerHTML = 'Přihlašovací údaje Vám byly zaslány na ' + mail;
+					document.getElementById( DIV ).innerHTML = successfullySend + ' ' + mail;
 					document.getElementById( DIV ).style.color = 'green';
 				}	else {
 					document.getElementById( DIV ).innerHTML = xmlhttp.responseText;
 					document.getElementById( DIV ).style.color = 'violet';
 				}
 			} else {
-				document.getElementById( DIV ).innerHTML = 'Něco se pokazilo';
+				document.getElementById( DIV ).innerHTML = somethingWrong;
 				document.getElementById( DIV ).style.color = 'red';
 			}
 		};
@@ -611,7 +610,6 @@ $(document).keyup(function(e){
 });
 
 $(document).keydown(function(event){
-	//alert( event.keyCode );
 	if ( event.ctrlKey && event.keyCode == 188 ) { //Shift+,
 		$('#addItem').click();
 		event.preventDefault(); 
