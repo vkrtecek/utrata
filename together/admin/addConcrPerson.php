@@ -21,7 +21,7 @@ if ( file_exists( $promenneFile ) && require $promenneFile ) {
 		$insert = "INSERT INTO utrata_check_state ( UserID, typ, checked, value ) VALUES ( '".$name."', 'hotovost', '0000-00-00 00:00:00', 0.0 );";
 		$spojeni->query( $insert );
 		
-		$insert = "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) SELECT A.name, B.PurposeID FROM utrata_members A CROSS JOIN utrata_Purposes B WHERE B.base=1";
+		$insert = "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) SELECT A.name, B.PurposeID FROM utrata_members A CROSS JOIN utrata_Purposes B WHERE B.base=1 AND B.LanguageCode='".$language."'";
 		$spojeni->query( $insert );
 		
 		echo "success";
