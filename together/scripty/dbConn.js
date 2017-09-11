@@ -1,14 +1,7 @@
 // JavaScript Document
 
-function showItems( where, user, limit, platnost ){
-	
-	platnost = platnost == 0 ? 0 : 1;
-	var sortBy = document.getElementsByClassName( 'changeSort' )[0].value;
-	var desc = document.getElementsByClassName( 'changeSort' )[1].value;
-	var month = document.getElementsByClassName( 'changeSort' )[2].value;
-	var pozn = document.getElementsByClassName( 'changeSort' )[3].value;
-	var year = document.getElementsByClassName( 'changeSortBtn' )[0].value;
-	var pattern = document.getElementsByClassName( 'changeSortBtn' )[1].value;
+function makeSQLStatement( month, pozn, year, pattern ) {
+
 	if ( /^  +/.test(pattern) ) {
 		alert( TWO_SPACES_BEGGINING );
 		document.getElementsByClassName( 'changeSortBtn' )[1].value = '';
@@ -17,11 +10,12 @@ function showItems( where, user, limit, platnost ){
 	var patternArray = pattern.split( '  ' );
 	var ANDY = [];
 	var ORY = [];
-	
-	var prikaz = 'SELECT * FROM utrata_items USER LEFT JOIN utrata_Purposes P ON USER.pozn=P.PurposeID WHERE USER.UserID="' + user + '" AND platnost = '+platnost+' AND vyber=0';
+
+	var prikaz = '';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
 	if ( pozn != '' ) prikaz += ' AND pozn = \''+pozn+'\'';
 	if ( year != '' ) prikaz += ' AND datum LIKE "%25'+year+'-%25"';
+
 	if ( patternArray.length != 1 || ( patternArray[0] != '' && patternArray[0] != '!') ) {
 		
 		for ( var i = 0; i < patternArray.length; i++ ) {
@@ -42,8 +36,28 @@ function showItems( where, user, limit, platnost ){
 		for ( i = 0; i < ANDY.length; i++ )
 			prikaz += ' AND ( nazev NOT LIKE "%25'+ANDY[i]+'%25" AND popis NOT LIKE "%25'+ANDY[i]+'%25" AND pozn NOT LIKE "%25'+ANDY[i]+'%25" AND typ NOT LIKE "%25'+ANDY[i]+'%25" )';
 	}
+
+	
+	return prikaz;
+}
+
+function showItems( where, user, limit, platnost ){
+	
+	platnost = platnost == 0 ? 0 : 1;
+	var sortBy = document.getElementsByClassName( 'changeSort' )[0].value;
+	var desc = document.getElementsByClassName( 'changeSort' )[1].value;
+	var month = document.getElementsByClassName( 'changeSort' )[2].value;
+	var pozn = document.getElementsByClassName( 'changeSort' )[3].value;
+	var year = document.getElementsByClassName( 'changeSortBtn' )[0].value;
+	var pattern = document.getElementsByClassName( 'changeSortBtn' )[1].value;
+
+	
+	
+	var prikaz = 'SELECT * FROM utrata_items USER LEFT JOIN utrata_Purposes P ON USER.pozn=P.PurposeID WHERE USER.UserID="' + user + '" AND platnost = '+platnost+' AND vyber=0';
+	prikaz += makeSQLStatement( month, pozn, year, pattern, sortBy, desc, limit );
 	prikaz += ' ORDER BY '+sortBy+' '+desc;
 	prikaz += ' LIMIT 0, '+limit;
+	
 	
 	//prikaz = prikaz.replace( /'/g, '"' );
 	if (window.XMLHttpRequest) {
@@ -82,7 +96,7 @@ function showStatus( where, who ){
 };
 
 
-function updateItem( id, user, where ){	
+function updateItem( id, user, where, whereStatus ){	
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -99,8 +113,8 @@ function updateItem( id, user, where ){
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send( "id="+id+"&user="+user );
 };
-function deleteItem( id, user, where, platnost ){
-	var enter = confirm( 'Opravdu chceš smazat?' );
+function deleteItem( id, user, where, whereStatus, confirmUpdate, platnost ){
+	var enter = confirm( confirmUpdate );
 	if ( !enter ) return;
 	
 	if (window.XMLHttpRequest) {
@@ -113,12 +127,42 @@ function deleteItem( id, user, where, platnost ){
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			showItems( where, user, LIMIT, platnost );
+			showStatus( whereStatus, user );
 		}
 	};
 	xmlhttp.open( "POST", "together/scripty/deleteItem.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send( "id="+id+"&user="+user );
 };
+
+function updateAllItems( user, where, confirmUpdateAll ) {
+	var enter = confirm( confirmUpdateAll );
+	if ( !enter ) return;
+	var month = document.getElementsByClassName( 'changeSort' )[2].value;
+	var pozn = document.getElementsByClassName( 'changeSort' )[3].value;
+	var year = document.getElementsByClassName( 'changeSortBtn' )[0].value;
+	var pattern = document.getElementsByClassName( 'changeSortBtn' )[1].value;
+
+	var prikaz = 'UPDATE utrata_items SET platnost=0 WHERE UserID="' + user + '" AND platnost = 1 AND vyber=0';
+	prikaz += makeSQLStatement( month, pozn, year, pattern );
+
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			showItems( where, user, LIMIT, 1 );
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/updateAllItems.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "prikaz="+prikaz );
+}
+
 
 function updateState( typ, whereAfter, value, user ){
 	xmlhttpU = new XMLHttpRequest();
@@ -259,7 +303,7 @@ function getCurseValue( from, input, Select ) {
 * uložit záznam o útratě do DB
 * 
 */
-function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAddedButton, alreadyExists, fillName, fillPrice ) {
+function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAddedButton, alreadyExists, fillName, fillPrice, noPurposeSelected ) {
 	
 	var writeSuccess = '<p>'+successfullyAdded+'.</p>' +
 	'<form method="post" action="">' +
@@ -274,6 +318,10 @@ function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAd
 	var vyber = document.getElementById( 'nahr_vyber' ).checked == false ? 0 : 1;
 	var odepsat = document.getElementById( 'nahr_odepsat' ).checked == false ? 0 : 1; 
 	var Select = document.getElementById( 'nahr_pozn' );
+	if ( Select.selectedIndex < 0 ) {
+		document.getElementById( 'fillName' ).innerHTML = noPurposeSelected;
+		return;
+	}
 	var pozn = Select.options[Select.selectedIndex].value;
 	Select = document.getElementById( 'nahr_type' );
 	var type = Select.options[Select.selectedIndex].value;

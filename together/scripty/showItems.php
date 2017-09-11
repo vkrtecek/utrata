@@ -32,8 +32,9 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		
 		$sql = $spojeni->query( $prikaz );
 		$prikaz = str_replace( '"', "\\'", $prikaz );
-		echo '<strong>
-		<table rules="none" id="popis">
+		echo '<strong>';
+		if ( $platnost ) echo '<button title="'.translateByCode($spojeni, 'name', $user, 'ShowItems.CheckAll.Title').'" class="aktualizovat_prispevek" onclick="updateAllItems( \''.$user.'\', \''.$where.'\', \''.translateByCode($spojeni, 'name', $user, 'ShowItems.CheckAll.Alert').'\' )"><b>&#10004;</b></button>';
+echo '<table rules="none" id="popis">
 			<tr>
 				<td class="nazev">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Name').'</td>
 				<td class="popis">'.translateByCode($spojeni, 'name', $user, 'PrintItems.Description').'</td>
@@ -52,8 +53,8 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			if ( !$platnost ) $each_item .= '_old';
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
 			$each_item .= '">';
-			$each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.DeleteItemTitle')."\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."'".( !$platnost ? ', 0' : '' )." )\"><b>×</b></button>";
-			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>✓</b></button>";
+			$each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.DeleteItemTitle')."\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."', 'prostred', '".translateByCode($spojeni, 'name', $user, 'ShowItems.Delete.Alert')."'".( !$platnost ? ', 0' : '' )." )\"><b>&times;</b></button>";
+			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>&#10004;</b></button>";
 			$each_item .= '<table rules="none"><tr>';
 			$each_item .= '<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
 			$each_item .= '<td class="popis">'.str_replace( '
