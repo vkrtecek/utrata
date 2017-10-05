@@ -147,23 +147,35 @@ h1{
     font-weight:bold;
 	cursor:pointer;
 }
-.smazat_prispevek{
+.smazat_prispevek, .aktualizovat_prispevek, .updateItem, .updateButtonStorno, .updateButtonSave {
 	float:right;
 	font-family:Verdana, Geneva, sans-serif;
 	font-size:14px;
 	margin: 13px 10px 0 0;
 	padding:1px;
+	width: 24px;
+	height: 24px;
+}
+.smazat_prispevek {
 	color:#F09;
 }
 .aktualizovat_prispevek{
-	float:right;
-	font-family:Verdana, Geneva, sans-serif;
-	font-size:14px;
-	margin: 13px 10px 0 0;
-	padding:1px;
 	color:green;
 }
-.smazat_prispevek:hover, .aktualizovat_prispevek:hover{
+#updateDiv {
+	background-color: #F30;
+}
+.updateItem {
+	border-color: #ccc;
+	background: url(img/update.png) no-repeat center;
+}
+.updateButtonStorno {
+	background: url(img/storno.jpg) no-repeat center;
+}
+.updateButtonSave {
+	background: url(img/save.png) no-repeat center;
+}
+.smazat_prispevek:hover, .aktualizovat_prispevek:hover, .updateItem:hover, .updateButtonStorno, .updateButtonSave {
 	text-decoration:underline;
 	cursor:pointer;
 }

@@ -49,19 +49,20 @@ echo '<table rules="none" id="popis">
 		while ( $item = mysqli_fetch_array( $sql ) )
 		{
 			$price = $item['cena'] * $item['kurz'];
-			$each_item = '<div class="item';
+			$each_item = '<div id="itemDiv_'.$item['ID'].'" class="item';
 			if ( !$platnost ) $each_item .= '_old';
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
 			$each_item .= '">';
 			$each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.DeleteItemTitle')."\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."', 'prostred', '".translateByCode($spojeni, 'name', $user, 'ShowItems.Delete.Alert')."'".( !$platnost ? ', 0' : '' )." )\"><b>&times;</b></button>";
 			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>&#10004;</b></button>";
+			if ( $platnost ) $each_item .= '<button title="'.translateByCode($spojeni, 'name', $user, 'PrintItems.UpdateItemTitle').'" class="updateItem" onclick="updateItemMakeForm( '.$item['ID'].', \''.$user.'\', \''.$where.'\', \'prostred\', \'itemDiv_'.$item['ID'].'\', \''.translateByCode($spojeni, 'name', $user, 'UpdateItem.AlreadyUpdating').'\' )"></button>';
 			$each_item .= '<table rules="none"><tr>';
-			$each_item .= '<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
-			$each_item .= '<td class="popis">'.str_replace( '
+			$each_item .= 	'<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';
+			$each_item .= 	'<td class="popis">'.str_replace( '
 ', '<br />', $item['popis'] ).'</td>';
-			$each_item .= '<td class="pozn"><em>('.$item['value'].')</em></td>';
-			$each_item .= '<td class="typ">'.$item['typ'].'</td>';
-			$each_item .= '<td class="cena"><strong>'.number_format((float)$price, 2, ',', ' ').' '.$currency.'</strong></td>';
+			$each_item .= 	'<td class="pozn"><em>('.$item['value'].')</em></td>';
+			$each_item .= 	'<td class="typ">'.$item['typ'].'</td>';
+			$each_item .= 	'<td class="cena"><strong>'.number_format((float)$price, 2, ',', ' ').' '.$currency.'</strong></td>';
 			$each_item .= '</tr></table>';
 			$each_item .= '<p><strong>'.dateToReadableFormat($item['datum'], $months).'</strong></p>';
 			$each_item .= '</div>';

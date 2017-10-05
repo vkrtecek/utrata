@@ -1,16 +1,3 @@
-<?php
-
-function toDefaultTime( $in )
-{
-	$date = explode( ' ', $in );
-	if ( count($date) == 1 ) return $in;
-	$time = explode( ':', $date[1] );
-	
-	return $date[0].'T'.$time[0].':'.$time[1];
-}
-
-	
-?>
 <h1><?=translateByCode($spojeni, 'login', $login, 'AddItem.Heading1');?></h1>
 <div id="right">
     <form method="post" action="">

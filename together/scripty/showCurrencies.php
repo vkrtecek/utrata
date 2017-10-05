@@ -19,7 +19,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 			
 			$statement = "SELECT * FROM utr_currencies";
 			$sql = $spojeni->query( $statement );
-			echo '<select onChange="getCurseValue( \''.$myCurrencyCode.'\', \'courseHere\', this )">';
+			echo '<select onChange="getCourseValue( \''.$myCurrencyCode.'\', \'courseHere\', this )">';
 			while ( $curr = mysqli_fetch_array($sql, MYSQLI_ASSOC) ) {
 				echo '<option value="'.$curr['code'].'"';
 				if ( $curr['value'] == $currency) echo ' selected=""';

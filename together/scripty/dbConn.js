@@ -135,6 +135,69 @@ function deleteItem( id, user, where, whereStatus, confirmUpdate, platnost ){
 	xmlhttp.send( "id="+id+"&user="+user );
 };
 
+function updateItemMakeForm( id, user, where, whereStatus, divID, alreadyUpdatingAlert ) {
+	var alreadyUpadteDiv = $("#updateDiv").text();
+	if ( alreadyUpadteDiv ) {
+		alert( alreadyUpdatingAlert );
+		return;
+	}
+	
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById( divID ).innerHTML = xmlhttp.responseText;
+		}
+	};
+	xmlhttp.open( "POST", "together/scripty/formToUpdateItem.php", true );
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send( "id=" + id + "&user=" + user + "&where=" + where + "&whereStatus=" + whereStatus );
+}
+
+/**
+* update int will be update or user click to "Storno"
+* 
+*/
+function updateItem( update, where, user, whereStatus, ID ) {
+	if ( update ) {
+		var name = document.getElementById( 'updateName' ).value;
+		var desc = document.getElementById( 'updateDesc' ).innerHTML;
+		var purpose = document.getElementById( 'updatePurpose' ).value;
+		var type = document.getElementById( 'updateType' ).value;
+		var price = document.getElementById( 'updatePrice' ).value;
+		var currency = document.getElementById( 'updateCurrency' ).value;
+		var date = document.getElementById( 'updateDate' ).value;
+		var course = document.getElementById( 'updateCourse' ).value;
+		var odepsat = document.getElementById( 'updateOdepsat' ).checked;
+		
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			var xmlhttp = new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				if ( xmlhttp.responseText != 'success' )
+					alert( 'ERR: ' + xmlhttp.responseText );
+				showItems( where, user, LIMIT, 1 );
+				showStatus( whereStatus, user );
+			}
+		};
+		xmlhttp.open( "POST", "together/scripty/updateItemByForm.php", true );
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send( "ID="+ID+"&name="+name+"&desc="+desc+"&purpose="+purpose+"&type="+type+"&price="+price+"&currency="+currency+"&date="+date+"&course="+course+"&odepsat="+odepsat );
+	} else {
+		showItems( where, user, LIMIT );
+	}
+}
+
 function updateAllItems( user, where, confirmUpdateAll ) {
 	var enter = confirm( confirmUpdateAll );
 	if ( !enter ) return;
@@ -278,7 +341,7 @@ function otherCurrency( div, curr, login ) {
 * kurz měny
 * 
 */
-function getCurseValue( from, input, Select ) {
+function getCourseValue( from, input, Select ) {
 	var to = Select.options[Select.selectedIndex].value
 	
 	if (window.XMLHttpRequest) {
