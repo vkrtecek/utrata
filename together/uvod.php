@@ -133,7 +133,8 @@
 
 
 <script type="text/javascript">
-document.getElementById( 'focus' ).focus();
+var element = document.getElementById( 'focus' );
+if ( element ) element.focus();
 function downloadBackUp( name )
 {
 	var xmlhttp = new XMLHttpRequest();

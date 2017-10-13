@@ -134,7 +134,8 @@ if ( file_exists($promenne) && require($promenne) )
 			</div>
 			
 			<script type="text/javascript">
-				document.getElementById( 'focus' ).focus();
+				var element = document.getElementById( 'focus' );
+				if ( element ) element.focus();
 				/*----------------------------------------------------*/
 				var modal = document.getElementById( 'modal' );
 				var btn = document.getElementById( 'forgottenPasswd' );

@@ -438,31 +438,14 @@ span#status {
 
 
 /* MENU */
-button#addItem, button#addTransaction, button#oldBills, button#settings, button#sendToParent, button#downloadBackUp, button#logout, div#overSpan {
-	width: 40px;
-	height: 40px;
+button#addItem, button#addTransaction, button#oldBills, button#settings, button#sendToParent, button#downloadBackUp, button#logout, div#overSpan {}
+.menu {
+	width: 42px;
+	height: 42px;
 	margin-top: 5px;
-}
-button#addItem {
-	background: url(img/new.jpg) no-repeat center;
-}
-button#addTransaction {
-	background: url(img/transaction.png) no-repeat center;
-}
-button#oldBills {
-	background: url(img/checked.png) no-repeat center;
-}
-button#settings {
-	background: url(img/settings.png) no-repeat center;
-}
-button#sendToParent {
-	background: url(img/send.png) no-repeat center;
-}
-button#downloadBackUp {
-	background: url(img/download.png) no-repeat center;
-}
-button#logout {
-	background: url(img/logout.jpg) no-repeat center;
+	border: black 1px solid;
+	background: #fff;
+	margin-right: 8px;
 }
 #overSpan {
 	cursor: help;

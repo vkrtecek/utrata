@@ -89,7 +89,8 @@
 	}
 	?>
 <script type="text/javascript">
-document.getElementById( 'focus' ).focus();
+	var element = document.getElementById( 'focus' );
+	if ( element ) element.focus();
 </script>
 </body>
 </html>

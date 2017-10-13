@@ -3,7 +3,7 @@
     <form method="post" action="index.php">
         <input name="jmeno" value="<?php echo $login;?>" type="hidden" />
         <input name="heslo" value="<?php echo $passwd;?>" type="hidden" />
-        <button type="submit" name="back" class="menu"><?=translateByCode($spojeni, 'login', $login, 'Menu.Back');?></button>
+        <button type="submit" name="back" class="menu" id="back" title="<?=translateByCode($spojeni, 'login', $login, 'Menu.Back')?>"><img width="40" height="40" src="together/img/back.jpg" alt="<?=translateByCode($spojeni, 'login', $login, 'Menu.Back');?>" /></button>
     </form>
     <div id="scrollUp"></div>
 </div>
