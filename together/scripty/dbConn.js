@@ -373,7 +373,7 @@ function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAd
 	'		<input name="jmeno" value="' + login + '" type="hidden" />' +
 	'		<input name="heslo" value="' + passwd + '" type="hidden" />' +
 	'		<input type="hidden" name="sekce" value="pridat" />' +
-	'		<button type="submit" name="dalsi" class="menu">'+successfullyAddedButton+'</button>' +
+	'		<button type="submit" name="dalsi" id="another_item" class="menu" title="'+successfullyAddedButton+'"><img alt="'+successfullyAddedButton+'" src="together/img/another.png" /></button>' +
 	'</form>';
 	
 	var name = document.getElementById( 'nahr_name' ).value;
@@ -746,6 +746,7 @@ $(document).keyup(function(e){
 
 $(document).keydown(function(event){
 	if ( event.ctrlKey && event.keyCode == 188 ) { //Shift+,
+		$("#another_item").click();
 		$('#addItem').click();
 		event.preventDefault(); 
 	} else if ( event.ctrlKey && event.keyCode == 77 ) { //Ctrl+M
