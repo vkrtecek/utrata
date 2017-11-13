@@ -96,7 +96,7 @@ function showStatus( where, who ){
 };
 
 
-function updateItem( id, user, where, whereStatus ){	
+function updateItemRead( id, user, where){
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -109,7 +109,7 @@ function updateItem( id, user, where, whereStatus ){
 			showItems( where, user, LIMIT );
 		}
 	};
-	xmlhttp.open( "POST", "together/scripty/updateItem.php", true );
+	xmlhttp.open( "POST", "together/scripty/updateItemRead.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send( "id="+id+"&user="+user );
 };
@@ -192,7 +192,7 @@ function updateItem( update, where, user, whereStatus, ID ) {
 		};
 		xmlhttp.open( "POST", "together/scripty/updateItemByForm.php", true );
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.send( "ID="+ID+"&name="+name+"&desc="+desc+"&purpose="+purpose+"&type="+type+"&price="+price+"&currency="+currency+"&date="+date+"&course="+course+"&odepsat="+odepsat );
+		xmlhttp.send( "ID="+ID+"&name="+name+"&desc="+desc+"&purpose="+purpose+"&type="+type+"&price="+price+"&currency="+currency+"&currencyCode="+currency+"&date="+date+"&course="+course+"&odepsat="+odepsat );
 	} else {
 		showItems( where, user, LIMIT );
 	}
@@ -392,9 +392,15 @@ function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAd
 	var price = document.getElementById( 'cena' ).value;	
 	var course = 1;
 	var otherCurrency = document.getElementById( 'otherCurrency' ).checked;
+	var currencyCode = null;
 	
-	if ( otherCurrency ) course = document.getElementById( 'courseHere' ).value;
-	
+	if ( otherCurrency ) {
+		course = document.getElementById( 'courseHere' ).value;
+		
+		Select = document.getElementById( 'currencies' );
+		var currencyCode = Select.options[Select.selectedIndex].value;
+	}
+
 	if ( name == '' ) {
 		document.getElementById( 'fillName' ).innerHTML = fillName;
 		return;
@@ -425,7 +431,7 @@ function nahratItem( DIV, login, passwd, user, successfullyAdded, successfullyAd
 	};
 	xmlhttp.open( "POST", "together/scripty/nahratItem.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( 'user=' + user + '&name=' + name + '&desc=' + desc + '&pozn=' + pozn + '&type=' + type + '&date=' + date + '&price=' + price + '&course=' + course + '&vyber=' + vyber + '&odepsat=' + odepsat );
+	xmlhttp.send( 'user=' + user + '&name=' + name + '&desc=' + desc + '&pozn=' + pozn + '&type=' + type + '&date=' + date + '&price=' + price + '&course=' + course + '&currencyCode=' + currencyCode + '&vyber=' + vyber + '&odepsat=' + odepsat );
 }
 
 

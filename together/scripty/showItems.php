@@ -54,7 +54,7 @@ echo '<table rules="none" id="popis">
 			if ( $item['odepsat'] == 1 ) $each_item .= ' moje_utrata';
 			$each_item .= '">';
 			$each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.DeleteItemTitle')."\" class=\"smazat_prispevek\" onclick=\"deleteItem( ".$item['ID'].", '".$user."', '".$where."', 'prostred', '".translateByCode($spojeni, 'name', $user, 'ShowItems.Delete.Alert')."'".( !$platnost ? ', 0' : '' )." )\"><b>&times;</b></button>";
-			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItem( ".$item['ID'].", '".$user."', '".$where."' )\"><b>&#10004;</b></button>";
+			if ( $platnost ) $each_item .= "<button title=\"".translateByCode($spojeni, 'name', $user, 'PrintItems.CheckedItemTitle')."\" class=\"aktualizovat_prispevek\" onclick=\"updateItemRead( ".$item['ID'].", '".$user."', '".$where."' )\"><b>&#10004;</b></button>";
 			if ( $platnost ) $each_item .= '<button title="'.translateByCode($spojeni, 'name', $user, 'PrintItems.UpdateItemTitle').'" class="updateItem" onclick="updateItemMakeForm( '.$item['ID'].', \''.$user.'\', \''.$where.'\', \'prostred\', \'itemDiv_'.$item['ID'].'\', \''.translateByCode($spojeni, 'name', $user, 'UpdateItem.AlreadyUpdating').'\' )"></button>';
 			$each_item .= '<table rules="none"><tr>';
 			$each_item .= 	'<td class="nazev red"><h2>'.$item['nazev'].'</h2></td>';

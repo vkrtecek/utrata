@@ -46,9 +46,9 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		$print .= 		'<input style="width:60px;" type="number" step="0.01" id="updatePrice" value="'.number_format((float)$item['cena'], 2, '.', ' ').'" />';
 		$print .=			'<select id="updateCurrency" onChange="getCourseValue( \''.$myCurrencyCode.'\', \'updateCourse\', this )">';
 		while ( $currency = mysqli_fetch_array( $sqlCurrencies, MYSQLI_ASSOC) )
-			$print .=			'<option value="'.$currency['code'].'" '.($currency['value'] == $myCurrency ? 'selected=""' : '').'>'.$currency['value'].'</option>';
+			$print .=			'<option value="'.$currency['code'].'" '.($currency['CurrencyID'] == $item['CurrencyID'] ? 'selected=""' : '').'>'.$currency['value'].'</option>';
 		$print .=			'</select>';
-		$print .=			'<span id="updateCurrencySpan">&nbsp;'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.CurrencyCourse').'&nbsp;<input type="number" step="0.0001" style="width:70px;" id="updateCourse" value="1" /></span>';
+		$print .=			'<span id="updateCurrencySpan">&nbsp;'.translateByCode($spojeni, 'name', $user, 'AddItem.Form.CurrencyCourse').'&nbsp;<input type="number" step="0.0001" style="width:70px;" id="updateCourse" value="'.$item['kurz'].'" /></span>';
 		$print .=		'</td>';
 		$print .= '</tr></table>';
 		$print .= '</div>';

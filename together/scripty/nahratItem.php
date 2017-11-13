@@ -7,6 +7,7 @@ $type = $_REQUEST['type'];
 $date = $_REQUEST['date'];
 $price = $_REQUEST['price'];
 $course = $_REQUEST['course'];
+$currencyCode = $_REQUEST['currencyCode'];
 $vyber = $_REQUEST['vyber'];
 $odepsat = $_REQUEST['odepsat'];
 $poznForVyber = 5;
@@ -45,7 +46,12 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 					$spojeni->query("INSERT INTO utrata_items (UserID, nazev, popis, cena, kurz, pozn, datum, typ, vyber) VALUES ('".$user."', '".$name."', '".$desc."', ".$price.", '".$course."', ".$poznForVyber.", '".toSQLTime( $date )."', 'karta', 1)");
 					$spojeni->query("INSERT INTO utrata_akt_hodnota (UserID, datum, hodnota, typ, duvod, idToDelete) VALUES ('".$user."', '".toSQLTime( $date )."', '".$totalPrice."', '".translateByCode($spojeni, 'name', $user, 'PrintItems.PayedBy.Cash')."', 'Výběr', (SELECT MAX(id) FROM utrata_items WHERE UserID='".$user."'))");
 				}	else { //ordinary item
-					$spojeni->query("INSERT INTO utrata_items (UserID, nazev, popis, cena, kurz, pozn, datum, typ, odepsat) VALUES ('".$user."', '".$name."', '".$desc."', '".$price."', '".$course."', '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")");
+					$st = 'SELECT CurrencyID FROM utr_currencies WHERE code = "'.$currencyCode.'"';
+					$sql = $spojeni->query( $st );
+					$currency = mysqli_fetch_array($sql, MYSQLI_ASSOC);
+					$currencyId = $currency['CurrencyID'];
+				
+					$spojeni->query("INSERT INTO utrata_items (UserID, nazev, popis, cena, kurz, CurrencyID, pozn, datum, typ, odepsat) VALUES ('".$user."', '".$name."', '".$desc."', '".$price."', '".$course."', ".$currencyId.", '".$pozn."', '".toSQLTime( $date )."', '".$type."', ".$odepsat.")");
 					
 					$sql = $spojeni->query( "SELECT M.*, C.value FROM utrata_members M LEFT JOIN utr_currencies C ON M.currencyID=C.CurrencyID WHERE M.name='".$user."'" );
 					$usr = mysqli_fetch_array( $sql, MYSQLI_ASSOC );
