@@ -69,7 +69,7 @@ echo '<table rules="none" id="popis">
 			echo $each_item;
 			
 			$items_count++;
-			$suma += $item['cena']; 
+			$suma += $price; 
 		}
 		if ($items_count == 0) echo '<div id="count">'.translateByCode($spojeni, 'name', $user, 'PrintItems.NoResults').'</div>';
 		else echo '<table rules="none"><tr><td class="nazev">'.translateByCode($spojeni, 'name', $user, 'PrintItems.TotalItemsSize').': '.number_format((float)$items_count, 0, ',', ' ').'</td><td class="popis"></td><td class="pozn"></td><td class="typ"></td><td class="cena">'.translateByCode($spojeni, 'name', $user, 'PrintItems.TotalItemsPrice').': '.number_format((float)$suma, 2, ',', ' ').' '.$currency.'</td></tr></table>';
