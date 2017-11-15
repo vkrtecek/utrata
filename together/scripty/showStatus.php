@@ -33,13 +33,13 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		
 		while ($cena = mysqli_fetch_array($sql_karta))
 		{
-			$suma_celk_karta += $cena['cena'];
+			$suma_celk_karta += $cena['cena'] * $cena['kurz'];
 		}
 		
 		$sql_hot = $spojeni->query($prikaz_hot);
 		while ($cena = mysqli_fetch_array($sql_hot))
 		{
-			$suma_celk_hot += $cena['cena'];
+			$suma_celk_hot += $cena['cena'] * $cena['kurz'];
 		}
 		$zustatek_karta = 0;
 		$zustatek_hot = 0;
