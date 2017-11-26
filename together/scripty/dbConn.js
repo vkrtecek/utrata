@@ -58,6 +58,7 @@ function showItems( where, user, limit, platnost ){
 	prikaz += ' ORDER BY '+sortBy+' '+desc;
 	prikaz += ' LIMIT 0, '+limit;
 	
+	document.getElementById( where ).innerHTML = '<img src="together/img/loading.gif" alt="Načítání" />';
 	
 	//prikaz = prikaz.replace( /'/g, '"' );
 	if (window.XMLHttpRequest) {
@@ -166,7 +167,7 @@ function updateItemMakeForm( id, user, where, whereStatus, divID, alreadyUpdatin
 function updateItem( update, where, user, whereStatus, ID ) {
 	if ( update ) {
 		var name = document.getElementById( 'updateName' ).value;
-		var desc = document.getElementById( 'updateDesc' ).innerHTML;
+		var desc = document.getElementById( 'updateDesc' ).value;
 		var purpose = document.getElementById( 'updatePurpose' ).value;
 		var type = document.getElementById( 'updateType' ).value;
 		var price = document.getElementById( 'updatePrice' ).value;
@@ -174,6 +175,7 @@ function updateItem( update, where, user, whereStatus, ID ) {
 		var date = document.getElementById( 'updateDate' ).value;
 		var course = document.getElementById( 'updateCourse' ).value;
 		var odepsat = document.getElementById( 'updateOdepsat' ).checked;
+		
 		
 		if (window.XMLHttpRequest) {
 			// code for IE7+, Firefox, Chrome, Opera, Safari
