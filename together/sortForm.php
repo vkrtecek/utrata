@@ -34,9 +34,8 @@ function printSortingForm( $old, $name, $login, &$spojeni ) {
     ?>
     </select>
     <?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Or');?>
-		<select name="najdi_pozn" size="1" class="changeSort" id="nahr_pozn">
-			<option value=""><?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Types.Default');?></option>
-			<!--<span id="purposesHere"></span>-->
+		<select name="najdi_pozn" size="1" class="changeSort" id="nahr_pozn" multiple>
+			<!-- the function '' in scripty/dbConn.js->printPurposes fills options -->
     </select>
 		<label><?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Year');?>: <input style="width:40px" type="text" name="rok" value="" class="changeSortBtn" /></label>
     
@@ -45,7 +44,11 @@ function printSortingForm( $old, $name, $login, &$spojeni ) {
     <br /><hr /><br />
 		<script type="text/javascript">
 			$(document).ready(function(){
-				printPurposes( 'purposesHere', '<?=$login;?>', '<option value=""><?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Types.Default');?></option>>' );
+				printPurposes( 'purposesHere', '<?=$login;?>', '<option value="" selected><?=translateByCode($spojeni, 'login', $login, 'Uvod.Filtering.Types.Default');?></option>>' );
+			});
+			
+			$('#nahr_pozn').click(function(){
+				$(this).height('3em');
 			});
 		</script>
 <?php } ?>

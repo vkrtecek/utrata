@@ -1,5 +1,10 @@
 // JavaScript Document
 
+/**
+ * @param 
+ * 
+ * 
+ */
 function makeSQLStatement( month, pozn, year, pattern ) {
 
 	if ( /^  +/.test(pattern) ) {
@@ -13,7 +18,14 @@ function makeSQLStatement( month, pozn, year, pattern ) {
 
 	var prikaz = '';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
-	if ( pozn != '' ) prikaz += ' AND pozn = \''+pozn+'\'';
+	if ( pozn != null && pozn[0] != '' ) {
+		prikaz += ' AND (';
+			for (var i = 0; i < pozn.length; i++) {
+				prikaz += ' pozn = \'' + pozn[i] + '\'';
+				if (i+1 < pozn.length) prikaz += ' OR';
+			}
+		prikaz += ' )';
+	}
 	if ( year != '' ) prikaz += ' AND datum LIKE "%25'+year+'-%25"';
 
 	if ( patternArray.length != 1 || ( patternArray[0] != '' && patternArray[0] != '!') ) {
@@ -37,7 +49,6 @@ function makeSQLStatement( month, pozn, year, pattern ) {
 			prikaz += ' AND ( nazev NOT LIKE "%25'+ANDY[i]+'%25" AND popis NOT LIKE "%25'+ANDY[i]+'%25" AND pozn NOT LIKE "%25'+ANDY[i]+'%25" AND typ NOT LIKE "%25'+ANDY[i]+'%25" )';
 	}
 
-	
 	return prikaz;
 }
 
@@ -47,7 +58,7 @@ function showItems( where, user, limit, platnost ){
 	var sortBy = document.getElementsByClassName( 'changeSort' )[0].value;
 	var desc = document.getElementsByClassName( 'changeSort' )[1].value;
 	var month = document.getElementsByClassName( 'changeSort' )[2].value;
-	var pozn = document.getElementsByClassName( 'changeSort' )[3].value;
+	var pozn = $("#nahr_pozn").val(); //document.getElementsByClassName( 'changeSort' )[3].value;
 	var year = document.getElementsByClassName( 'changeSortBtn' )[0].value;
 	var pattern = document.getElementsByClassName( 'changeSortBtn' )[1].value;
 
