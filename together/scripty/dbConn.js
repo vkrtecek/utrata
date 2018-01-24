@@ -18,7 +18,7 @@ function makeSQLStatement( month, pozn, year, pattern ) {
 
 	var prikaz = '';
 	if ( month != '' ) prikaz += ' AND datum LIKE \'%25-'+month+'-%25\'';
-	if ( pozn != null && pozn[0] != '' ) {
+	if ( pozn != null && pozn != '' && pozn[0] != '' ) {
 		prikaz += ' AND (';
 			for (var i = 0; i < pozn.length; i++) {
 				prikaz += ' pozn = \'' + pozn[i] + '\'';
