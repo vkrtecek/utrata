@@ -128,7 +128,7 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 					while ( $userPurpose = mysqli_fetch_array($sqlUserPurpose, MYSQLI_ASSOC)) {
 						array_push($arr, $userPurpose['code'] );
 					}
-					$st = "SELECT * FROM utrata_Purposes WHERE LanguageCode='".$person['LanguageCode']."'";
+					$st = "SELECT * FROM utrata_Purposes WHERE LanguageCode='".$person['LanguageCode']."' AND (base=1 OR CreatorID='".$person['login']."')";
 					$sqlPurposes = $spojeni->query( $st );
 					while( $purpose = mysqli_fetch_array($sqlPurposes, MYSQLI_ASSOC) ) {
 						echo '<option value="'.$purpose['code'].'" ';

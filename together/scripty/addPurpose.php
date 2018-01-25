@@ -1,5 +1,5 @@
 <?php
-$name = $_REQUEST['name'];
+$login = $_REQUEST['login'];
 $purpose = $_REQUEST['purpose'];
 $language = $_REQUEST['language'];
 
@@ -24,8 +24,8 @@ if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" 
 		if ( $tmp['CNT'] > 0 ) {
 			echo 'code "'.toCode($purpose).'" already exists';
 		} else if ( $tmp['CNT'] == 0 ) {
-			$spojeni->query( "INSERT INTO utrata_Purposes ( code, value, LanguageCode ) VALUES ( '".toCode( $purpose )."', '".$purpose."', '".$language."' );" );
-			$spojeni->query( "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) VALUES ( (SELECT name FROM utrata_members WHERE login='".$name."'), (SELECT PurposeID FROM utrata_Purposes WHERE value='".$purpose."') )" );
+			$spojeni->query( "INSERT INTO utrata_Purposes ( code, value, LanguageCode, CreatorID ) VALUES ( '".toCode( $purpose )."', '".$purpose."', '".$language."', '".$login."' );" );
+			$spojeni->query( "INSERT INTO utrata_UserPurposes ( UserID, PurposeID ) VALUES ( (SELECT name FROM utrata_members WHERE login='".$login."'), (SELECT PurposeID FROM utrata_Purposes WHERE value='".$purpose."') )" );
 			echo 'success';
 		} else echo 'other error';
 	}

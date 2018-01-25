@@ -714,7 +714,7 @@ function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS, language ) {
 	};
 	xmlhttp.open( "POST", "together/scripty/addPurpose.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "name=" + name + "&purpose=" + purpose + "&language=" + language );
+	xmlhttp.send( "login=" + name + "&purpose=" + purpose + "&language=" + language );
 	
 	document.getElementById( STATUS ).innerHTML = 'FAIL';
 	document.getElementById( STATUS ).style.color = 'red';
@@ -723,6 +723,8 @@ function addPurpose( INPUT, SELECT_TO_REFRESH, STATUS, language ) {
 function redrawPurposesByLanguage( Select ) {
 	var purpSelect = document.getElementById('purposes');
 	var language = Select.options[Select.selectedIndex].value;
+	var login = document.getElementsByName('jmeno')[0].value;
+	
 	purpSelect.innerHTML = '<option>' + language + '</option>';
 	
 	if (window.XMLHttpRequest) {
@@ -739,7 +741,7 @@ function redrawPurposesByLanguage( Select ) {
 	};
 	xmlhttp.open( "POST", "together/scripty/redrawPurposesByLanguage.php", true );
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send( "language=" + language );
+	xmlhttp.send( "language=" + language + "&login=" + login );
 }
 
 

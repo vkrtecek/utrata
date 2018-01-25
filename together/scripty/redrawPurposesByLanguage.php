@@ -1,11 +1,12 @@
 <?php
 $language = $_REQUEST['language'];
+$login = $_REQUEST['login'];
 
 if ( file_exists( "../../../promenne.php" ) && require( "../../../promenne.php" ) )
 {
 	if ( ($spojeni = mysqli_connect( $db_host, $db_username, $db_password, $db_name ) ) && $spojeni->query("SET CHARACTER SET UTF8") )
 	{
-		$st = "SELECT * FROM utrata_Purposes WHERE LanguageCode = '".$language."'";
+		$st = "SELECT * FROM utrata_Purposes WHERE LanguageCode = '".$language."' AND (base=1 OR CreatorID = '".$login."')";
 		$sql = $spojeni->query( $st );
 		while ($option = mysqli_fetch_array($sql, MYSQLI_ASSOC)) {
 			echo '<option value="'.$option['code'].'">'.$option['value'].'</option>';
